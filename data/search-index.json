@@ -100,6 +100,29 @@
    "frequency": 88
   },
   {
+   "lid": "AIM-00018",
+   "term": "Bias-Variance Tradeoff",
+   "slug": "bias-variance-tradeoff",
+   "section": "ai-mathematics",
+   "domain": "Statistical Learning",
+   "pos": "noun",
+   "ngram": "polygram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [
+    "bias-variance dilemma"
+   ],
+   "gloss": "the fundamental tension between the complexity of a model and its ability to generalize to unseen data.",
+   "defText": "the fundamental tension between the complexity of a model and its ability to generalize to unseen data.",
+   "frequency": 75
+  },
+  {
    "lid": "AIM-00010",
    "term": "Convolutional Neural Network",
    "slug": "convolutional-neural-network",
@@ -330,6 +353,29 @@
    "frequency": 75
   },
   {
+   "lid": "AIM-00020",
+   "term": "Maximum Likelihood Estimation",
+   "slug": "maximum-likelihood-estimation",
+   "section": "ai-mathematics",
+   "domain": "Statistics",
+   "pos": "noun",
+   "ngram": "polygram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [
+    "MLE"
+   ],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [],
+   "gloss": "a method that picks the parameter values under which the observed data would have been most probable, by maximising the probability the model assigns to that data.",
+   "defText": "a method that picks the parameter values under which the observed data would have been most probable, by maximising the probability the model assigns to that data.",
+   "frequency": 86
+  },
+  {
    "lid": "AIM-00003",
    "term": "Overfitting",
    "slug": "overfitting",
@@ -355,6 +401,30 @@
    "gloss": "the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.",
    "defText": "the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.",
    "frequency": 92
+  },
+  {
+   "lid": "AIM-00019",
+   "term": "Principal Component Analysis",
+   "slug": "principal-component-analysis",
+   "section": "ai-mathematics",
+   "domain": "Dimensionality Reduction",
+   "pos": "noun",
+   "ngram": "polygram",
+   "tags": [
+    "Core"
+   ],
+   "flags": [],
+   "abbr": [
+    "PCA"
+   ],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [
+    "Karhunen-Loève transform"
+   ],
+   "gloss": "a transformation that rewrites correlated measurements as a smaller set of uncorrelated axes, ordered so the first captures as much of the spread as any single direction can.",
+   "defText": "a transformation that rewrites correlated measurements as a smaller set of uncorrelated axes, ordered so the first captures as much of the spread as any single direction can.",
+   "frequency": 85
   },
   {
    "lid": "AIM-00009",
@@ -383,6 +453,30 @@
    "gloss": "a technique used to prevent overfitting by adding a penalty term to the loss function, which discourages overly complex models.",
    "defText": "a technique used to prevent overfitting by adding a penalty term to the loss function, which discourages overly complex models.",
    "frequency": 65
+  },
+  {
+   "lid": "AIM-00017",
+   "term": "Reinforcement Learning",
+   "slug": "reinforcement-learning",
+   "section": "ai-mathematics",
+   "domain": "Machine Learning",
+   "pos": "noun",
+   "ngram": "bigram",
+   "tags": [
+    "Core"
+   ],
+   "flags": [],
+   "abbr": [
+    "RL"
+   ],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [
+    "trial-and-error learning"
+   ],
+   "gloss": "a training paradigm in which an agent improves its policy purely from rewards collected while acting in an environment, with no labelled examples of correct behaviour to imitate.",
+   "defText": "a training paradigm in which an agent improves its policy purely from rewards collected while acting in an environment, with no labelled examples of correct behaviour to imitate.",
+   "frequency": 89
   },
   {
    "lid": "AIM-00011",
@@ -434,7 +528,7 @@
    "frequency": 95
   },
   {
-   "lid": "SWE-00009",
+   "lid": "SWE-00019",
    "term": "ACID",
    "slug": "acid",
    "section": "software-engineering",
@@ -455,7 +549,7 @@
    "frequency": 88
   },
   {
-   "lid": "SWE-00004",
+   "lid": "SWE-00007",
    "term": "Big O Notation",
    "slug": "big-o-notation",
    "section": "software-engineering",
@@ -481,7 +575,7 @@
    "frequency": 94
   },
   {
-   "lid": "SWE-00012",
+   "lid": "SWE-00032",
    "term": "CAP Theorem",
    "slug": "cap-theorem",
    "section": "software-engineering",
@@ -506,7 +600,7 @@
    "frequency": 85
   },
   {
-   "lid": "SWE-00008",
+   "lid": "SWE-00016",
    "term": "Cohesion",
    "slug": "cohesion",
    "section": "software-engineering",
@@ -528,7 +622,7 @@
    "frequency": 83
   },
   {
-   "lid": "SWE-00007",
+   "lid": "SWE-00015",
    "term": "Coupling",
    "slug": "coupling",
    "section": "software-engineering",
@@ -550,7 +644,30 @@
    "frequency": 87
   },
   {
-   "lid": "SWE-00006",
+   "lid": "SWE-00004",
+   "term": "Deadlock",
+   "slug": "deadlock",
+   "section": "software-engineering",
+   "domain": "Concurrency",
+   "pos": "noun",
+   "ngram": "unigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [
+    "mutual-blocking"
+   ],
+   "gloss": "a state in which two or more processes are each waiting for the other to release a resource, resulting in a permanent halt of execution.",
+   "defText": "a state in which two or more processes are each waiting for the other to release a resource, resulting in a permanent halt of execution.",
+   "frequency": 65
+  },
+  {
+   "lid": "SWE-00013",
    "term": "Dependency Injection",
    "slug": "dependency-injection",
    "section": "software-engineering",
@@ -574,7 +691,7 @@
    "frequency": 84
   },
   {
-   "lid": "SWE-00011",
+   "lid": "SWE-00031",
    "term": "Eventual Consistency",
    "slug": "eventual-consistency",
    "section": "software-engineering",
@@ -596,7 +713,7 @@
    "frequency": 82
   },
   {
-   "lid": "SWE-00005",
+   "lid": "SWE-00008",
    "term": "Hash Table",
    "slug": "hash-table",
    "section": "software-engineering",
@@ -653,7 +770,32 @@
    "frequency": 86
   },
   {
-   "lid": "SWE-00014",
+   "lid": "SWE-00005",
+   "term": "Mutex",
+   "slug": "mutex",
+   "section": "software-engineering",
+   "domain": "Concurrency",
+   "pos": "noun",
+   "ngram": "unigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [
+    "M"
+   ],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [
+    "lock"
+   ],
+   "gloss": "a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.",
+   "defText": "a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.",
+   "frequency": 75
+  },
+  {
+   "lid": "SWE-00040",
    "term": "Pure Function",
    "slug": "pure-function",
    "section": "software-engineering",
@@ -701,7 +843,7 @@
    "frequency": 90
   },
   {
-   "lid": "SWE-00013",
+   "lid": "SWE-00035",
    "term": "Refactoring",
    "slug": "refactoring",
    "section": "software-engineering",
@@ -726,7 +868,7 @@
    "frequency": 91
   },
   {
-   "lid": "SWE-00010",
+   "lid": "SWE-00023",
    "term": "SQL Injection",
    "slug": "sql-injection",
    "section": "software-engineering",
@@ -777,7 +919,7 @@
    "frequency": 93
   },
   {
-   "lid": "SWE-00015",
+   "lid": "SWE-00047",
    "term": "Yak Shaving",
    "slug": "yak-shaving",
    "section": "software-engineering",

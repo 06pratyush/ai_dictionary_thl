@@ -1,0 +1,338 @@
+================================================================
+THE HALLUCINATED LAB - DESIGN LANGUAGE & COLOR PALETTE
+https://thehallucinatedlab.space
+Last verified against the source: 2026-08-01
+================================================================
+This is the source of truth for the visual identity. Every value
+below was read out of styles.css / pages.css / articles/article.css
+rather than written from memory. Build any new page, component, or
+article against this file so the whole site reads as one product.
+
+All design tokens are CSS custom properties declared once in the
+:root block of styles.css. Never hard-code a colour, radius, or
+easing curve in a component - add or reuse a token.
+
+----------------------------------------------------------------
+1. BRAND PERSONALITY
+----------------------------------------------------------------
+- Dark, premium, laboratory-noir: near-black backgrounds with warm
+  gold accents. Dark is the only theme; there is no light mode.
+- Technical but human. Monospace body copy (terminal feel) paired
+  with a clean geometric display face for headings.
+- Quiet luxury. Glows and gradients sit at 0.04-0.15 opacity, never
+  neon. Motion is smooth and restrained; nothing bounces or flashes.
+- Copy voice: confident, curious, concrete, slightly playful.
+  Literal over figurative - it reads better and parses better for
+  the AI crawlers the site is optimised for.
+  Tagline energy: "Built with curiosity and caffeine."
+
+----------------------------------------------------------------
+2. COLOR PALETTE
+----------------------------------------------------------------
+Every value is a CSS variable in styles.css :root.
+
+BACKGROUNDS
+  --bg-primary     #050505   near-black; the page background
+  --bg-secondary   #0a0a0a   alternating sections, input bars
+  --bg-card        #0f0f0f   cards, panels, code blocks
+  --bg-glass       rgba(15,15,15,0.7)   glassmorphism panels
+
+GOLD ACCENT FAMILY (the brand colour)
+  --gold-primary   #c9a84c   links, labels, active states, CTAs
+  --gold-light     #e8d48b   emphasis text, h3, quotes, code
+  --gold-dark      #8a7232   scrollbars, dividers, muted numerals
+  --gold-glow      rgba(201,168,76,0.15)   soft fills and hovers
+
+TEXT
+  --text-primary   #f0ece4   headings and strong text (warm white)
+  --text-secondary #9a9590   body copy
+  --text-muted     #5a5550   metadata, captions, timestamps
+
+BORDERS & EFFECTS
+  --border-subtle  rgba(201,168,76,0.1)   default borders
+  --border-gold    rgba(201,168,76,0.3)   hover / active borders
+  --gradient-gold  linear-gradient(135deg,#c9a84c,#e8d48b,#c9a84c)
+  --gradient-dark  linear-gradient(180deg,#050505 0%,#0a0a0a 100%)
+  --shadow-gold    0 0 40px rgba(201,168,76,0.08)
+
+STATUS COLOURS (used only in the Assistant setup panel and chips;
+they are deliberately outside the gold family so they read as
+system feedback rather than brand)
+  checking / warn  #f1c40f
+  offline / error  #e74c3c
+  online / success #2ecc71
+
+RULES OF USE
+- Gold is an accent. Never a background for a large area.
+- Body text is never pure white; --text-primary is the ceiling.
+- Hover moves a border from --border-subtle to --border-gold and
+  may add --shadow-gold.
+- Hero and section glows are a radial-gradient of gold at ~6%
+  opacity with an 80px blur.
+- The three status colours are the only non-gold hues on the site.
+
+----------------------------------------------------------------
+2b. MEASURED CONTRAST (WCAG 2.1)
+----------------------------------------------------------------
+Contrast ratios of each text token against the three backgrounds,
+computed from the actual hex values. AA needs 4.5:1 for normal
+text and 3.0:1 for large text (>=24px, or >=18.66px bold).
+
+  token            #050505  #0a0a0a  #0f0f0f   AA normal   AA large
+  --text-primary     17.30    16.80    16.27   PASS        PASS
+  --gold-light       13.80    13.41    12.98   PASS        PASS
+  --gold-primary      8.92     8.66     8.39   PASS        PASS
+  --text-secondary    6.87     6.67     6.46   PASS        PASS
+  --gold-dark         4.40     4.27     4.14   FAIL        PASS
+  --text-muted        2.77     2.69     2.60   FAIL        FAIL
+
+KNOWN ISSUE - --text-muted does not meet WCAG AA.
+  At 2.60:1 it is below the 4.5:1 needed for normal text and below
+  even the 3.0:1 large-text floor. It is used in 42 places, and
+  several of them carry real content rather than decoration:
+  .explore-card-list li, .gateway-list li, .artifact-features li,
+  .course-capstone, .artifact-date, .contact-choice-body,
+  .page-breadcrumb, .prompt-meta, .adapter-specs dt.
+
+  Fix, if the lighter tone is acceptable:
+      --text-muted: #827b74;   /* 4.60:1 on #0f0f0f - AA PASS */
+  This keeps the same warm-grey hue and is the darkest value in
+  that hue that clears AA. It will visibly lift the quietest text
+  across the site, which softens the low-contrast aesthetic -
+  a deliberate trade, so it has not been applied unilaterally.
+
+  --gold-dark at 4.14:1 is acceptable as shipped: it is only used
+  for scrollbars, borders, bullet glyphs, and large bold numerals
+  (.course-index, .cert-step-number), all of which qualify as
+  large text or non-text decoration.
+
+----------------------------------------------------------------
+2c. EXCEPTION - articles/complexity.html
+----------------------------------------------------------------
+This artifact is fully self-contained and ships its OWN palette in
+an inline <style> block. It does not use the gold system and does
+not load the site stylesheets:
+
+  --bg      #0f1116     --text    #e6e8ee
+  --panel   #171a22     --muted   #9aa0ac
+  --panel-2 #1e222c     --accent  #7cc4ff  (blue)
+  --border  #262a35     --accent-2 #b78dff (purple)
+  --good    #6ee7a1     --warn    #ffb86b    --bad #ff8080
+
+This is a deliberate inconsistency inherited from when the piece
+was written standalone. It also has no navbar. If it is ever
+brought into the design system, it needs the gold tokens, the
+shared navbar, and article.css.
+
+----------------------------------------------------------------
+3. TYPOGRAPHY
+----------------------------------------------------------------
+FONTS (Google Fonts, loaded on every page)
+  --font-heading: 'Outfit', sans-serif
+      weights 400 / 500 / 600 / 700 / 800 / 900
+  --font-body: 'JetBrains Mono', 'Courier New', monospace
+      weights 300 / 400 / 500 / 600
+
+Include exactly this, with the two preconnect hints above it:
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap
+
+SCALE & USAGE
+- Hero / page titles: Outfit 700-800,
+  clamp(2rem, 4-7vw, 3-5.5rem), usually with the gold gradient fill:
+      background: linear-gradient(135deg, var(--text-primary) 0%,
+                  var(--gold-light) 50%, var(--gold-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+- Section titles (h2): Outfit 700, clamp(2rem,4vw,3rem) on pages,
+  clamp(1.4rem,3vw,1.8rem) inside articles. Colour --text-primary.
+- Sub-headings (h3): Outfit 600, colour --gold-light.
+- Body: JetBrains Mono 400, 0.78-0.95rem, line-height 1.7-1.8,
+  colour --text-secondary.
+- Strong: weight 600, colour --text-primary.
+- Section labels (eyebrows): 0.75rem, weight 600, letter-spacing
+  3px, UPPERCASE, colour --gold-primary.
+- Metadata / captions: 0.62-0.78rem, colour --text-muted.
+- Links: --gold-primary, no underline, 1px bottom border at
+  rgba(201,168,76,0.3) that solidifies on hover (.inline-link).
+- Inline code: JetBrains Mono, background rgba(201,168,76,0.08),
+  2px 6px padding, 4px radius, colour --gold-light.
+
+----------------------------------------------------------------
+4. SHAPE, SPACING & MOTION
+----------------------------------------------------------------
+RADII
+  --radius-sm  8px    chips, small inputs, code blocks
+  --radius-md  12px   panels, form inputs, inner code
+  --radius-lg  20px   cards, figures
+  --radius-xl  28px   large feature / member / offer cards
+  50px or 50%         pills, badges, round icon buttons
+
+MOTION
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+  Applied to nearly every hover state.
+
+STANDARD CARD HOVER RECIPE
+  border-color -> --border-gold
+  transform    -> translateY(-2px to -6px)
+  box-shadow   -> --shadow-gold
+  optional: a 3px --gradient-gold top bar fades in via ::before
+
+LAYOUT
+- Container: max-width 1200px, margin 0 auto.
+- Section padding: 6rem 2rem (top-level sections),
+  4rem 2rem (.media-section), 2rem 2rem 6rem (utility sections).
+- Section header pattern, used everywhere:
+      <span class="section-label">EYEBROW</span>
+      <h2 class="section-title">Title</h2>
+      <div class="section-line"></div>      60x2px gold bar
+      <p class="section-intro">One line of context.</p>
+- Alternating section backgrounds: --bg-primary then --bg-secondary
+  (class "media-section-alt" / "section-alt").
+
+SCROLLBAR
+  Thin (6px page, 4px panels), thumb --gold-dark on --bg-primary.
+
+CRITICAL GRID RULE
+  Any grid whose items can contain a scrollable code block MUST use
+  minmax(0, 1fr) columns, never a bare 1fr. A plain 1fr resolves its
+  minimum to the item's min-content, so a wide <pre> stretches the
+  whole layout past the viewport instead of scrolling inside its own
+  box. This caused two real overflow bugs (the Tools prompt grid and
+  the article layout) and is fixed in both places.
+
+----------------------------------------------------------------
+5. CORE COMPONENTS
+----------------------------------------------------------------
+NAVBAR (identical on every page)
+- Fixed top, backdrop-filter blur(20px), background rgba(5,5,5,0.8)
+  going to 0.95 plus a bottom border on scroll.
+- Logo: 36px round image + wordmark in Outfit 700 with the gold
+  gradient text fill, letter-spacing 0.5px.
+- Links: 0.85rem, UPPERCASE, letter-spacing 0.5px, --text-secondary.
+  A gold underline animates in from the left on hover/active; the
+  active link is gold.
+- Order (7 items):
+  Home / Tools / Assistant / Solutions / Media / Certification /
+  Consultancy
+- Media sub-pages (articles.html, artifacts.html) keep "Media"
+  active; library.html keeps "Tools" active.
+- Mobile: hamburger of 3 gold bars animating to an X. The nav
+  collapses at 1024px, not 768px - 7 items overflow on tablets.
+  While the menu is open the navbar drops its backdrop-filter, or
+  it becomes the containing block and traps the fixed overlay
+  inside the ~68px navbar strip.
+
+BUTTONS & PILLS
+- Primary pill: 50px radius, 1px --border-gold, gold text; hover
+  fills with --gold-glow and lifts 2px.
+- Icon buttons (.hover-btn): 42px circles (52px for -lg), subtle
+  border, gold on hover, with a gold tooltip on ::after.
+
+CARDS - the families, all using the standard hover recipe
+- .explore-card   home page, one per nav tab: icon circle, title,
+                  description, bullet list, uppercase gold CTA.
+- .offer-panel    two-up panels for services / certification and
+                  the consultancy audience split.
+- .gateway-card   Media page; gradient cover + icon, links to a
+                  sub-page. .gateway-card-soon dims an unreleased one.
+- .prompt-card    a prompt with a scrollable <pre> and a copy button.
+- .adapter-card   a LoRA adapter with a <dl> spec table.
+- .artifact-card  an interactive piece with a line-art glyph.
+- .course-card    certification track: index, status chip, facts,
+                  outcomes, capstone footer.
+- .trait-card     small 3- or 4-up explainer tiles.
+- .spotlight-panel  the large product panel (ScoobyBench, NexusLink).
+- .member-card    team profiles on the home page.
+
+BADGES / TAGS
+- Pill shape, background rgba(201,168,76,0.08-0.15), 1px
+  --border-gold, gold text, 0.6-0.8rem, UPPERCASE, letter-spacing 1px.
+
+PAGE NAVIGATION HELPERS
+- .page-jump        pill row of in-page anchors under a page hero.
+- .page-breadcrumb  "Media / Articles" trail, uppercase and muted,
+                    parent link in gold. Used on all sub-pages.
+- .section-intro    one paragraph of context under a .section-line,
+                    max-width 680px, centred.
+
+FORMS (see the Articles page submission form)
+- Inputs: --bg-card background, --border-subtle, radius-md,
+  monospace text. Focus ring is a 2px solid --gold-primary outline
+  at 3px offset, via :focus-visible only.
+
+FOOTER
+- One centred line, 0.8rem muted text with a gold link:
+  "(c) 2026 The Hallucinated Lab. Built with curiosity and caffeine."
+
+----------------------------------------------------------------
+6. MOTION LANGUAGE
+----------------------------------------------------------------
+- Scroll reveals: elements start at opacity 0 / translateY(30-40px)
+  and animate in over 0.6-0.8s ease-out, staggered with
+  .fade-in-delay-1/2/3. Article pages use GSAP ScrollTrigger
+  (autoAlpha 0->1, y 40->0, power3.out, trigger "top 88%") with a
+  no-GSAP fallback that simply reveals the content.
+- Pulse dot: 6px gold circle, opacity 1 -> 0.3 -> 1 over 2s. Used in
+  the "Open for Collaboration" badge and every status chip.
+- Typing effect on the home hero subtitle (script.js).
+- Gold particle canvas behind the home hero, with connecting lines.
+- Reading progress: 3px --gradient-gold bar fixed at the top of
+  article pages, width scrubbed to scroll position.
+- Parallax hero on articles: the background layer moves yPercent 30.
+- Tooltips: hidden with display:none (NOT opacity alone - an
+  invisible but laid-out tooltip creates scrollable overflow), shown
+  on :hover and :focus-visible, fading via transition-behavior
+  allow-discrete plus @starting-style. Below 700px the floating
+  bubble is dropped and the definition opens in flow under the term,
+  because a 280px bubble centred on an inline word runs off a phone
+  screen.
+
+----------------------------------------------------------------
+7. BREAKPOINTS
+----------------------------------------------------------------
+  1024px  navbar collapses to the hamburger; 3-up grids go 2-up
+   900px  article layout drops its sticky sidebar TOC
+   768px  everything goes single column; section padding tightens
+   700px  tooltips switch from floating bubble to in-flow
+   600px  article hero and content padding tighten further
+
+Verified with no horizontal overflow on all 14 pages at
+375, 414, 768, 1024, 1280 and 1920px.
+
+----------------------------------------------------------------
+8. ACCESSIBILITY & META CONVENTIONS
+----------------------------------------------------------------
+- Every page: a skip link, semantic landmarks (header/nav/main/
+  footer), aria-labels on the nav and icon-only buttons, alt text
+  and explicit width/height on every image.
+- Exactly one <h1> per page and no skipped heading levels. Where a
+  section has no visible heading, use <h2 class="sr-only">.
+- Focus: 2px gold outline at 3px offset, via :focus-visible only.
+- Decorative SVGs get aria-hidden="true".
+- Interactive text (e.g. .tooltip-term) carries tabindex="0" so it
+  is reachable without a mouse.
+- Outstanding: --text-muted fails WCAG AA (see section 2b).
+
+HEAD BLOCK PER PAGE
+  title "X - The Hallucinated Lab", meta description, og:title /
+  description / type / url / site_name / locale / image (+width,
+  height, alt), twitter:card summary / title / description / image,
+  canonical, favicon assets/images/logo.jpeg, the two font
+  preconnects, the Google Fonts link, styles.css, then the page CSS,
+  then a JSON-LD block.
+
+STRUCTURED DATA
+  The home page carries the identity graph (Organization, two
+  Person nodes, WebSite, WebPage) with @id anchors. Every other page
+  references those by @id instead of restating them, and adds its
+  own type: BreadcrumbList everywhere below the root, plus
+  CollectionPage / SoftwareApplication / WebApplication /
+  ProfessionalService / Course / Article as appropriate.
+
+STACK
+  100% static, zero-build, vanilla HTML/CSS/JS on GitHub Pages.
+  No frameworks. GSAP (via cdnjs) is the only external JS library,
+  used on two article pages. No analytics, no cookies, no trackers.
+================================================================

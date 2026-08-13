@@ -198,6 +198,115 @@
     },
     {
       "lid": "SWE-00004",
+      "term": "Deadlock",
+      "slug": "deadlock",
+      "syllables": "dead·lock",
+      "ipa": "/ˈdɛdlɒk/",
+      "pos": "noun",
+      "domain": "Concurrency",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in computer science",
+          "text": "a state in which two or more processes are each waiting for the other to release a resource, resulting in a permanent halt of execution.",
+          "example": "The system entered a deadlock when two threads simultaneously tried to acquire the same mutex in opposite orders."
+        }
+      ],
+      "formula": {
+        "latex": null,
+        "plain": null,
+        "note": null
+      },
+      "etymology": "Coined by Edsger W. Dijkstra in the context of concurrent programming, derived from the concept of mutual blocking.",
+      "firstAttested": "1965",
+      "synonyms": [
+        {
+          "term": "mutual-blocking",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "resource-allocation",
+        "synchronization",
+        "semaphores"
+      ],
+      "citations": [
+        {
+          "label": "Dijkstra, E. W. (1965). Co-operating sequential processes.",
+          "source": "Communications of the ACM.",
+          "url": ""
+        }
+      ],
+      "frequency": 65,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00005",
+      "term": "Mutex",
+      "slug": "mutex",
+      "syllables": "mu·tex",
+      "ipa": "/ˈmjuːtɛks/",
+      "pos": "noun",
+      "domain": "Concurrency",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "M"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in programming",
+          "text": "a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.",
+          "example": "We must wrap the database write operation in a mutex to prevent race conditions."
+        }
+      ],
+      "formula": {
+        "latex": null,
+        "plain": null,
+        "note": null
+      },
+      "etymology": "Coined by operating system developers, derived from the Latin 'mutus' meaning silent or mute, referring to the exclusive access it enforces.",
+      "firstAttested": "1980s",
+      "synonyms": [
+        {
+          "term": "lock",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "semaphore",
+        "critical-section"
+      ],
+      "citations": [
+        {
+          "label": "Operating Systems Textbook, Chapter 3.",
+          "source": "Academic Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 75,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00007",
       "term": "Big O Notation",
       "slug": "big-o-notation",
       "syllables": "big O no·ta·tion",
@@ -253,7 +362,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00005",
+      "lid": "SWE-00008",
       "term": "Hash Table",
       "slug": "hash-table",
       "syllables": "hash ta·ble",
@@ -318,7 +427,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00006",
+      "lid": "SWE-00013",
       "term": "Dependency Injection",
       "slug": "dependency-injection",
       "syllables": "de·pend·en·cy in·jec·tion",
@@ -375,7 +484,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00007",
+      "lid": "SWE-00015",
       "term": "Coupling",
       "slug": "coupling",
       "syllables": "cou·pling",
@@ -430,7 +539,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00008",
+      "lid": "SWE-00016",
       "term": "Cohesion",
       "slug": "cohesion",
       "syllables": "co·he·sion",
@@ -484,7 +593,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00009",
+      "lid": "SWE-00019",
       "term": "ACID",
       "slug": "acid",
       "syllables": "A·C·I·D",
@@ -533,7 +642,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00010",
+      "lid": "SWE-00023",
       "term": "SQL Injection",
       "slug": "sql-injection",
       "syllables": "S·Q·L in·jec·tion",
@@ -584,7 +693,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00011",
+      "lid": "SWE-00031",
       "term": "Eventual Consistency",
       "slug": "eventual-consistency",
       "syllables": "e·ven·tu·al con·sist·en·cy",
@@ -639,7 +748,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00012",
+      "lid": "SWE-00032",
       "term": "CAP Theorem",
       "slug": "cap-theorem",
       "syllables": "CAP the·o·rem",
@@ -691,7 +800,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00013",
+      "lid": "SWE-00035",
       "term": "Refactoring",
       "slug": "refactoring",
       "syllables": "re·fac·tor·ing",
@@ -749,7 +858,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00014",
+      "lid": "SWE-00040",
       "term": "Pure Function",
       "slug": "pure-function",
       "syllables": "pure func·tion",
@@ -806,7 +915,7 @@
       "flags": []
     },
     {
-      "lid": "SWE-00015",
+      "lid": "SWE-00047",
       "term": "Yak Shaving",
       "slug": "yak-shaving",
       "syllables": "yak shav·ing",

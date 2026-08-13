@@ -4,6 +4,7 @@
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/attention-mechanism.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/backpropagation.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/bayes-theorem.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://thehallucinatedlab.space/dictionary/terms/bias-variance-tradeoff.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/convolutional-neural-network.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/cross-validation.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/eigenvector.html</loc><changefreq>monthly</changefreq></url>
@@ -13,8 +14,11 @@
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/learning-rate.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/loss-function.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/markov-chain.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://thehallucinatedlab.space/dictionary/terms/maximum-likelihood-estimation.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/overfitting.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://thehallucinatedlab.space/dictionary/terms/principal-component-analysis.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/regularization.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://thehallucinatedlab.space/dictionary/terms/reinforcement-learning.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/softmax.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/transformer.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/acid.html</loc><changefreq>monthly</changefreq></url>
@@ -22,10 +26,12 @@
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/cap-theorem.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/cohesion.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/coupling.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://thehallucinatedlab.space/dictionary/terms/deadlock.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/dependency-injection.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/eventual-consistency.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/hash-table.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/idempotence.html</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://thehallucinatedlab.space/dictionary/terms/mutex.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/pure-function.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/race-condition.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://thehallucinatedlab.space/dictionary/terms/refactoring.html</loc><changefreq>monthly</changefreq></url>

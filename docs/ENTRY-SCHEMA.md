@@ -75,6 +75,14 @@ violation. Rule numbers refer to the Master Lexicographical Framework.
 | `polarity` ∈ {Complementary, Gradable, Relational} | 525 | bad enum |
 | `ngram` agrees with the whitespace-separated word count of `term` | 102/103 | mis-tagged |
 
+## LID allocation
+
+`.orchestrator/termlist-aim.json` and `termlist-swe.json` are the canonical LID
+registries for their sections. Take the next free number from there when adding
+a term, and add the term to the registry in the same commit — authoring an entry
+with a number the registry has already promised to another term produces a
+duplicate LID, which the validator rejects but only after the fact.
+
 ## Fields the build derives — never author them by hand
 
 - `ngram` is recomputed from `term`.

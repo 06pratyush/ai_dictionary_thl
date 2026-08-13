@@ -979,6 +979,243 @@
       "frequency": 78,
       "opacity": 2,
       "flags": []
+    },
+    {
+      "lid": "AIM-00017",
+      "term": "Reinforcement Learning",
+      "slug": "reinforcement-learning",
+      "syllables": "re·in·force·ment learn·ing",
+      "ipa": "/ˌriːɪnˈfɔːsmənt ˈlɜːnɪŋ/",
+      "pos": "noun",
+      "domain": "Machine Learning",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [
+        "RL"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a training paradigm in which an agent improves its policy purely from rewards collected while acting in an environment, with no labelled examples of correct behaviour to imitate.",
+          "example": "Reinforcement learning taught the arm to grasp without anyone demonstrating the motion."
+        }
+      ],
+      "formula": {
+        "latex": "Q(s,a) \\leftarrow Q(s,a) + \\alpha\\left[r + \\gamma \\max_{a'} Q(s',a') - Q(s,a)\\right]",
+        "plain": "Q(s,a) <- Q(s,a) + alpha [ r + gamma max_a' Q(s',a') - Q(s,a) ]",
+        "note": "The Q-learning update. gamma discounts future reward; alpha is the step size."
+      },
+      "etymology": "From reinforcement, the term Pavlov's translators used for a stimulus that strengthens a conditioned response, itself from Latin re- 'again' plus fortis 'strong'. Carried into machine learning from animal-behaviour psychology by Minsky in the 1950s.",
+      "firstAttested": "1954",
+      "synonyms": [
+        {
+          "term": "trial-and-error learning",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "supervised learning",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "markov-chain",
+        "gradient-descent",
+        "loss-function"
+      ],
+      "citations": [
+        {
+          "label": "Sutton, R. & Barto, A. (2018). Reinforcement Learning: An Introduction, 2nd ed.",
+          "source": "MIT Press.",
+          "url": "http://incompleteideas.net/book/the-book-2nd.html"
+        },
+        {
+          "label": "Watkins, C. & Dayan, P. (1992). Q-learning.",
+          "source": "Machine Learning, 8, 279–292.",
+          "url": "https://doi.org/10.1007/BF00992698"
+        }
+      ],
+      "frequency": 89,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00018",
+      "term": "Bias-Variance Tradeoff",
+      "slug": "bias-variance-tradeoff",
+      "syllables": "bias-var-i-ance-trade-off",
+      "ipa": "/ˈbaɪəs ˌvɛriəns ˈtreɪdˌɔːf/",
+      "pos": "noun",
+      "domain": "Statistical Learning",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "the fundamental tension between the complexity of a model and its ability to generalize to unseen data.",
+          "example": "Understanding the Bias-Variance Tradeoff is crucial for selecting the appropriate regularization strength."
+        }
+      ],
+      "formula": {
+        "latex": "Error = Bias² + Variance + Irreducible Error",
+        "plain": "Error = Bias² + Variance + Irreducible Error",
+        "note": "The total expected error is the sum of squared bias, variance, and irreducible error."
+      },
+      "etymology": "From bias, Old French biais 'a slant', by way of the statistical sense of a systematic offset from the truth, plus variance, Latin variantia 'difference'. The decomposition that names the tradeoff was set out by Stuart Geman, Elie Bienenstock and René Doursat in 1992.",
+      "firstAttested": "2000",
+      "synonyms": [
+        {
+          "term": "bias-variance dilemma",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "model-complexity",
+        "regularization",
+        "generalization-error"
+      ],
+      "citations": [
+        {
+          "label": "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning, 2nd ed., ch. 6.",
+          "source": "Springer.",
+          "url": ""
+        }
+      ],
+      "frequency": 75,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00019",
+      "term": "Principal Component Analysis",
+      "slug": "principal-component-analysis",
+      "syllables": "prin·ci·pal com·po·nent a·nal·y·sis",
+      "ipa": "/ˈprɪnsɪpəl kəmˈpoʊnənt əˈnæləsɪs/",
+      "pos": "noun",
+      "domain": "Dimensionality Reduction",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [
+        "PCA"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in statistics",
+          "text": "a transformation that rewrites correlated measurements as a smaller set of uncorrelated axes, ordered so the first captures as much of the spread as any single direction can.",
+          "example": "Principal component analysis reduced the 200 sensor channels to six axes that retained 94% of the variance."
+        }
+      ],
+      "formula": {
+        "latex": "C = \\frac{1}{n-1} X^{\\top} X, \\quad C\\mathbf{v}_i = \\lambda_i \\mathbf{v}_i",
+        "plain": "C = (1/(n-1)) X^T X,   C v_i = lambda_i v_i",
+        "note": "The axes are the eigenvectors of the covariance matrix, ranked by their eigenvalues."
+      },
+      "etymology": "From principal, Latin principalis 'first, chief', plus component, Latin componere 'to put together'. Introduced by Karl Pearson in 1901 as a line of closest fit, and named and developed independently by Harold Hotelling in 1933.",
+      "firstAttested": "1901",
+      "synonyms": [
+        {
+          "term": "Karhunen-Loève transform",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "eigenvector",
+        "eigenvalue",
+        "singular-value-decomposition"
+      ],
+      "citations": [
+        {
+          "label": "Pearson, K. (1901). On Lines and Planes of Closest Fit to Systems of Points in Space.",
+          "source": "Philosophical Magazine, 2(11), 559–572.",
+          "url": "https://doi.org/10.1080/14786440109462720"
+        },
+        {
+          "label": "Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components.",
+          "source": "Journal of Educational Psychology, 24, 417–441.",
+          "url": ""
+        }
+      ],
+      "frequency": 85,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00020",
+      "term": "Maximum Likelihood Estimation",
+      "slug": "maximum-likelihood-estimation",
+      "syllables": "max·i·mum like·li·hood es·ti·ma·tion",
+      "ipa": "/ˈmæksɪməm ˈlaɪklihʊd ˌɛstɪˈmeɪʃən/",
+      "pos": "noun",
+      "domain": "Statistics",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "MLE"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in statistics",
+          "text": "a method that picks the parameter values under which the observed data would have been most probable, by maximising the probability the model assigns to that data.",
+          "example": "Maximum likelihood estimation gives the sample mean as the estimator for a Gaussian's centre."
+        }
+      ],
+      "formula": {
+        "latex": "\\hat{\\theta} = \\arg\\max_{\\theta} \\sum_{i=1}^{n} \\log p(x_i \\mid \\theta)",
+        "plain": "theta_hat = argmax_theta sum_i log p(x_i | theta)",
+        "note": "The log turns a product into a sum without moving the maximum."
+      },
+      "etymology": "From Latin maximus 'greatest' and aestimare 'to value', with likelihood, Middle English liklihede, in the technical sense Ronald Fisher gave it in 1922 to distinguish it from probability: a function of the parameter given fixed data, not of the data.",
+      "firstAttested": "1922",
+      "synonyms": [],
+      "antonyms": [
+        {
+          "term": "maximum a posteriori estimation",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "bayes-theorem",
+        "prior-probability",
+        "entropy",
+        "loss-function"
+      ],
+      "citations": [
+        {
+          "label": "Fisher, R. A. (1922). On the Mathematical Foundations of Theoretical Statistics.",
+          "source": "Philosophical Transactions of the Royal Society A, 222, 309–368.",
+          "url": "https://doi.org/10.1098/rsta.1922.0009"
+        }
+      ],
+      "frequency": 86,
+      "opacity": null,
+      "flags": []
     }
   ]
 }
