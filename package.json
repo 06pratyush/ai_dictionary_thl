@@ -1,0 +1,12 @@
+{
+  "name": "thl-dictionary",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Hallucinated Lab dictionary — two corpora, one search, one page per term.",
+  "scripts": {
+    "build": "python build/build.py",
+    "validate": "python build/validate.py",
+    "test": "node tests/search-engine.test.mjs"
+  }
+}

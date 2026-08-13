@@ -335,7 +335,11 @@ export class SearchEngine {
 
       push(this.byHeadword, headword, entry);
       this.vocabulary.add(headword);
-      push(this.byPhonetic, metaphone(headword), entry);
+      // Index the phonetic key of the whole headword and of each token, so a
+      // one-word sound-alike query can still reach a multi-word entry.
+      for (const form of new Set([headword, ...entry._tokens])) {
+        push(this.byPhonetic, metaphone(form), entry, true);
+      }
 
       // Rule 711: edge n-grams over the headword and each of its tokens, so a
       // three-keystroke prefix retrieves without scanning the corpus.
@@ -356,7 +360,7 @@ export class SearchEngine {
         if (!key) continue;
         push(this.byAlias, key, entry);
         this.vocabulary.add(key);
-        push(this.byPhonetic, metaphone(key), entry);
+        push(this.byPhonetic, metaphone(key), entry, true);
         for (let n = 1; n <= Math.min(key.length, 24); n += 1) {
           push(this.byEdgeNgram, key.slice(0, n), entry);
         }

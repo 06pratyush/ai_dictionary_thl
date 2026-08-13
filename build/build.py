@@ -318,6 +318,146 @@ def term_page(entry, section, index, prev_entry, next_entry):
 """
 
 
+# ---------------------------------------------------------------- hub page
+
+
+def entry_card(entry, href_prefix="terms/"):
+    tags = "".join(f'<span class="badge">{e(t)}</span>'
+                   for t in (entry.get("tags") or [])[:2])
+    return f"""<a class="entry-card" href="{href_prefix}{e(entry['slug'])}.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">{e(entry['domain'])}</span>
+    <span class="entry-card-lid">{e(entry['lid'])}</span>
+  </div>
+  <h3>{e(entry['term'])}</h3>
+  <span class="entry-card-pos">{e(entry['pos'])}</span>
+  <p class="entry-card-gloss">{e(entry['definitions'][0]['text'])}</p>
+  <div class="entry-card-tags">{tags}</div>
+</a>"""
+
+
+def alpha_nav(entries):
+    """Rule 604-adjacent: a jump strip so browsing does not depend on search."""
+    present = {entry["term"][0].upper() for entry in entries}
+    cells = []
+    for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        if letter in present:
+            cells.append(f'<a href="#letter-{letter}">{letter}</a>')
+        else:
+            cells.append(f"<span>{letter}</span>")
+    return f'<nav class="alpha-nav" aria-label="Jump to letter">{"".join(cells)}</nav>'
+
+
+def section_html(corpus, alt):
+    section = corpus["section"]
+    entries = corpus["entries"]
+    cards = []
+    seen_letters = set()
+    for entry in entries:
+        letter = entry["term"][0].upper()
+        anchor = ""
+        if letter not in seen_letters:
+            seen_letters.add(letter)
+            anchor = f'<span id="letter-{letter}"></span>'
+        cards.append(anchor + entry_card(entry))
+
+    return f"""<section class="section{' section-alt' if alt else ''}" id="{e(section['id'])}">
+  <div class="container">
+    <div class="corpus-head">
+      <div>
+        <span class="section-label">{e(section['label'])}</span>
+        <h2 class="section-title">{e(section['title'])}</h2>
+        <div class="section-line"></div>
+        <p class="section-intro">{e(section['description'])}</p>
+      </div>
+      <span class="results-count">{len(entries)} entries</span>
+    </div>
+    {alpha_nav(entries)}
+    <div class="corpus-grid">
+      {"".join(cards)}
+    </div>
+  </div>
+</section>"""
+
+
+def jsonld_hub(corpora, total):
+    sets = [{
+        "@type": "DefinedTermSet",
+        "@id": f"{BASE}/#{c['section']['id']}",
+        "name": c["section"]["title"],
+        "description": c["section"]["description"],
+        "url": f"{BASE}/#{c['section']['id']}",
+        "hasDefinedTerm": [
+            {"@type": "DefinedTerm", "name": entry["term"],
+             "termCode": entry["lid"],
+             "url": f"{BASE}/terms/{entry['slug']}.html"}
+            for entry in c["entries"]
+        ],
+    } for c in corpora]
+
+    graph = sets + [
+        {
+            "@type": "CollectionPage",
+            "@id": f"{BASE}/#page",
+            "name": "The Hallucinated Lab Dictionary",
+            "description": (f"A {total}-entry reference covering AI, mathematics "
+                            "and software engineering."),
+            "url": f"{BASE}/",
+            "isPartOf": {"@id": f"{SITE}/#website"},
+            "hasPart": [{"@id": s["@id"]} for s in sets],
+        },
+        {
+            "@type": "WebSite",
+            "@id": f"{SITE}/#website",
+            "url": f"{SITE}/",
+            "name": "The Hallucinated Lab",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {"@type": "EntryPoint",
+                           "urlTemplate": f"{BASE}/?q={{search_term_string}}"},
+                "query-input": "required name=search_term_string",
+            },
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE}/"},
+                {"@type": "ListItem", "position": 2, "name": "Dictionary", "item": f"{BASE}/"},
+            ],
+        },
+    ]
+    payload = json.dumps({"@context": "https://schema.org", "@graph": graph},
+                         ensure_ascii=False, indent=2)
+    return f'<script type="application/ld+json">\n{payload}\n</script>'
+
+
+def hub_page(corpora):
+    template_path = os.path.join(ROOT, "build", "templates", "index.html")
+    with open(template_path, encoding="utf-8") as fh:
+        template = fh.read()
+
+    total = sum(len(c["entries"]) for c in corpora)
+    stats = "".join(
+        f'<span class="badge">{len(c["entries"])} {e(c["section"]["title"])}</span>'
+        for c in corpora)
+    stats += f'<span class="badge">{total} entries total</span>'
+
+    sections = "\n".join(section_html(c, alt=i % 2 == 1)
+                         for i, c in enumerate(corpora))
+
+    return (template
+            .replace("{{HEAD}}", head_html(
+                title="Dictionary — The Hallucinated Lab",
+                description=("A searchable reference for AI, mathematics and software "
+                             "engineering. Two corpora, one search, one page per term."),
+                canonical=f"{BASE}/", depth=0,
+                extra_ld=jsonld_hub(corpora, total)))
+            .replace("{{NAV}}", nav_html(0))
+            .replace("{{STATS}}", stats)
+            .replace("{{SECTIONS}}", sections)
+            .replace("{{FOOTER}}", FOOTER.format(site=SITE)))
+
+
 # ---------------------------------------------------------------- index
 
 
@@ -407,6 +547,9 @@ def main():
                 fh.write(page)
             written += 1
 
+    with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(hub_page(corpora))
+
     with open(os.path.join(ROOT, "data", "search-index.json"),
               "w", encoding="utf-8", newline="\n") as fh:
         json.dump(build_search_index(corpora), fh, ensure_ascii=False, indent=1)
@@ -414,7 +557,7 @@ def main():
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write(sitemap(corpora))
 
-    print(f"built {written} term pages, search index, sitemap")
+    print(f"built {written} term pages, hub page, search index, sitemap")
     return 0
 
 

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dictionary — The Hallucinated Lab</title>
+<meta name="description" content="A searchable reference for AI, mathematics and software engineering. Two corpora, one search, one page per term.">
+<link rel="canonical" href="https://thehallucinatedlab.space/dictionary/">
+<meta property="og:title" content="Dictionary — The Hallucinated Lab">
+<meta property="og:description" content="A searchable reference for AI, mathematics and software engineering. Two corpora, one search, one page per term.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://thehallucinatedlab.space/dictionary/">
+<meta property="og:site_name" content="The Hallucinated Lab">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://thehallucinatedlab.space/assets/images/logo.jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Hallucinated Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dictionary — The Hallucinated Lab">
+<meta name="twitter:description" content="A searchable reference for AI, mathematics and software engineering. Two corpora, one search, one page per term.">
+<meta name="twitter:image" content="https://thehallucinatedlab.space/assets/images/logo.jpeg">
+<link rel="icon" href="https://thehallucinatedlab.space/assets/images/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/dictionary.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://thehallucinatedlab.space/dictionary/#ai-mathematics",
+      "name": "AI & Mathematics",
+      "description": "The vocabulary of machine learning, statistics, optimisation and the linear algebra underneath all of it. Every entry is defined in terms a reader can substitute back into a sentence, then anchored to the paper or theorem it came from.",
+      "url": "https://thehallucinatedlab.space/dictionary/#ai-mathematics",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "Attention Mechanism",
+          "termCode": "AIM-00005",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/attention-mechanism.html"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Backpropagation",
+          "termCode": "AIM-00002",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/backpropagation.html"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Bayes' Theorem",
+          "termCode": "AIM-00006",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/bayes-theorem.html"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Eigenvector",
+          "termCode": "AIM-00004",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/eigenvector.html"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Gradient Descent",
+          "termCode": "AIM-00001",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/gradient-descent.html"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Overfitting",
+          "termCode": "AIM-00003",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/overfitting.html"
+        }
+      ]
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://thehallucinatedlab.space/dictionary/#software-engineering",
+      "name": "Software Engineering Core",
+      "description": "The working vocabulary of building and running software — algorithms, architecture, concurrency, databases, security and the field's durable jargon. Definitions are written to be substitutable, and the idioms carry the origin story only where it is actually documented.",
+      "url": "https://thehallucinatedlab.space/dictionary/#software-engineering",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "Technical Debt",
+          "termCode": "SWE-00001",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/technical-debt.html"
+        }
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://thehallucinatedlab.space/dictionary/#page",
+      "name": "The Hallucinated Lab Dictionary",
+      "description": "A 7-entry reference covering AI, mathematics and software engineering.",
+      "url": "https://thehallucinatedlab.space/dictionary/",
+      "isPartOf": {
+        "@id": "https://thehallucinatedlab.space/#website"
+      },
+      "hasPart": [
+        {
+          "@id": "https://thehallucinatedlab.space/dictionary/#ai-mathematics"
+        },
+        {
+          "@id": "https://thehallucinatedlab.space/dictionary/#software-engineering"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://thehallucinatedlab.space/#website",
+      "url": "https://thehallucinatedlab.space/",
+      "name": "The Hallucinated Lab",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://thehallucinatedlab.space/dictionary/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://thehallucinatedlab.space/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Dictionary",
+          "item": "https://thehallucinatedlab.space/dictionary/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header>
+  <nav class="navbar" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="nav-logo" href="https://thehallucinatedlab.space/">
+        <img src="https://thehallucinatedlab.space/assets/images/logo.jpeg" alt="The Hallucinated Lab logo" width="36" height="36">
+        <span class="nav-wordmark">THE HALLUCINATED LAB</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false"
+              aria-controls="nav-links" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="https://thehallucinatedlab.space/">Home</a></li><li><a href="https://thehallucinatedlab.space/tools.html">Tools</a></li><li><a href="https://thehallucinatedlab.space/assistant.html">Assistant</a></li><li><a href="https://thehallucinatedlab.space/solutions.html">Solutions</a></li><li><a href="https://thehallucinatedlab.space/media.html">Media</a></li><li><a href="index.html" aria-current="page">Dictionary</a></li><li><a href="https://thehallucinatedlab.space/certification.html">Certification</a></li><li><a href="https://thehallucinatedlab.space/consultancy.html">Consultancy</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<main id="main">
+
+  <section class="dict-hero">
+    <span class="section-label">Reference</span>
+    <h1>The Dictionary</h1>
+    <p class="section-intro">
+      Two corpora, one search. The vocabulary of AI and mathematics on one side,
+      the working language of software engineering on the other — every term
+      defined so it can be substituted back into a sentence, and every claim
+      pointed at the paper it came from.
+    </p>
+    <div class="dict-stats"><span class="badge">6 AI &amp; Mathematics</span><span class="badge">1 Software Engineering Core</span><span class="badge">7 entries total</span></div>
+  </section>
+
+  <div class="search-block">
+    <div class="search-shell">
+      <form class="search-bar" id="search-form" role="search" autocomplete="off">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <label class="sr-only" for="search-input">Search both dictionaries</label>
+        <input id="search-input" type="search" name="q"
+               placeholder="Search a term, an idea, or a definition…"
+               aria-describedby="search-hint"
+               aria-expanded="false" aria-controls="search-suggest"
+               role="combobox" aria-autocomplete="list">
+        <button class="search-clear" id="search-clear" type="button"
+                aria-label="Clear search">&times;</button>
+        <button class="search-submit" type="submit"><span>Search</span></button>
+        <ul class="search-suggest" id="search-suggest" role="listbox"
+            aria-label="Suggestions"></ul>
+      </form>
+
+      <div class="search-scopes" role="group" aria-label="Search scope">
+        <button class="scope-btn" type="button" data-scope="all"
+                aria-pressed="true">Search both</button>
+        <button class="scope-btn" type="button" data-scope="ai-mathematics"
+                aria-pressed="false">AI &amp; Mathematics</button>
+        <button class="scope-btn" type="button" data-scope="software-engineering"
+                aria-pressed="false">Software Engineering</button>
+      </div>
+
+      <p class="search-hint" id="search-hint">
+        <code>"exact phrase"</code> · <code>*ology</code> wildcard ·
+        <code>tensor NOT physics</code> · misspellings are corrected automatically
+      </p>
+    </div>
+  </div>
+
+  <section class="results-block" id="results-block" aria-live="polite">
+    <div class="container">
+      <div class="results-head">
+        <div>
+          <span class="section-label">Results</span>
+          <h2 class="section-title" id="results-title">Search</h2>
+        </div>
+        <span class="results-count" id="results-count"></span>
+      </div>
+      <div id="results-suggestion"></div>
+      <div class="corpus-grid" id="results-grid"></div>
+      <div id="results-more"></div>
+    </div>
+  </section>
+
+  <div id="browse">
+<section class="section" id="ai-mathematics">
+  <div class="container">
+    <div class="corpus-head">
+      <div>
+        <span class="section-label">Section One</span>
+        <h2 class="section-title">AI &amp; Mathematics</h2>
+        <div class="section-line"></div>
+        <p class="section-intro">The vocabulary of machine learning, statistics, optimisation and the linear algebra underneath all of it. Every entry is defined in terms a reader can substitute back into a sentence, then anchored to the paper or theorem it came from.</p>
+      </div>
+      <span class="results-count">6 entries</span>
+    </div>
+    <nav class="alpha-nav" aria-label="Jump to letter"><a href="#letter-A">A</a><a href="#letter-B">B</a><span>C</span><span>D</span><a href="#letter-E">E</a><span>F</span><a href="#letter-G">G</a><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><a href="#letter-O">O</a><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></nav>
+    <div class="corpus-grid">
+      <span id="letter-A"></span><a class="entry-card" href="terms/attention-mechanism.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Deep Learning</span>
+    <span class="entry-card-lid">AIM-00005</span>
+  </div>
+  <h3>Attention Mechanism</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">a layer that produces each output as a weighted blend of all available inputs, where the weights are computed from the similarity between a query and a set of keys.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span></div>
+</a><span id="letter-B"></span><a class="entry-card" href="terms/backpropagation.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Neural Networks</span>
+    <span class="entry-card-lid">AIM-00002</span>
+  </div>
+  <h3>Backpropagation</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">an application of the chain rule that computes the sensitivity of a loss to every parameter in a layered network by passing partial derivatives from the output back toward the input.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Foundational</span></div>
+</a><a class="entry-card" href="terms/bayes-theorem.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Probability</span>
+    <span class="entry-card-lid">AIM-00006</span>
+  </div>
+  <h3>Bayes&#x27; Theorem</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">the identity that converts the likelihood of evidence given a hypothesis into the probability of the hypothesis given that evidence, by weighting it with the hypothesis&#x27;s prior probability.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Foundational</span></div>
+</a><span id="letter-E"></span><a class="entry-card" href="terms/eigenvector.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Linear Algebra</span>
+    <span class="entry-card-lid">AIM-00004</span>
+  </div>
+  <h3>Eigenvector</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">a non-zero vector whose direction is unchanged by a given linear map, so the map merely rescales it by a constant factor.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Foundational</span></div>
+</a><span id="letter-G"></span><a class="entry-card" href="terms/gradient-descent.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Optimization</span>
+    <span class="entry-card-lid">AIM-00001</span>
+  </div>
+  <h3>Gradient Descent</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">an iterative procedure that reduces a differentiable objective by repeatedly stepping in the direction opposite to its slope at the current point.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Foundational</span></div>
+</a><span id="letter-O"></span><a class="entry-card" href="terms/overfitting.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Statistical Learning</span>
+    <span class="entry-card-lid">AIM-00003</span>
+  </div>
+  <h3>Overfitting</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span></div>
+</a>
+    </div>
+  </div>
+</section>
+<section class="section section-alt" id="software-engineering">
+  <div class="container">
+    <div class="corpus-head">
+      <div>
+        <span class="section-label">Section Two</span>
+        <h2 class="section-title">Software Engineering Core</h2>
+        <div class="section-line"></div>
+        <p class="section-intro">The working vocabulary of building and running software — algorithms, architecture, concurrency, databases, security and the field&#x27;s durable jargon. Definitions are written to be substitutable, and the idioms carry the origin story only where it is actually documented.</p>
+      </div>
+      <span class="results-count">1 entries</span>
+    </div>
+    <nav class="alpha-nav" aria-label="Jump to letter"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><a href="#letter-T">T</a><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></nav>
+    <div class="corpus-grid">
+      <span id="letter-T"></span><a class="entry-card" href="terms/technical-debt.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Craft</span>
+    <span class="entry-card-lid">SWE-00001</span>
+  </div>
+  <h3>Technical Debt</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">the future cost incurred by choosing an expedient implementation now instead of a sounder one, paid back as extra effort on every later change.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Metaphor</span></div>
+</a>
+    </div>
+  </div>
+</section>
+  </div>
+
+</main>
+<footer class="site-footer">
+  <p>&copy; 2026 The Hallucinated Lab. Built with curiosity and caffeine.
+  <a href="https://thehallucinatedlab.space/">Return to the lab</a>.</p>
+</footer>
+<script src="assets/js/nav.js" type="module"></script>
+<script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
