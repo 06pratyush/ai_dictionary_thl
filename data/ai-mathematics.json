@@ -1,0 +1,297 @@
+{
+  "section": {
+    "id": "ai-mathematics",
+    "title": "AI & Mathematics",
+    "label": "Section One",
+    "lidPrefix": "AIM",
+    "description": "The vocabulary of machine learning, statistics, optimisation and the linear algebra underneath all of it. Every entry is defined in terms a reader can substitute back into a sentence, then anchored to the paper or theorem it came from."
+  },
+  "entries": [
+    {
+      "lid": "AIM-00001",
+      "term": "Gradient Descent",
+      "slug": "gradient-descent",
+      "syllables": "gra·di·ent de·scent",
+      "ipa": "/ˈɡreɪdiənt dɪˈsɛnt/",
+      "pos": "noun",
+      "domain": "Optimization",
+      "tags": ["Core", "Foundational"],
+      "abbr": ["GD"],
+      "inflections": ["gradient descents"],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in optimization",
+          "text": "an iterative procedure that reduces a differentiable objective by repeatedly stepping in the direction opposite to its slope at the current point.",
+          "example": "Training halted once gradient descent stopped lowering the validation objective."
+        },
+        {
+          "id": 2,
+          "context": "in machine learning",
+          "text": "the family of training algorithms that update model parameters from the slope of a loss surface, including the stochastic and mini-batch variants used in practice.",
+          "example": "Nearly every deep network in production was fitted by some form of gradient descent."
+        }
+      ],
+      "formula": {
+        "latex": "\\theta_{t+1} = \\theta_t - \\eta \\nabla J(\\theta_t)",
+        "plain": "theta(t+1) = theta(t) - eta * grad J(theta(t))",
+        "note": "eta is the step size, or learning rate; grad J is the slope of the objective at the current parameters."
+      },
+      "etymology": "From gradient, Latin gradiens 'stepping', plus descent, Old French descente 'a going down'. Named for the geometric picture of walking downhill on a surface.",
+      "firstAttested": "1847",
+      "synonyms": [
+        { "term": "steepest descent", "senseId": 1, "proximity": "Near" }
+      ],
+      "antonyms": [
+        { "term": "gradient ascent", "senseId": 1, "polarity": "Relational" }
+      ],
+      "related": ["learning-rate", "backpropagation", "loss-function", "convex-function"],
+      "citations": [
+        {
+          "label": "Cauchy, A. (1847). Méthode générale pour la résolution des systèmes d'équations simultanées.",
+          "source": "Comptes Rendus de l'Académie des Sciences, 25, 536–538.",
+          "url": ""
+        },
+        {
+          "label": "Robbins, H. & Monro, S. (1951). A Stochastic Approximation Method.",
+          "source": "The Annals of Mathematical Statistics, 22(3), 400–407.",
+          "url": "https://doi.org/10.1214/aoms/1177729586"
+        }
+      ],
+      "frequency": 96,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00002",
+      "term": "Backpropagation",
+      "slug": "backpropagation",
+      "syllables": "back·prop·a·ga·tion",
+      "ipa": "/ˌbækprɒpəˈɡeɪʃən/",
+      "pos": "noun",
+      "domain": "Neural Networks",
+      "tags": ["Core", "Foundational"],
+      "abbr": ["backprop", "BP"],
+      "inflections": [],
+      "variants": ["back-propagation", "back propagation"],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in neural networks",
+          "text": "an application of the chain rule that computes the sensitivity of a loss to every parameter in a layered network by passing partial derivatives from the output back toward the input.",
+          "example": "One backpropagation pass yields every parameter's derivative in roughly the cost of one forward pass."
+        }
+      ],
+      "formula": {
+        "latex": "\\frac{\\partial L}{\\partial w^{(l)}} = \\delta^{(l)} \\left(a^{(l-1)}\\right)^{\\top}, \\quad \\delta^{(l)} = \\left(W^{(l+1)}\\right)^{\\top}\\delta^{(l+1)} \\odot \\sigma'\\!\\left(z^{(l)}\\right)",
+        "plain": "dL/dW(l) = delta(l) * a(l-1)^T,  delta(l) = W(l+1)^T * delta(l+1) .* sigma'(z(l))",
+        "note": "delta is the error signal at a layer; the circled dot is elementwise multiplication."
+      },
+      "etymology": "A 1980s contraction of 'backward propagation of errors'. Popularised by Rumelhart, Hinton and Williams in 1986, though the underlying reverse-mode differentiation was described by Linnainmaa in 1970.",
+      "firstAttested": "1986",
+      "synonyms": [
+        { "term": "reverse-mode automatic differentiation", "senseId": 1, "proximity": "Near" }
+      ],
+      "antonyms": [
+        { "term": "forward pass", "senseId": 1, "polarity": "Relational" }
+      ],
+      "related": ["gradient-descent", "chain-rule", "vanishing-gradient", "automatic-differentiation"],
+      "citations": [
+        {
+          "label": "Rumelhart, D., Hinton, G. & Williams, R. (1986). Learning representations by back-propagating errors.",
+          "source": "Nature, 323, 533–536.",
+          "url": "https://doi.org/10.1038/323533a0"
+        },
+        {
+          "label": "Linnainmaa, S. (1970). The representation of the cumulative rounding error of an algorithm as a Taylor expansion of the local rounding errors.",
+          "source": "Master's thesis, University of Helsinki.",
+          "url": ""
+        }
+      ],
+      "frequency": 94,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00003",
+      "term": "Overfitting",
+      "slug": "overfitting",
+      "syllables": "o·ver·fit·ting",
+      "ipa": "/ˈoʊvərˌfɪtɪŋ/",
+      "pos": "noun",
+      "domain": "Statistical Learning",
+      "tags": ["Core"],
+      "abbr": [],
+      "inflections": ["overfit", "overfits"],
+      "variants": ["over-fitting"],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in statistical learning",
+          "text": "the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.",
+          "example": "Validation error rose while training error kept falling — textbook overfitting."
+        }
+      ],
+      "formula": {
+        "latex": "\\mathbb{E}[(y - \\hat{f}(x))^2] = \\underbrace{\\text{Bias}[\\hat{f}]^2 + \\text{Var}[\\hat{f}]}_{\\text{reducible}} + \\sigma^2",
+        "plain": "E[(y - fhat(x))^2] = Bias[fhat]^2 + Var[fhat] + sigma^2",
+        "note": "Overfitting is the regime where the variance term dominates the decomposition."
+      },
+      "etymology": "From over- 'excessively' plus fit, in the statistical sense of fitting a curve to points; in use in the regression literature from the mid-twentieth century.",
+      "firstAttested": "1950s",
+      "synonyms": [
+        { "term": "high variance", "senseId": 1, "proximity": "Near" }
+      ],
+      "antonyms": [
+        { "term": "underfitting", "senseId": 1, "polarity": "Gradable" }
+      ],
+      "related": ["regularization", "bias-variance-tradeoff", "cross-validation", "generalization"],
+      "citations": [
+        {
+          "label": "Hastie, T., Tibshirani, R. & Friedman, J. (2009). The Elements of Statistical Learning, ch. 7.",
+          "source": "Springer.",
+          "url": "https://hastie.su.domains/ElemStatLearn/"
+        }
+      ],
+      "frequency": 92,
+      "opacity": 1,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00004",
+      "term": "Eigenvector",
+      "slug": "eigenvector",
+      "syllables": "ei·gen·vec·tor",
+      "ipa": "/ˈaɪɡənˌvɛktər/",
+      "pos": "noun",
+      "domain": "Linear Algebra",
+      "tags": ["Core", "Foundational"],
+      "abbr": [],
+      "inflections": ["eigenvectors"],
+      "variants": ["eigen vector"],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in linear algebra",
+          "text": "a non-zero vector whose direction is unchanged by a given linear map, so the map merely rescales it by a constant factor.",
+          "example": "The covariance matrix's leading eigenvector points along the axis of greatest spread in the data."
+        }
+      ],
+      "formula": {
+        "latex": "A\\mathbf{v} = \\lambda \\mathbf{v}, \\quad \\mathbf{v} \\neq \\mathbf{0}",
+        "plain": "A v = lambda v,  v != 0",
+        "note": "lambda is the eigenvalue: the factor by which the map stretches that direction."
+      },
+      "etymology": "A partial calque of German Eigenvektor, from eigen 'own, characteristic'. Hilbert used Eigenwert in 1904; the hybrid German-English form settled into English mathematics in the 1920s–30s.",
+      "firstAttested": "1904",
+      "synonyms": [
+        { "term": "characteristic vector", "senseId": 1, "proximity": "Absolute" },
+        { "term": "proper vector", "senseId": 1, "proximity": "Near" }
+      ],
+      "antonyms": [],
+      "related": ["eigenvalue", "principal-component-analysis", "singular-value-decomposition", "matrix"],
+      "citations": [
+        {
+          "label": "Strang, G. (2016). Introduction to Linear Algebra, 5th ed., ch. 6.",
+          "source": "Wellesley-Cambridge Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 84,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00005",
+      "term": "Attention Mechanism",
+      "slug": "attention-mechanism",
+      "syllables": "at·ten·tion mech·a·nism",
+      "ipa": "/əˈtɛnʃən ˈmɛkəˌnɪzəm/",
+      "pos": "noun",
+      "domain": "Deep Learning",
+      "tags": ["Core"],
+      "abbr": [],
+      "inflections": ["attention mechanisms"],
+      "variants": ["attention"],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in deep learning",
+          "text": "a layer that produces each output as a weighted blend of all available inputs, where the weights are computed from the similarity between a query and a set of keys.",
+          "example": "The attention mechanism let the decoder consult any source token instead of a single fixed summary vector."
+        }
+      ],
+      "formula": {
+        "latex": "\\mathrm{Attention}(Q,K,V) = \\mathrm{softmax}\\!\\left(\\frac{QK^{\\top}}{\\sqrt{d_k}}\\right)V",
+        "plain": "Attention(Q,K,V) = softmax(Q K^T / sqrt(d_k)) V",
+        "note": "Division by sqrt(d_k) keeps the dot products in a range where softmax gradients do not vanish."
+      },
+      "etymology": "Borrowed from cognitive psychology, where attention names the selective allocation of processing. Introduced to neural machine translation by Bahdanau et al. in 2014.",
+      "firstAttested": "2014",
+      "synonyms": [
+        { "term": "soft alignment", "senseId": 1, "proximity": "Near" }
+      ],
+      "antonyms": [],
+      "related": ["transformer", "softmax", "self-attention", "embedding"],
+      "citations": [
+        {
+          "label": "Bahdanau, D., Cho, K. & Bengio, Y. (2015). Neural Machine Translation by Jointly Learning to Align and Translate.",
+          "source": "ICLR 2015.",
+          "url": "https://arxiv.org/abs/1409.0473"
+        },
+        {
+          "label": "Vaswani, A. et al. (2017). Attention Is All You Need.",
+          "source": "NeurIPS 2017.",
+          "url": "https://arxiv.org/abs/1706.03762"
+        }
+      ],
+      "frequency": 90,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00006",
+      "term": "Bayes' Theorem",
+      "slug": "bayes-theorem",
+      "syllables": "bayes' the·o·rem",
+      "ipa": "/beɪzɪz ˈθiərəm/",
+      "pos": "noun",
+      "domain": "Probability",
+      "tags": ["Core", "Foundational"],
+      "abbr": [],
+      "inflections": [],
+      "variants": ["Bayes theorem", "Bayes's theorem", "Bayes rule"],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in probability",
+          "text": "the identity that converts the likelihood of evidence given a hypothesis into the probability of the hypothesis given that evidence, by weighting it with the hypothesis's prior probability.",
+          "example": "Applying Bayes' theorem to a positive test result requires the disease's base rate, not just the test's accuracy."
+        }
+      ],
+      "formula": {
+        "latex": "P(A \\mid B) = \\frac{P(B \\mid A)\\,P(A)}{P(B)}",
+        "plain": "P(A|B) = P(B|A) * P(A) / P(B)",
+        "note": "P(A) is the prior, P(B|A) the likelihood, P(A|B) the posterior."
+      },
+      "etymology": "An eponym (Rule 519) after Thomas Bayes (c. 1701–1761), the English Presbyterian minister whose essay on the problem was published posthumously by Richard Price in 1763.",
+      "firstAttested": "1763",
+      "synonyms": [
+        { "term": "Bayes' rule", "senseId": 1, "proximity": "Absolute" }
+      ],
+      "antonyms": [],
+      "related": ["prior-probability", "posterior-probability", "maximum-likelihood-estimation", "naive-bayes"],
+      "citations": [
+        {
+          "label": "Bayes, T. & Price, R. (1763). An Essay towards solving a Problem in the Doctrine of Chances.",
+          "source": "Philosophical Transactions of the Royal Society, 53, 370–418.",
+          "url": "https://doi.org/10.1098/rstl.1763.0053"
+        }
+      ],
+      "frequency": 88,
+      "opacity": null,
+      "flags": []
+    }
+  ]
+}

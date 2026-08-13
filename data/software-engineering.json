@@ -1,0 +1,62 @@
+{
+  "section": {
+    "id": "software-engineering",
+    "title": "Software Engineering Core",
+    "label": "Section Two",
+    "lidPrefix": "SWE",
+    "description": "The working vocabulary of building and running software — algorithms, architecture, concurrency, databases, security and the field's durable jargon. Definitions are written to be substitutable, and the idioms carry the origin story only where it is actually documented."
+  },
+  "entries": [
+    {
+      "lid": "SWE-00001",
+      "term": "Technical Debt",
+      "slug": "technical-debt",
+      "syllables": "tech·ni·cal debt",
+      "ipa": "/ˈtɛknɪkəl dɛt/",
+      "pos": "noun",
+      "domain": "Craft",
+      "tags": ["Core", "Metaphor"],
+      "abbr": ["tech debt"],
+      "inflections": [],
+      "variants": ["technical-debt"],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in software engineering",
+          "text": "the future cost incurred by choosing an expedient implementation now instead of a sounder one, paid back as extra effort on every later change.",
+          "example": "Shipping the prototype as-is bought us a quarter and left three months of technical debt."
+        },
+        {
+          "id": 2,
+          "context": "in project management",
+          "text": "the accumulated backlog of deferred cleanup, upgrades and documentation that a codebase carries as a measurable liability.",
+          "example": "The team reserves one sprint in five for technical debt."
+        }
+      ],
+      "formula": null,
+      "etymology": "Coined by Ward Cunningham in a 1992 OOPSLA experience report, extending the financial sense of debt: shipping imperfect code is borrowing against future velocity, and the interest is the extra work every subsequent change costs.",
+      "firstAttested": "1992",
+      "synonyms": [
+        { "term": "design debt", "senseId": 1, "proximity": "Near" },
+        { "term": "code debt", "senseId": 1, "proximity": "Near" }
+      ],
+      "antonyms": [],
+      "related": ["refactoring", "code-smell", "coupling", "cohesion"],
+      "citations": [
+        {
+          "label": "Cunningham, W. (1992). The WyCash Portfolio Management System.",
+          "source": "OOPSLA '92 Experience Report.",
+          "url": "https://doi.org/10.1145/157709.157715"
+        },
+        {
+          "label": "Fowler, M. (2019). Technical Debt Quadrant.",
+          "source": "martinfowler.com",
+          "url": "https://martinfowler.com/bliki/TechnicalDebtQuadrant.html"
+        }
+      ],
+      "frequency": 93,
+      "opacity": 2,
+      "flags": []
+    }
+  ]
+}

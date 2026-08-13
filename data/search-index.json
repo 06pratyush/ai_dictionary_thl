@@ -1,0 +1,213 @@
+{
+ "version": 1,
+ "sections": {
+  "ai-mathematics": {
+   "id": "ai-mathematics",
+   "title": "AI & Mathematics",
+   "label": "Section One",
+   "lidPrefix": "AIM",
+   "description": "The vocabulary of machine learning, statistics, optimisation and the linear algebra underneath all of it. Every entry is defined in terms a reader can substitute back into a sentence, then anchored to the paper or theorem it came from."
+  },
+  "software-engineering": {
+   "id": "software-engineering",
+   "title": "Software Engineering Core",
+   "label": "Section Two",
+   "lidPrefix": "SWE",
+   "description": "The working vocabulary of building and running software — algorithms, architecture, concurrency, databases, security and the field's durable jargon. Definitions are written to be substitutable, and the idioms carry the origin story only where it is actually documented."
+  }
+ },
+ "entries": [
+  {
+   "lid": "AIM-00005",
+   "term": "Attention Mechanism",
+   "slug": "attention-mechanism",
+   "section": "ai-mathematics",
+   "domain": "Deep Learning",
+   "pos": "noun",
+   "ngram": "bigram",
+   "tags": [
+    "Core"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [
+    "attention mechanisms"
+   ],
+   "variants": [
+    "attention"
+   ],
+   "synonyms": [
+    "soft alignment"
+   ],
+   "gloss": "a layer that produces each output as a weighted blend of all available inputs, where the weights are computed from the similarity between a query and a set of keys.",
+   "defText": "a layer that produces each output as a weighted blend of all available inputs, where the weights are computed from the similarity between a query and a set of keys.",
+   "frequency": 90
+  },
+  {
+   "lid": "AIM-00002",
+   "term": "Backpropagation",
+   "slug": "backpropagation",
+   "section": "ai-mathematics",
+   "domain": "Neural Networks",
+   "pos": "noun",
+   "ngram": "unigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [
+    "backprop",
+    "BP"
+   ],
+   "inflections": [],
+   "variants": [
+    "back-propagation",
+    "back propagation"
+   ],
+   "synonyms": [
+    "reverse-mode automatic differentiation"
+   ],
+   "gloss": "an application of the chain rule that computes the sensitivity of a loss to every parameter in a layered network by passing partial derivatives from the output back toward the input.",
+   "defText": "an application of the chain rule that computes the sensitivity of a loss to every parameter in a layered network by passing partial derivatives from the output back toward the input.",
+   "frequency": 94
+  },
+  {
+   "lid": "AIM-00006",
+   "term": "Bayes' Theorem",
+   "slug": "bayes-theorem",
+   "section": "ai-mathematics",
+   "domain": "Probability",
+   "pos": "noun",
+   "ngram": "bigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [],
+   "variants": [
+    "Bayes theorem",
+    "Bayes's theorem",
+    "Bayes rule"
+   ],
+   "synonyms": [
+    "Bayes' rule"
+   ],
+   "gloss": "the identity that converts the likelihood of evidence given a hypothesis into the probability of the hypothesis given that evidence, by weighting it with the hypothesis's prior probability.",
+   "defText": "the identity that converts the likelihood of evidence given a hypothesis into the probability of the hypothesis given that evidence, by weighting it with the hypothesis's prior probability.",
+   "frequency": 88
+  },
+  {
+   "lid": "AIM-00004",
+   "term": "Eigenvector",
+   "slug": "eigenvector",
+   "section": "ai-mathematics",
+   "domain": "Linear Algebra",
+   "pos": "noun",
+   "ngram": "unigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [
+    "eigenvectors"
+   ],
+   "variants": [
+    "eigen vector"
+   ],
+   "synonyms": [
+    "characteristic vector",
+    "proper vector"
+   ],
+   "gloss": "a non-zero vector whose direction is unchanged by a given linear map, so the map merely rescales it by a constant factor.",
+   "defText": "a non-zero vector whose direction is unchanged by a given linear map, so the map merely rescales it by a constant factor.",
+   "frequency": 84
+  },
+  {
+   "lid": "AIM-00001",
+   "term": "Gradient Descent",
+   "slug": "gradient-descent",
+   "section": "ai-mathematics",
+   "domain": "Optimization",
+   "pos": "noun",
+   "ngram": "bigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [
+    "GD"
+   ],
+   "inflections": [
+    "gradient descents"
+   ],
+   "variants": [],
+   "synonyms": [
+    "steepest descent"
+   ],
+   "gloss": "an iterative procedure that reduces a differentiable objective by repeatedly stepping in the direction opposite to its slope at the current point.",
+   "defText": "an iterative procedure that reduces a differentiable objective by repeatedly stepping in the direction opposite to its slope at the current point. the family of training algorithms that update model parameters from the slope of a loss surface, including the stochastic and mini-batch variants used in practice.",
+   "frequency": 96
+  },
+  {
+   "lid": "AIM-00003",
+   "term": "Overfitting",
+   "slug": "overfitting",
+   "section": "ai-mathematics",
+   "domain": "Statistical Learning",
+   "pos": "noun",
+   "ngram": "unigram",
+   "tags": [
+    "Core"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [
+    "overfit",
+    "overfits"
+   ],
+   "variants": [
+    "over-fitting"
+   ],
+   "synonyms": [
+    "high variance"
+   ],
+   "gloss": "the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.",
+   "defText": "the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.",
+   "frequency": 92
+  },
+  {
+   "lid": "SWE-00001",
+   "term": "Technical Debt",
+   "slug": "technical-debt",
+   "section": "software-engineering",
+   "domain": "Craft",
+   "pos": "noun",
+   "ngram": "bigram",
+   "tags": [
+    "Core",
+    "Metaphor"
+   ],
+   "flags": [],
+   "abbr": [
+    "tech debt"
+   ],
+   "inflections": [],
+   "variants": [
+    "technical-debt"
+   ],
+   "synonyms": [
+    "design debt",
+    "code debt"
+   ],
+   "gloss": "the future cost incurred by choosing an expedient implementation now instead of a sounder one, paid back as extra effort on every later change.",
+   "defText": "the future cost incurred by choosing an expedient implementation now instead of a sounder one, paid back as extra effort on every later change. the accumulated backlog of deferred cleanup, upgrades and documentation that a codebase carries as a measurable liability.",
+   "frequency": 93
+  }
+ ]
+}
