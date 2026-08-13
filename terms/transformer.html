@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Overfitting — The Hallucinated Lab Dictionary</title>
-<meta name="description" content="Overfitting (noun, Statistical Learning) — the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.">
-<link rel="canonical" href="https://thehallucinatedlab.space/dictionary/terms/overfitting.html">
-<meta property="og:title" content="Overfitting — The Hallucinated Lab Dictionary">
-<meta property="og:description" content="Overfitting (noun, Statistical Learning) — the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.">
+<title>Transformer — The Hallucinated Lab Dictionary</title>
+<meta name="description" content="Transformer (noun, Deep Learning) — a neural network architecture that relies solely on attention mechanisms, allowing it to process sequential data efficiently.">
+<link rel="canonical" href="https://thehallucinatedlab.space/dictionary/terms/transformer.html">
+<meta property="og:title" content="Transformer — The Hallucinated Lab Dictionary">
+<meta property="og:description" content="Transformer (noun, Deep Learning) — a neural network architecture that relies solely on attention mechanisms, allowing it to process sequential data efficiently.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://thehallucinatedlab.space/dictionary/terms/overfitting.html">
+<meta property="og:url" content="https://thehallucinatedlab.space/dictionary/terms/transformer.html">
 <meta property="og:site_name" content="The Hallucinated Lab">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://thehallucinatedlab.space/assets/images/logo.jpeg">
@@ -17,8 +17,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Hallucinated Lab">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Overfitting — The Hallucinated Lab Dictionary">
-<meta name="twitter:description" content="Overfitting (noun, Statistical Learning) — the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.">
+<meta name="twitter:title" content="Transformer — The Hallucinated Lab Dictionary">
+<meta name="twitter:description" content="Transformer (noun, Deep Learning) — a neural network architecture that relies solely on attention mechanisms, allowing it to process sequential data efficiently.">
 <meta name="twitter:image" content="https://thehallucinatedlab.space/assets/images/logo.jpeg">
 <link rel="icon" href="https://thehallucinatedlab.space/assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,17 +32,17 @@
   "@graph": [
     {
       "@type": "DefinedTerm",
-      "@id": "https://thehallucinatedlab.space/dictionary/terms/overfitting.html#term",
-      "name": "Overfitting",
-      "description": "the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.",
-      "termCode": "AIM-00003",
+      "@id": "https://thehallucinatedlab.space/dictionary/terms/transformer.html#term",
+      "name": "Transformer",
+      "description": "a neural network architecture that relies solely on attention mechanisms, allowing it to process sequential data efficiently.",
+      "termCode": "AIM-00015",
       "inDefinedTermSet": {
         "@type": "DefinedTermSet",
         "@id": "https://thehallucinatedlab.space/dictionary/#ai-mathematics",
         "name": "AI & Mathematics",
         "url": "https://thehallucinatedlab.space/dictionary/#ai-mathematics"
       },
-      "url": "https://thehallucinatedlab.space/dictionary/terms/overfitting.html"
+      "url": "https://thehallucinatedlab.space/dictionary/terms/transformer.html"
     },
     {
       "@type": "BreadcrumbList",
@@ -68,8 +68,8 @@
         {
           "@type": "ListItem",
           "position": 4,
-          "name": "Overfitting",
-          "item": "https://thehallucinatedlab.space/dictionary/terms/overfitting.html"
+          "name": "Transformer",
+          "item": "https://thehallucinatedlab.space/dictionary/terms/transformer.html"
         }
       ]
     }
@@ -104,42 +104,41 @@
           <a href="../index.html">Dictionary</a> /
           <a href="../index.html#ai-mathematics">AI &amp; Mathematics</a>
         </p>
-        <h1>Overfitting</h1>
-        <div class="term-phonetics"><span class="term-ipa">/ˈoʊvərˌfɪtɪŋ/</span><span>o·ver·fit·ting</span><span class="term-pos">noun</span></div>
+        <h1>Transformer</h1>
+        <div class="term-phonetics"><span class="term-ipa">/trænsˈfɔːrmər/</span><span>trans·form·mer</span><span class="term-pos">noun</span></div>
         <div class="term-meta-row">
-          <span class="badge">Statistical Learning</span>
-          <span class="badge">Core</span>
+          <span class="badge">Deep Learning</span>
+          <span class="badge">Core</span><span class="badge">Foundational</span>
         </div>
       </header>
 
       <section class="term-section">
         <h2>Definition</h2>
         <div class="definition">
-  <p><span class="definition-number">1.</span><span class="definition-context">[in statistical learning] </span><span class="definition-text">the failure mode in which a model absorbs noise particular to its training sample and therefore predicts unseen data worse than a simpler model would.</span></p>
-  <p class="definition-example">Validation error rose while training error kept falling — textbook overfitting.</p>
+  <p><span class="definition-number">1.</span><span class="definition-context">[in natural language processing] </span><span class="definition-text">a neural network architecture that relies solely on attention mechanisms, allowing it to process sequential data efficiently.</span></p>
+  <p class="definition-example">The Transformer model revolutionized sequence-to-sequence tasks by eliminating recurrence.</p>
 </div>
       </section>
 
       <section class="term-section">
   <h2>Formal statement</h2>
-  <div class="formula-block"><code>E[(y - fhat(x))^2] = Bias[fhat]^2 + Var[fhat] + sigma^2</code></div>
-  <p class="formula-note">Overfitting is the regime where the variance term dominates the decomposition.</p>
+  <div class="formula-block"><code>Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k)) V</code></div>
+  <p class="formula-note">The core mechanism involves scaled dot-product attention.</p>
 </section>
       <section class="term-section">
   <h2>Etymology</h2>
-  <p class="etymology-text">From over- &#x27;excessively&#x27; plus fit, in the statistical sense of fitting a curve to points; in use in the regression literature from the mid-twentieth century.</p>
+  <p class="etymology-text">Coined by the authors of the seminal 2017 paper, drawing inspiration from the concept of transforming data representations.</p>
 </section>
-      <section class="term-section"><h2>Synonyms</h2><ul class="relation-list"><li><span class="relation-chip">high variance<span class="relation-tag">sense 1 · Near</span></span></li></ul></section>
-<section class="term-section"><h2>Antonyms</h2><ul class="relation-list"><li><span class="relation-chip">underfitting<span class="relation-tag">sense 1 · Gradable</span></span></li></ul></section>
-<section class="term-section"><h2>See also</h2><ul class="relation-list"><li><a href="regularization.html">Regularization</a></li><li><a href="cross-validation.html">Cross-Validation</a></li></ul></section>
+      <section class="term-section"><h2>Synonyms</h2><ul class="relation-list"><li><span class="relation-chip">attention-based model<span class="relation-tag">sense 1 · Absolute</span></span></li></ul></section>
+<section class="term-section"><h2>See also</h2><ul class="relation-list"><li><a href="attention-mechanism.html">Attention Mechanism</a></li></ul></section>
       <section class="term-section">
   <h2>References</h2>
-  <ul class="citation-list"><li><a href="https://hastie.su.domains/ElemStatLearn/" rel="noopener">Hastie, T., Tibshirani, R. &amp; Friedman, J. (2009). The Elements of Statistical Learning, ch. 7.</a><span class="citation-source">Springer.</span></li></ul>
+  <ul class="citation-list"><li><a href="https://arxiv.org/abs/1706.03762" rel="noopener">Vaswani et al. (2017). Attention Is All You Need.</a><span class="citation-source">NeurIPS.</span></li></ul>
 </section>
 
-      <nav class="term-nav" aria-label="Adjacent entries"><a href="markov-chain.html"><span class="term-nav-label">Previous</span>Markov Chain</a><a href="regularization.html" style="text-align:right"><span class="term-nav-label">Next</span>Regularization</a></nav>
+      <nav class="term-nav" aria-label="Adjacent entries"><a href="softmax.html"><span class="term-nav-label">Previous</span>Softmax</a></nav>
     </div>
-    <aside class="term-aside"><h2>Entry data</h2><dl><dt>Lexical ID</dt><dd>AIM-00003</dd><dt>Section</dt><dd>AI &amp; Mathematics</dd><dt>Domain</dt><dd>Statistical Learning</dd><dt>Part of speech</dt><dd>noun</dd><dt>Form</dt><dd>unigram</dd><dt>First attested</dt><dd>1950s</dd><dt>Variants</dt><dd>over-fitting</dd><dt>Inflections</dt><dd>overfit, overfits</dd><dt>Opacity</dt><dd>1 of 3</dd></dl></aside>
+    <aside class="term-aside"><h2>Entry data</h2><dl><dt>Lexical ID</dt><dd>AIM-00015</dd><dt>Section</dt><dd>AI &amp; Mathematics</dd><dt>Domain</dt><dd>Deep Learning</dd><dt>Part of speech</dt><dd>noun</dd><dt>Form</dt><dd>unigram</dd><dt>First attested</dt><dd>2017</dd><dt>Inflections</dt><dd>transformers</dd><dt>Opacity</dt><dd>2 of 3</dd></dl></aside>
   </article>
 </main>
 <footer class="site-footer">

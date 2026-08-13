@@ -15,9 +15,16 @@
       "ipa": "/ˈɡreɪdiənt dɪˈsɛnt/",
       "pos": "noun",
       "domain": "Optimization",
-      "tags": ["Core", "Foundational"],
-      "abbr": ["GD"],
-      "inflections": ["gradient descents"],
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "GD"
+      ],
+      "inflections": [
+        "gradient descents"
+      ],
       "variants": [],
       "definitions": [
         {
@@ -41,12 +48,25 @@
       "etymology": "From gradient, Latin gradiens 'stepping', plus descent, Old French descente 'a going down'. Named for the geometric picture of walking downhill on a surface.",
       "firstAttested": "1847",
       "synonyms": [
-        { "term": "steepest descent", "senseId": 1, "proximity": "Near" }
+        {
+          "term": "steepest descent",
+          "senseId": 1,
+          "proximity": "Near"
+        }
       ],
       "antonyms": [
-        { "term": "gradient ascent", "senseId": 1, "polarity": "Relational" }
+        {
+          "term": "gradient ascent",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
       ],
-      "related": ["learning-rate", "backpropagation", "loss-function", "convex-function"],
+      "related": [
+        "learning-rate",
+        "backpropagation",
+        "loss-function",
+        "convex-function"
+      ],
       "citations": [
         {
           "label": "Cauchy, A. (1847). Méthode générale pour la résolution des systèmes d'équations simultanées.",
@@ -71,10 +91,19 @@
       "ipa": "/ˌbækprɒpəˈɡeɪʃən/",
       "pos": "noun",
       "domain": "Neural Networks",
-      "tags": ["Core", "Foundational"],
-      "abbr": ["backprop", "BP"],
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "backprop",
+        "BP"
+      ],
       "inflections": [],
-      "variants": ["back-propagation", "back propagation"],
+      "variants": [
+        "back-propagation",
+        "back propagation"
+      ],
       "definitions": [
         {
           "id": 1,
@@ -91,12 +120,25 @@
       "etymology": "A 1980s contraction of 'backward propagation of errors'. Popularised by Rumelhart, Hinton and Williams in 1986, though the underlying reverse-mode differentiation was described by Linnainmaa in 1970.",
       "firstAttested": "1986",
       "synonyms": [
-        { "term": "reverse-mode automatic differentiation", "senseId": 1, "proximity": "Near" }
+        {
+          "term": "reverse-mode automatic differentiation",
+          "senseId": 1,
+          "proximity": "Near"
+        }
       ],
       "antonyms": [
-        { "term": "forward pass", "senseId": 1, "polarity": "Relational" }
+        {
+          "term": "forward pass",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
       ],
-      "related": ["gradient-descent", "chain-rule", "vanishing-gradient", "automatic-differentiation"],
+      "related": [
+        "gradient-descent",
+        "chain-rule",
+        "vanishing-gradient",
+        "automatic-differentiation"
+      ],
       "citations": [
         {
           "label": "Rumelhart, D., Hinton, G. & Williams, R. (1986). Learning representations by back-propagating errors.",
@@ -121,10 +163,17 @@
       "ipa": "/ˈoʊvərˌfɪtɪŋ/",
       "pos": "noun",
       "domain": "Statistical Learning",
-      "tags": ["Core"],
+      "tags": [
+        "Core"
+      ],
       "abbr": [],
-      "inflections": ["overfit", "overfits"],
-      "variants": ["over-fitting"],
+      "inflections": [
+        "overfit",
+        "overfits"
+      ],
+      "variants": [
+        "over-fitting"
+      ],
       "definitions": [
         {
           "id": 1,
@@ -141,12 +190,25 @@
       "etymology": "From over- 'excessively' plus fit, in the statistical sense of fitting a curve to points; in use in the regression literature from the mid-twentieth century.",
       "firstAttested": "1950s",
       "synonyms": [
-        { "term": "high variance", "senseId": 1, "proximity": "Near" }
+        {
+          "term": "high variance",
+          "senseId": 1,
+          "proximity": "Near"
+        }
       ],
       "antonyms": [
-        { "term": "underfitting", "senseId": 1, "polarity": "Gradable" }
+        {
+          "term": "underfitting",
+          "senseId": 1,
+          "polarity": "Gradable"
+        }
       ],
-      "related": ["regularization", "bias-variance-tradeoff", "cross-validation", "generalization"],
+      "related": [
+        "regularization",
+        "bias-variance-tradeoff",
+        "cross-validation",
+        "generalization"
+      ],
       "citations": [
         {
           "label": "Hastie, T., Tibshirani, R. & Friedman, J. (2009). The Elements of Statistical Learning, ch. 7.",
@@ -166,10 +228,17 @@
       "ipa": "/ˈaɪɡənˌvɛktər/",
       "pos": "noun",
       "domain": "Linear Algebra",
-      "tags": ["Core", "Foundational"],
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
       "abbr": [],
-      "inflections": ["eigenvectors"],
-      "variants": ["eigen vector"],
+      "inflections": [
+        "eigenvectors"
+      ],
+      "variants": [
+        "eigen vector"
+      ],
       "definitions": [
         {
           "id": 1,
@@ -186,11 +255,24 @@
       "etymology": "A partial calque of German Eigenvektor, from eigen 'own, characteristic'. Hilbert used Eigenwert in 1904; the hybrid German-English form settled into English mathematics in the 1920s–30s.",
       "firstAttested": "1904",
       "synonyms": [
-        { "term": "characteristic vector", "senseId": 1, "proximity": "Absolute" },
-        { "term": "proper vector", "senseId": 1, "proximity": "Near" }
+        {
+          "term": "characteristic vector",
+          "senseId": 1,
+          "proximity": "Absolute"
+        },
+        {
+          "term": "proper vector",
+          "senseId": 1,
+          "proximity": "Near"
+        }
       ],
       "antonyms": [],
-      "related": ["eigenvalue", "principal-component-analysis", "singular-value-decomposition", "matrix"],
+      "related": [
+        "eigenvalue",
+        "principal-component-analysis",
+        "singular-value-decomposition",
+        "matrix"
+      ],
       "citations": [
         {
           "label": "Strang, G. (2016). Introduction to Linear Algebra, 5th ed., ch. 6.",
@@ -210,10 +292,16 @@
       "ipa": "/əˈtɛnʃən ˈmɛkəˌnɪzəm/",
       "pos": "noun",
       "domain": "Deep Learning",
-      "tags": ["Core"],
+      "tags": [
+        "Core"
+      ],
       "abbr": [],
-      "inflections": ["attention mechanisms"],
-      "variants": ["attention"],
+      "inflections": [
+        "attention mechanisms"
+      ],
+      "variants": [
+        "attention"
+      ],
       "definitions": [
         {
           "id": 1,
@@ -230,10 +318,19 @@
       "etymology": "Borrowed from cognitive psychology, where attention names the selective allocation of processing. Introduced to neural machine translation by Bahdanau et al. in 2014.",
       "firstAttested": "2014",
       "synonyms": [
-        { "term": "soft alignment", "senseId": 1, "proximity": "Near" }
+        {
+          "term": "soft alignment",
+          "senseId": 1,
+          "proximity": "Near"
+        }
       ],
       "antonyms": [],
-      "related": ["transformer", "softmax", "self-attention", "embedding"],
+      "related": [
+        "transformer",
+        "softmax",
+        "self-attention",
+        "embedding"
+      ],
       "citations": [
         {
           "label": "Bahdanau, D., Cho, K. & Bengio, Y. (2015). Neural Machine Translation by Jointly Learning to Align and Translate.",
@@ -258,10 +355,17 @@
       "ipa": "/beɪzɪz ˈθiərəm/",
       "pos": "noun",
       "domain": "Probability",
-      "tags": ["Core", "Foundational"],
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
       "abbr": [],
       "inflections": [],
-      "variants": ["Bayes theorem", "Bayes's theorem", "Bayes rule"],
+      "variants": [
+        "Bayes theorem",
+        "Bayes's theorem",
+        "Bayes rule"
+      ],
       "definitions": [
         {
           "id": 1,
@@ -278,10 +382,19 @@
       "etymology": "An eponym (Rule 519) after Thomas Bayes (c. 1701–1761), the English Presbyterian minister whose essay on the problem was published posthumously by Richard Price in 1763.",
       "firstAttested": "1763",
       "synonyms": [
-        { "term": "Bayes' rule", "senseId": 1, "proximity": "Absolute" }
+        {
+          "term": "Bayes' rule",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
       ],
       "antonyms": [],
-      "related": ["prior-probability", "posterior-probability", "maximum-likelihood-estimation", "naive-bayes"],
+      "related": [
+        "prior-probability",
+        "posterior-probability",
+        "maximum-likelihood-estimation",
+        "naive-bayes"
+      ],
       "citations": [
         {
           "label": "Bayes, T. & Price, R. (1763). An Essay towards solving a Problem in the Doctrine of Chances.",
@@ -291,6 +404,580 @@
       ],
       "frequency": 88,
       "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00007",
+      "term": "Loss Function",
+      "slug": "loss-function",
+      "syllables": "loss func·tion",
+      "ipa": "/lɔs ˈfʌŋkʃən/",
+      "pos": "noun",
+      "domain": "Optimization",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "L(y, ŷ)"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a measure of the difference between predicted and actual values, quantifying the error of a model's output.",
+          "example": "We must select an appropriate loss function, such as Mean Squared Error, to guide the model's training process."
+        }
+      ],
+      "formula": {
+        "latex": "L(y, ŷ) = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2",
+        "plain": "L(y, ŷ) = (y - ŷ)^2",
+        "note": "This example shows the Mean Squared Error (MSE) loss function."
+      },
+      "etymology": "From loss, Old English los 'destruction, ruin', plus function, Latin functio 'performance'. The technical sense — a function assigning a penalty to a decision — comes from Abraham Wald's statistical decision theory of the 1940s, which borrowed the economic sense of loss.",
+      "firstAttested": "1950s",
+      "synonyms": [
+        {
+          "term": "cost function",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "mean-squared-error",
+        "gradient-descent"
+      ],
+      "citations": [
+        {
+          "label": "Goodfellow et al. (2016). Deep Learning, ch. 6.",
+          "source": "MIT Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 78,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00008",
+      "term": "Learning Rate",
+      "slug": "learning-rate",
+      "syllables": "learn·ing rate",
+      "ipa": "/ˈlɜːrnɪŋ reɪt/",
+      "pos": "noun",
+      "domain": "Optimization",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "LR"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in optimization",
+          "text": "a hyperparameter that controls the step size taken at each iteration of an optimization algorithm.",
+          "example": "If the learning rate is too high, the optimization process may overshoot the minimum loss."
+        }
+      ],
+      "formula": {
+        "latex": "w_{t+1} = w_t - \frac{\text{learning rate}}{\text{gradient}} \nabla L(w_t)",
+        "plain": "w_t+1 = w_t - (learning rate / gradient) * grad L(w_t)",
+        "note": "The learning rate determines the magnitude of the step taken in the direction opposite to the gradient."
+      },
+      "etymology": "From learning, Old English leornian 'to acquire knowledge', plus rate, Medieval Latin rata (pars) 'a fixed amount'. Compounded in the cybernetics literature of the late 1950s, where it named the constant scaling the correction applied at each training step.",
+      "firstAttested": "2012",
+      "synonyms": [
+        {
+          "term": "step size",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "gradient-descent",
+        "hyperparameter",
+        "optimization-algorithm"
+      ],
+      "citations": [
+        {
+          "label": "Goodfellow et al. (2016). Deep Learning, ch. 8.",
+          "source": "MIT Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 75,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00009",
+      "term": "Regularization",
+      "slug": "regularization",
+      "syllables": "re·gu·la·ri·za·tion",
+      "ipa": "/rɛɡjʊləˌraɪˈzeɪʃən/",
+      "pos": "noun",
+      "domain": "Statistical Learning",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [
+        "regularizing",
+        "regularized"
+      ],
+      "variants": [
+        "regularisation"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a technique used to prevent overfitting by adding a penalty term to the loss function, which discourages overly complex models.",
+          "example": "We applied L2 regularization to the model to prevent overfitting on the training data."
+        }
+      ],
+      "formula": {
+        "latex": "\\\\text{Loss}(\\mathbf{w}) + \\\\lambda \\\\|\\mathbf{w} - \\\\mathbf{w}_0\\|_2^2",
+        "plain": "Loss(w) + lambda ||w - w0||2^2",
+        "note": "The penalty term controls the complexity of the model weights (w)."
+      },
+      "etymology": "From Latin regula 'rule', via regularis 'according to rule'. The mathematical sense — constraining an ill-posed problem until it becomes well-posed — is due to Andrey Tikhonov, whose work gives the method its other name, Tikhonov regularization.",
+      "firstAttested": "1986",
+      "synonyms": [
+        {
+          "term": "weight-decay",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "loss-function",
+        "overfitting",
+        "l1-norm",
+        "l2-norm"
+      ],
+      "citations": [
+        {
+          "label": "Tikhonov, A. (1963). Regularization in ill-posed problems.",
+          "source": "SIAM Journal on Numerical Analysis.",
+          "url": ""
+        }
+      ],
+      "frequency": 65,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00010",
+      "term": "Convolutional Neural Network",
+      "slug": "convolutional-neural-network",
+      "syllables": "con·vo·lu·tion·al neu·ral net·work",
+      "ipa": "/ˌkɒnvəˈluːʃənəl ˈnjʊərəl ˈnɛtwɜːk/",
+      "pos": "noun",
+      "domain": "Deep Learning",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [
+        "CNN",
+        "ConvNet"
+      ],
+      "inflections": [
+        "convolutional neural networks"
+      ],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in deep learning",
+          "text": "an architecture that slides a small set of learned filters across grid-structured input, so the same local pattern is recognised wherever it appears and far fewer weights are needed than a fully connected design.",
+          "example": "A convolutional neural network reached human-level accuracy on the digit set with a fraction of the parameters."
+        }
+      ],
+      "formula": {
+        "latex": "(f * g)[n] = \\sum_{m} f[m]\\, g[n - m]",
+        "plain": "(f * g)[n] = sum_m f[m] g[n - m]",
+        "note": "The discrete convolution each filter applies at every position."
+      },
+      "etymology": "From convolution, Latin convolvere 'to roll together', naming the integral operation the layers perform, plus neural network. The architecture descends from Fukushima's neocognitron of 1980 and was given its modern trainable form by LeCun and colleagues in 1989.",
+      "firstAttested": "1989",
+      "synonyms": [
+        {
+          "term": "ConvNet",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "fully connected network",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "backpropagation",
+        "batch-normalization",
+        "dropout",
+        "tensor"
+      ],
+      "citations": [
+        {
+          "label": "LeCun, Y. et al. (1989). Backpropagation Applied to Handwritten Zip Code Recognition.",
+          "source": "Neural Computation, 1(4), 541–551.",
+          "url": "https://doi.org/10.1162/neco.1989.1.4.541"
+        },
+        {
+          "label": "Fukushima, K. (1980). Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition.",
+          "source": "Biological Cybernetics, 36, 193–202.",
+          "url": "https://doi.org/10.1007/BF00344251"
+        }
+      ],
+      "frequency": 91,
+      "opacity": 1,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00011",
+      "term": "Softmax",
+      "slug": "softmax",
+      "syllables": "soft·max",
+      "ipa": "/ˈsɒftmæks/",
+      "pos": "noun",
+      "domain": "Deep Learning",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [
+        "SM"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a function that takes a vector of real numbers and maps it to a probability distribution, ensuring that all elements are positive and sum to one.",
+          "example": "We applied the Softmax function to the final layer's logits to get class probabilities."
+        }
+      ],
+      "formula": {
+        "latex": "\\\text{softmax}(\\mathbf{z})_i = \\frac{e^{z_i}}{\\sum_{j=1}^K e^{z_j}}",
+        "plain": "softmax(z)_i = e^z_i / sum(e^z_j)",
+        "note": "z is the vector of raw scores (logits), and K is the number of classes."
+      },
+      "etymology": "A compound of soft and max, naming a smooth relaxation of the maximum: where max returns a single winner, this returns a graded distribution over all candidates. Named by John Bridle in 1990, who introduced it as a differentiable stand-in for winner-take-all selection.",
+      "firstAttested": "2010",
+      "synonyms": [
+        {
+          "term": "probability-distribution-function",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "classification",
+        "cross-entropy-loss",
+        "logits"
+      ],
+      "citations": [
+        {
+          "label": "Goodfellow et al. (2016). Deep Learning, ch. 7.",
+          "source": "MIT Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 75,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00012",
+      "term": "Cross-Validation",
+      "slug": "cross-validation",
+      "syllables": "cross·val·i·da·tion",
+      "ipa": "/ˌkrɔːs ˌvælɪˈdeɪʃən/",
+      "pos": "noun",
+      "domain": "Model Evaluation",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [
+        "cross validation"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a technique used to estimate the performance of a model on unseen data by partitioning the dataset into multiple subsets.",
+          "example": "We used k-fold Cross-Validation to ensure our model's performance was robust across different data splits."
+        }
+      ],
+      "formula": {
+        "latex": null,
+        "plain": null,
+        "note": null
+      },
+      "etymology": "From cross- 'crosswise, reciprocally' plus validation, Latin validus 'strong'. The prefix names the reciprocal arrangement in which each subset serves in turn as the held-out set. Resampling of this kind appears in the 1930s; the method was formalised and named by Stone and by Geisser, independently, in 1974.",
+      "firstAttested": "1960s",
+      "synonyms": [
+        {
+          "term": "k-fold validation",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "k-fold",
+        "train-test-split",
+        "bias-variance-tradeoff"
+      ],
+      "citations": [
+        {
+          "label": "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning, 2nd ed., ch. 5.",
+          "source": "Springer.",
+          "url": ""
+        }
+      ],
+      "frequency": 65,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00013",
+      "term": "Entropy",
+      "slug": "entropy",
+      "syllables": "en·tro·py",
+      "ipa": "/ˈɛntrəpi/",
+      "pos": "noun",
+      "domain": "Information Theory",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in information theory",
+          "text": "a measure of the uncertainty or randomness inherent in a random variable or source of data.",
+          "example": "The high entropy of the source indicated that the data was highly unpredictable."
+        }
+      ],
+      "formula": {
+        "latex": "H(X) = -\\sum_{i=1}^{n} p(x_i) \\log_2 p(x_i)",
+        "plain": "H(X) = -sum(p(x_i) log_2 p(x_i))",
+        "note": "The base-2 logarithm yields the unit of bits."
+      },
+      "etymology": "From Greek entropein, meaning 'to transform' or 'to change', adopted into thermodynamics by Rudolf Clausius.",
+      "firstAttested": "1865",
+      "synonyms": [
+        {
+          "term": "disorder",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "information-content",
+        "mutual-information",
+        "kullback-leibler-divergence"
+      ],
+      "citations": [
+        {
+          "label": "Cover, T. M., & Thomas, J. A. (2006). Elements of Information Theory, 2nd ed., ch. 2.",
+          "source": "Wiley.",
+          "url": ""
+        }
+      ],
+      "frequency": 78,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00014",
+      "term": "Markov Chain",
+      "slug": "markov-chain",
+      "syllables": "mar·kov   chain",
+      "ipa": "/ˈmɑːrkəv ˌtʃeɪn/",
+      "pos": "noun",
+      "domain": "Probability",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in probability theory",
+          "text": "a sequence of random variables where the probability of transitioning to the next state depends only on the current state, and not on the sequence of states that preceded it.",
+          "example": "We modeled the weather transitions using a Markov Chain to predict the next day's conditions."
+        }
+      ],
+      "formula": {
+        "latex": "P(X_{t+1} | X_t, X_{t-1}, ...) = P(X_{t+1} | X_t)",
+        "plain": "P(X_{t+1} | X_t, X_{t-1}, ...) = P(X_{t+1} | X_t)",
+        "note": "This property is known as the Markov property."
+      },
+      "etymology": "Named after the Russian mathematician Andrey Markov, who introduced the concept in the early 20th century.",
+      "firstAttested": "1900",
+      "synonyms": [
+        {
+          "term": "stochastic process",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "stochastic-process",
+        "transition-matrix",
+        "steady-state-distribution"
+      ],
+      "citations": [
+        {
+          "label": "Nagaraja, K. (2018). Introduction to Stochastic Processes, 2nd ed., ch. 3.",
+          "source": "Academic Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 75,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00015",
+      "term": "Transformer",
+      "slug": "transformer",
+      "syllables": "trans·form·mer",
+      "ipa": "/trænsˈfɔːrmər/",
+      "pos": "noun",
+      "domain": "Deep Learning",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [
+        "transformers"
+      ],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in natural language processing",
+          "text": "a neural network architecture that relies solely on attention mechanisms, allowing it to process sequential data efficiently.",
+          "example": "The Transformer model revolutionized sequence-to-sequence tasks by eliminating recurrence."
+        }
+      ],
+      "formula": {
+        "latex": "Attention(Q, K, V) = \\\\text{softmax}(\\frac{Q K^T}{\\sqrt{d_k}}) V",
+        "plain": "Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k)) V",
+        "note": "The core mechanism involves scaled dot-product attention."
+      },
+      "etymology": "Coined by the authors of the seminal 2017 paper, drawing inspiration from the concept of transforming data representations.",
+      "firstAttested": "2017",
+      "synonyms": [
+        {
+          "term": "attention-based model",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "recurrent-neural-network",
+        "attention-mechanism",
+        "encoder-decoder"
+      ],
+      "citations": [
+        {
+          "label": "Vaswani et al. (2017). Attention Is All You Need.",
+          "source": "NeurIPS.",
+          "url": "https://arxiv.org/abs/1706.03762"
+        }
+      ],
+      "frequency": 95,
+      "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "AIM-00016",
+      "term": "Embedding",
+      "slug": "embedding",
+      "syllables": "em·bed·ding",
+      "ipa": "/ɪmˈbɛdɪŋ/",
+      "pos": "noun",
+      "domain": "Representation Learning",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [
+        "embeddings"
+      ],
+      "variants": [
+        "embeding"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a low-dimensional vector representation of high-dimensional data, such as words or images, that captures semantic or structural relationships.",
+          "example": "We trained a word2vec model to generate a dense vector embedding for each word in the corpus."
+        }
+      ],
+      "formula": {
+        "latex": "\\mathbf{v} = \\mathbf{W} \\mathbf{x} + \\mathbf{b}",
+        "plain": "v = W x + b",
+        "note": "W is the weight matrix, x is the input vector, and b is the bias."
+      },
+      "etymology": "Coined by Tomas Mikolov in 2013, derived from the general concept of mapping complex data into a continuous vector space.",
+      "firstAttested": "2013",
+      "synonyms": [
+        {
+          "term": "vector representation",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "word-vector",
+        "semantic-similarity",
+        "dimensionality-reduction"
+      ],
+      "citations": [
+        {
+          "label": "Mikolov et al. (2013). Efficient Estimation of Word Representations in Vector Space.",
+          "source": "NIPS Workshop.",
+          "url": ""
+        }
+      ],
+      "frequency": 78,
+      "opacity": 2,
       "flags": []
     }
   ]

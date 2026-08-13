@@ -15,10 +15,17 @@
       "ipa": "/ˈtɛknɪkəl dɛt/",
       "pos": "noun",
       "domain": "Craft",
-      "tags": ["Core", "Metaphor"],
-      "abbr": ["tech debt"],
+      "tags": [
+        "Core",
+        "Metaphor"
+      ],
+      "abbr": [
+        "tech debt"
+      ],
       "inflections": [],
-      "variants": ["technical-debt"],
+      "variants": [
+        "technical-debt"
+      ],
       "definitions": [
         {
           "id": 1,
@@ -37,11 +44,24 @@
       "etymology": "Coined by Ward Cunningham in a 1992 OOPSLA experience report, extending the financial sense of debt: shipping imperfect code is borrowing against future velocity, and the interest is the extra work every subsequent change costs.",
       "firstAttested": "1992",
       "synonyms": [
-        { "term": "design debt", "senseId": 1, "proximity": "Near" },
-        { "term": "code debt", "senseId": 1, "proximity": "Near" }
+        {
+          "term": "design debt",
+          "senseId": 1,
+          "proximity": "Near"
+        },
+        {
+          "term": "code debt",
+          "senseId": 1,
+          "proximity": "Near"
+        }
       ],
       "antonyms": [],
-      "related": ["refactoring", "code-smell", "coupling", "cohesion"],
+      "related": [
+        "refactoring",
+        "code-smell",
+        "coupling",
+        "cohesion"
+      ],
       "citations": [
         {
           "label": "Cunningham, W. (1992). The WyCash Portfolio Management System.",
@@ -56,6 +76,782 @@
       ],
       "frequency": 93,
       "opacity": 2,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00002",
+      "term": "Idempotence",
+      "slug": "idempotence",
+      "syllables": "i·dem·po·tence",
+      "ipa": "/ˌaɪdɛmˈpoʊtəns/",
+      "pos": "noun",
+      "domain": "API Design",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [
+        "idempotency"
+      ],
+      "variants": [
+        "idempotency"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in computing",
+          "text": "the property of an operation whose repeated application produces the same result as a single application, so a retry cannot cause additional change.",
+          "example": "Because the endpoint has idempotence, the client can safely retry after a timeout."
+        }
+      ],
+      "formula": {
+        "latex": "f(f(x)) = f(x)",
+        "plain": "f(f(x)) = f(x)",
+        "note": "Applying the operation twice leaves the state it produced untouched."
+      },
+      "etymology": "From Latin idem 'the same' plus potens 'having power'. Coined by Benjamin Peirce in 1870 for algebraic elements unchanged by self-multiplication; carried into computing for operations safe to retry.",
+      "firstAttested": "1870",
+      "synonyms": [
+        {
+          "term": "retry-safe",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "stateful mutation",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "message-queue",
+        "circuit-breaker"
+      ],
+      "citations": [
+        {
+          "label": "Fielding, R. (2000). Architectural Styles and the Design of Network-based Software Architectures, ch. 5.",
+          "source": "Doctoral dissertation, UC Irvine.",
+          "url": "https://ics.uci.edu/~fielding/pubs/dissertation/top.htm"
+        }
+      ],
+      "frequency": 86,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00003",
+      "term": "Race Condition",
+      "slug": "race-condition",
+      "syllables": "race con·di·tion",
+      "ipa": "/reɪs kənˈdɪʃən/",
+      "pos": "noun",
+      "domain": "Concurrency",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [
+        "race conditions"
+      ],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in concurrent programming",
+          "text": "a defect in which the correctness of a result depends on the unpredictable relative timing of two or more independent threads of execution.",
+          "example": "The counter lost updates under load — a classic race condition on the read-modify-write."
+        }
+      ],
+      "formula": null,
+      "etymology": "From the image of two signals racing to arrive first, borrowed from electrical engineering, where competing paths through a logic circuit could settle in either order. In use for digital logic from the 1950s.",
+      "firstAttested": "1950s",
+      "synonyms": [
+        {
+          "term": "data race",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "thread safety",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "mutex",
+        "deadlock"
+      ],
+      "citations": [
+        {
+          "label": "Lamport, L. (1978). Time, Clocks, and the Ordering of Events in a Distributed System.",
+          "source": "Communications of the ACM, 21(7), 558–565.",
+          "url": "https://doi.org/10.1145/359545.359563"
+        }
+      ],
+      "frequency": 90,
+      "opacity": 1,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00004",
+      "term": "Big O Notation",
+      "slug": "big-o-notation",
+      "syllables": "big O no·ta·tion",
+      "ipa": "/bɪɡ oʊ noʊˈteɪʃən/",
+      "pos": "noun",
+      "domain": "Algorithms",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [
+        "big-O notation",
+        "O notation"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in computer science",
+          "text": "a way of describing how the cost of an algorithm grows as its input grows, keeping only the dominant term and discarding constants.",
+          "example": "Insertion into a balanced tree is O(log n) in Big O notation."
+        }
+      ],
+      "formula": {
+        "latex": "f(n) = O(g(n)) \\iff \\exists c, n_0 : f(n) \\le c\\,g(n) \\;\\forall n \\ge n_0",
+        "plain": "f(n) = O(g(n))  iff  f(n) <= c*g(n) for all n >= n0",
+        "note": "An upper bound on growth, not a measure of actual running time."
+      },
+      "etymology": "The symbol is Edmund Landau's, from German Ordnung 'order', in his 1909 work; Paul Bachmann had introduced the notation in 1894. Donald Knuth brought it into algorithm analysis in the 1960s.",
+      "firstAttested": "1894",
+      "synonyms": [
+        {
+          "term": "asymptotic notation",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "hash-table",
+        "binary-search-tree"
+      ],
+      "citations": [
+        {
+          "label": "Knuth, D. (1976). Big Omicron and Big Omega and Big Theta.",
+          "source": "ACM SIGACT News, 8(2), 18–24.",
+          "url": "https://doi.org/10.1145/1008328.1008329"
+        }
+      ],
+      "frequency": 94,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00005",
+      "term": "Hash Table",
+      "slug": "hash-table",
+      "syllables": "hash ta·ble",
+      "ipa": "/hæʃ ˈteɪbəl/",
+      "pos": "noun",
+      "domain": "Data Structures",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "hashmap"
+      ],
+      "inflections": [
+        "hash tables"
+      ],
+      "variants": [
+        "hashtable",
+        "hash map"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in data structures",
+          "text": "a container that converts each key into an array position by arithmetic, giving constant-time average lookup at the cost of handling positions that collide.",
+          "example": "Swapping the list for a hash table cut the lookup from linear to constant time."
+        }
+      ],
+      "formula": {
+        "latex": "i = h(k) \\bmod m",
+        "plain": "i = h(k) mod m",
+        "note": "h is the hash; m the number of buckets. Collisions are resolved by chaining or open addressing."
+      },
+      "etymology": "From hash in the culinary sense of chopping and mixing, recorded in English from the seventeenth century; applied to scrambling a key into an address by Hans Peter Luhn at IBM in 1953.",
+      "firstAttested": "1953",
+      "synonyms": [
+        {
+          "term": "dictionary",
+          "senseId": 1,
+          "proximity": "Near"
+        },
+        {
+          "term": "associative array",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "hashing",
+        "big-o-notation"
+      ],
+      "citations": [
+        {
+          "label": "Cormen, T. et al. (2009). Introduction to Algorithms, 3rd ed., ch. 11.",
+          "source": "MIT Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 92,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00006",
+      "term": "Dependency Injection",
+      "slug": "dependency-injection",
+      "syllables": "de·pend·en·cy in·jec·tion",
+      "ipa": "/dɪˈpɛndənsi ɪnˈdʒɛkʃən/",
+      "pos": "noun",
+      "domain": "Architecture",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [
+        "DI"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in software architecture",
+          "text": "the practice of supplying a component's collaborators from outside rather than letting it construct them, so the component can be reconfigured or tested without being modified.",
+          "example": "Dependency injection let us swap the live payment gateway for a stub in every test."
+        }
+      ],
+      "formula": null,
+      "etymology": "Named by Martin Fowler in 2004, who coined the term to replace the broader 'inversion of control' when describing this specific pattern. Injection carries the medical sense of introducing something from outside, from Latin inicere 'to throw in'.",
+      "firstAttested": "2004",
+      "synonyms": [
+        {
+          "term": "inversion of control",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "hard-coded construction",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "coupling",
+        "separation-of-concerns",
+        "mocking"
+      ],
+      "citations": [
+        {
+          "label": "Fowler, M. (2004). Inversion of Control Containers and the Dependency Injection pattern.",
+          "source": "martinfowler.com",
+          "url": "https://martinfowler.com/articles/injection.html"
+        }
+      ],
+      "frequency": 84,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00007",
+      "term": "Coupling",
+      "slug": "coupling",
+      "syllables": "cou·pling",
+      "ipa": "/ˈkʌplɪŋ/",
+      "pos": "noun",
+      "domain": "Architecture",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in software design",
+          "text": "the degree to which one module depends on the internals of another, and therefore how far a change in one propagates into the other.",
+          "example": "Passing the raw database row across the boundary created coupling we paid for at every schema change."
+        }
+      ],
+      "formula": null,
+      "etymology": "From couple, Old French cople, Latin copula 'a bond, a joining'. Introduced as a design metric by Larry Constantine in the 1960s and set out with cohesion in Stevens, Myers and Constantine's 1974 paper on structured design.",
+      "firstAttested": "1974",
+      "synonyms": [
+        {
+          "term": "interdependence",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "cohesion",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "cohesion",
+        "separation-of-concerns",
+        "microservice"
+      ],
+      "citations": [
+        {
+          "label": "Stevens, W., Myers, G. & Constantine, L. (1974). Structured Design.",
+          "source": "IBM Systems Journal, 13(2), 115–139.",
+          "url": "https://doi.org/10.1147/sj.132.0115"
+        }
+      ],
+      "frequency": 87,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00008",
+      "term": "Cohesion",
+      "slug": "cohesion",
+      "syllables": "co·he·sion",
+      "ipa": "/koʊˈhiːʒən/",
+      "pos": "noun",
+      "domain": "Architecture",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in software design",
+          "text": "the degree to which the parts of a single module all serve one purpose, rather than being grouped together for incidental reasons.",
+          "example": "The utilities file had no cohesion — six unrelated jobs sharing one namespace."
+        }
+      ],
+      "formula": null,
+      "etymology": "From Latin cohaerere 'to stick together'. Adopted as a design metric alongside coupling by Stevens, Myers and Constantine in 1974, where it was ranked on a scale from coincidental to functional.",
+      "firstAttested": "1974",
+      "synonyms": [
+        {
+          "term": "single responsibility",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "coupling",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "coupling",
+        "separation-of-concerns"
+      ],
+      "citations": [
+        {
+          "label": "Stevens, W., Myers, G. & Constantine, L. (1974). Structured Design.",
+          "source": "IBM Systems Journal, 13(2), 115–139.",
+          "url": "https://doi.org/10.1147/sj.132.0115"
+        }
+      ],
+      "frequency": 83,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00009",
+      "term": "ACID",
+      "slug": "acid",
+      "syllables": "A·C·I·D",
+      "ipa": "/ˈæsɪd/",
+      "pos": "abbreviation",
+      "domain": "Databases",
+      "tags": [
+        "Core",
+        "Acronym"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in databases",
+          "text": "the guarantee that a group of statements either takes effect entirely or not at all, never observes a partial state, does not interfere with concurrent work, and survives a crash once confirmed.",
+          "example": "The ledger requires ACID guarantees; a partially applied transfer is worse than a rejected one."
+        }
+      ],
+      "formula": null,
+      "etymology": "An acronym for atomicity, consistency, isolation and durability, coined by Theo Härder and Andreas Reuter in 1983, building on the transaction concept Jim Gray set out in 1981.",
+      "firstAttested": "1983",
+      "synonyms": [],
+      "antonyms": [
+        {
+          "term": "eventual consistency",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "eventual-consistency",
+        "cap-theorem"
+      ],
+      "citations": [
+        {
+          "label": "Härder, T. & Reuter, A. (1983). Principles of Transaction-Oriented Database Recovery.",
+          "source": "ACM Computing Surveys, 15(4), 287–317.",
+          "url": "https://doi.org/10.1145/289.291"
+        }
+      ],
+      "frequency": 88,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00010",
+      "term": "SQL Injection",
+      "slug": "sql-injection",
+      "syllables": "S·Q·L in·jec·tion",
+      "ipa": "/ˌɛskjuːˈɛl ɪnˈdʒɛkʃən/",
+      "pos": "noun",
+      "domain": "Security",
+      "tags": [
+        "Core",
+        "Vulnerability"
+      ],
+      "abbr": [
+        "SQLi"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in application security",
+          "text": "an attack in which text supplied by a user is concatenated into a database query and thereby executed as part of the command rather than treated as a value.",
+          "example": "One unparameterised search box exposed the whole users table to SQL injection."
+        }
+      ],
+      "formula": null,
+      "etymology": "From inject, Latin inicere 'to throw in', by analogy with introducing a foreign substance into a body. Described publicly by Jeff Forristal, writing as rain.forest.puppy, in Phrack in 1998.",
+      "firstAttested": "1998",
+      "synonyms": [],
+      "antonyms": [
+        {
+          "term": "parameterised query",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "cross-site-scripting",
+        "database-index"
+      ],
+      "citations": [
+        {
+          "label": "Forristal, J. (1998). NT Web Technology Vulnerabilities.",
+          "source": "Phrack Magazine, 8(54).",
+          "url": ""
+        }
+      ],
+      "frequency": 89,
+      "opacity": 1,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00011",
+      "term": "Eventual Consistency",
+      "slug": "eventual-consistency",
+      "syllables": "e·ven·tu·al con·sist·en·cy",
+      "ipa": "/ɪˈvɛntʃuəl kənˈsɪstənsi/",
+      "pos": "noun",
+      "domain": "Distributed Systems",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in distributed systems",
+          "text": "the guarantee that if updates stop arriving, every replica will converge on the same values — with no promise about what a reader sees before then.",
+          "example": "The shopping cart is eventually consistent, so a second device may lag by a few seconds."
+        }
+      ],
+      "formula": null,
+      "etymology": "From eventual, Latin eventus 'outcome', plus consistency. Named by Douglas Terry and colleagues at Xerox PARC in 1994 for the Bayou replicated store, and popularised by Werner Vogels' account of Amazon's Dynamo.",
+      "firstAttested": "1994",
+      "synonyms": [
+        {
+          "term": "optimistic replication",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "strong consistency",
+          "senseId": 1,
+          "polarity": "Gradable"
+        }
+      ],
+      "related": [
+        "cap-theorem",
+        "acid",
+        "message-queue"
+      ],
+      "citations": [
+        {
+          "label": "Vogels, W. (2009). Eventually Consistent.",
+          "source": "Communications of the ACM, 52(1), 40–44.",
+          "url": "https://doi.org/10.1145/1435417.1435432"
+        }
+      ],
+      "frequency": 82,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00012",
+      "term": "CAP Theorem",
+      "slug": "cap-theorem",
+      "syllables": "CAP the·o·rem",
+      "ipa": "/kæp ˈθiərəm/",
+      "pos": "noun",
+      "domain": "Distributed Systems",
+      "tags": [
+        "Core",
+        "Acronym"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [
+        "Brewer's theorem"
+      ],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in distributed systems",
+          "text": "the result that when a network splits, a replicated store must give up either answering every request or returning the newest written value — it cannot preserve both.",
+          "example": "The CAP theorem forced the choice: reject writes during a partition, or serve stale reads."
+        }
+      ],
+      "formula": null,
+      "etymology": "An acronym for consistency, availability and partition tolerance. Conjectured by Eric Brewer in a 2000 keynote and proved by Seth Gilbert and Nancy Lynch in 2002.",
+      "firstAttested": "2000",
+      "synonyms": [
+        {
+          "term": "Brewer's theorem",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "eventual-consistency",
+        "acid",
+        "load-balancer"
+      ],
+      "citations": [
+        {
+          "label": "Gilbert, S. & Lynch, N. (2002). Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services.",
+          "source": "ACM SIGACT News, 33(2), 51–59.",
+          "url": "https://doi.org/10.1145/564585.564601"
+        }
+      ],
+      "frequency": 85,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00013",
+      "term": "Refactoring",
+      "slug": "refactoring",
+      "syllables": "re·fac·tor·ing",
+      "ipa": "/riːˈfæktərɪŋ/",
+      "pos": "noun",
+      "domain": "Craft",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [
+        "refactor",
+        "refactored"
+      ],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in software engineering",
+          "text": "a change to the internal structure of existing code that leaves its observable behaviour exactly as it was, undertaken to make later changes cheaper.",
+          "example": "An afternoon of refactoring turned the 400-line handler into six testable functions."
+        }
+      ],
+      "formula": null,
+      "etymology": "From re- 'again' plus factor in the mathematical sense of extracting common terms. Coined by William Opdyke and Ralph Johnson in 1990, and carried into general use by Martin Fowler's 1999 book.",
+      "firstAttested": "1990",
+      "synonyms": [
+        {
+          "term": "restructuring",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "rewrite",
+          "senseId": 1,
+          "polarity": "Relational"
+        }
+      ],
+      "related": [
+        "technical-debt",
+        "code-smell",
+        "unit-test"
+      ],
+      "citations": [
+        {
+          "label": "Fowler, M. (1999). Refactoring: Improving the Design of Existing Code.",
+          "source": "Addison-Wesley.",
+          "url": ""
+        }
+      ],
+      "frequency": 91,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00014",
+      "term": "Pure Function",
+      "slug": "pure-function",
+      "syllables": "pure func·tion",
+      "ipa": "/pjʊər ˈfʌŋkʃən/",
+      "pos": "noun",
+      "domain": "Programming Paradigms",
+      "tags": [
+        "Core"
+      ],
+      "abbr": [],
+      "inflections": [
+        "pure functions"
+      ],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in functional programming",
+          "text": "a routine whose result is determined entirely by its arguments and which changes nothing outside itself, so calling it twice with the same input is indistinguishable from calling it once.",
+          "example": "Because it is a pure function, the result can be cached indefinitely."
+        }
+      ],
+      "formula": null,
+      "etymology": "From pure, Latin purus 'unmixed', in the sense of free of side effects. The concept comes from mathematical functions and reached programming through the functional languages of the 1970s and 80s.",
+      "firstAttested": "1980s",
+      "synonyms": [
+        {
+          "term": "referentially transparent function",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [
+        {
+          "term": "side-effecting function",
+          "senseId": 1,
+          "polarity": "Complementary"
+        }
+      ],
+      "related": [
+        "immutability",
+        "memoization",
+        "closure"
+      ],
+      "citations": [
+        {
+          "label": "Hughes, J. (1989). Why Functional Programming Matters.",
+          "source": "The Computer Journal, 32(2), 98–107.",
+          "url": "https://doi.org/10.1093/comjnl/32.2.98"
+        }
+      ],
+      "frequency": 80,
+      "opacity": null,
+      "flags": []
+    },
+    {
+      "lid": "SWE-00015",
+      "term": "Yak Shaving",
+      "slug": "yak-shaving",
+      "syllables": "yak shav·ing",
+      "ipa": "/jæk ˈʃeɪvɪŋ/",
+      "pos": "noun",
+      "domain": "Jargon",
+      "tags": [
+        "Jargon",
+        "Idiom"
+      ],
+      "abbr": [],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in programming",
+          "text": "the state of working through a chain of unplanned prerequisite tasks, each apparently necessary for the last, so far from the original goal that the connection is no longer obvious.",
+          "example": "Fixing one broken import turned into six hours of yak shaving."
+        }
+      ],
+      "formula": null,
+      "etymology": "Coined by Carlin Vieri at the MIT AI Lab in the 1990s, after an episode of the animated series Ren & Stimpy involving a shaved yak. The phrase entered wider use through Jeremy Zawodny's weblog in 2005.",
+      "firstAttested": "1990s",
+      "synonyms": [
+        {
+          "term": "incidental complexity",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "technical-debt",
+        "bikeshedding"
+      ],
+      "citations": [
+        {
+          "label": "Raymond, E. S. (ed.). The Jargon File, entry 'yak shaving'.",
+          "source": "catb.org",
+          "url": "http://www.catb.org/jargon/"
+        }
+      ],
+      "frequency": 62,
+      "opacity": 3,
       "flags": []
     }
   ]
