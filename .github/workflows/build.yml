@@ -1,0 +1,43 @@
+name: Validate, test and build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  gate:
+    name: Corpus gate and search conformance
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate corpora
+        run: python build/validate.py
+
+      - name: Search engine conformance
+        run: node tests/search-engine.test.mjs
+
+      - name: Build static output
+        run: python build/build.py
+
+      - name: Fail if generated output is stale
+        run: |
+          # terms/, index.html, the search index and the sitemap are generated
+          # artefacts (RULE-04). If a rebuild changes them, the commit shipped
+          # hand-edited or out-of-date output.
+          if ! git diff --quiet; then
+            echo "::error::Generated output is out of date. Run 'python build/build.py' and commit the result."
+            git diff --stat
+            exit 1
+          fi

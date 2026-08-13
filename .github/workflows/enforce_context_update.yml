@@ -1,0 +1,39 @@
+name: Enforce CONTEXT.md Synchronization
+
+# The Continuous Synchronization Mandate: no branch merges without a timeline
+# entry describing the scope of the merge.
+#
+# Note: the source protocol specified `runs-name:` for the job. That is not a
+# valid job key — Actions would fail to parse the workflow and the gate would
+# never run. It is `name:` here.
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audit-context-file:
+    name: Check for CONTEXT.md updates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify CONTEXT.md modification
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          echo "Auditing pull request for context synchronization..."
+          MODIFIED_FILES=$(git diff --name-only "origin/${BASE_REF}...HEAD")
+
+          if echo "$MODIFIED_FILES" | grep -qx "CONTEXT.md"; then
+            echo "SUCCESS: CONTEXT.md has been updated in this pull request."
+          else
+            echo "::error::PROTOCOL VIOLATION: CONTEXT.md was not updated."
+            echo "Every pull request MUST append a log entry to Section 5."
+            exit 1
+          fi
