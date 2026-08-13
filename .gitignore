@@ -1,0 +1,6 @@
+.orchestrator/logs/
+.orchestrator/tmp/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
