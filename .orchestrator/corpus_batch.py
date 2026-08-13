@@ -13,6 +13,7 @@ one <slug>.json per term, skipped if it already exists so the run is resumable.
 """
 import json
 import os
+import re
 import sys
 import urllib.request
 
@@ -89,8 +90,13 @@ STEPS
 
 CONSTRAINTS - violating any of these fails the task
 - Output ONE JSON object. Not an array. Not multiple objects.
-- The "text" of a definition must NOT contain the term "{term}" or any word
-  that shares its stem. A definition that restates the headword fails.
+- BANNED WORDS. The "text" of a definition must not contain any of these words,
+  in any form, singular or plural: {banned}
+  These are the words of the headword itself. A definition that reuses them is
+  circular and fails. Define the idea from scratch using different vocabulary.
+  Bad:  "Loss Function" -> "a function that measures the loss of a model"
+  Good: "Loss Function" -> "a rule assigning a single number to how far a
+        prediction sits from the target, which training seeks to make small"
 - "text" must start with a lowercase letter and end with a period.
 - Every definition must have a non-empty "example" that contains the term.
 - "variants" must NOT contain "{term}" itself - only genuine alternate
@@ -118,10 +124,23 @@ Return only the JSON object. Nothing before it. Nothing after it.
 """
 
 
+def banned_words(term):
+    """Spell out the words a definition may not reuse (Rule 502).
+
+    Naming the constraint abstractly is not enough — the model restated the
+    headword in roughly two entries in five. Enumerating the actual words, with
+    a worked bad/good pair, gives it something checkable.
+    """
+    skip = {"of", "the", "a", "an", "in", "on", "to", "and", "or"}
+    words = [w for w in re.findall(r"[A-Za-z]+", term) if w.lower() not in skip]
+    return ", ".join(f'"{w.lower()}"' for w in words)
+
+
 def dispatch(entry):
     prompt = PACKET.format(
         term=entry["term"], lid=entry["lid"], slug=entry["slug"],
         domain=entry["domain"], exemplar=EXEMPLAR,
+        banned=banned_words(entry["term"]),
     )
     body = json.dumps({
         "model": MODEL,
