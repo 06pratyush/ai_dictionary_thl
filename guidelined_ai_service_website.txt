@@ -1,0 +1,134 @@
+Here is a comprehensive checklist of 100 tactical points, standards, and guidelines for building a modern, competitive AI startup website.
+------------------------------
+## 🌐 Part 1: The "Agent-Ready" & Technical Layer (1–15)
+
+   1. Host an /llms.txt file: Place a clean Markdown file in your root directory summarizing your product, pricing, and docs for LLM scrapers.
+   2. Configure /robots.txt for AI: Explicitly allow or block specific AI scrapers (like GPTBot or ClaudeBot) based on your data-sharing preferences.
+   3. Deploy ai-plugin.json: If your tool offers an API, keep this manifest in your /.well-known/ folder so LLMs can connect directly to your system.
+   4. Offer a raw Markdown version: Add a hidden or footer link to a .md text-only version of your landing page for faster AI agent ingestion.
+   5. Optimize semantic HTML: Use clean tags (<article>, <section>, <nav>) so LLM screen readers can easily parse your value proposition.
+   6. Implement Schema.org markup: Use precise structured data (SoftwareApplication or Organization) to feed clean metadata to Google and Perplexity.
+   7. Optimize for speed: AI buyers expect fast tech. Keep your Google Lighthouse performance score above 90.
+   8. Pre-render above-the-fold content: Ensure your primary headline and value proposition are in the initial HTML, not delayed by heavy client-side JavaScript.
+   9. Use a global CDN: Deploy on Vercel, Netlify, or Cloudflare to minimize latency for global investors and users.
+   10. Implement smart image compression: Convert all demo screenshots to WebP or AVIF formats to prevent slow page loads.
+   11. Include a status page: Link to a system status page (e.g., Statuspage.io) to track live API and model uptime.
+   12. Enable dark mode by default: The developer and AI community heavily favor dark interfaces; make it the default theme.
+   13. Build responsive touchpoints: Ensure your interactive AI playground elements work smoothly on mobile screens.
+   14. Use clean URL structures: Keep paths readable and simple (e.g., /features/agent-workflows instead of /feat?id=92).
+   15. Secure your site: Enforce strict HTTPS, SSL certificates, and basic DDoS protection from day one.
+
+------------------------------
+## 🎯 Part 2: Above the Fold & Hero Section (16–30)
+
+   1. Write an outcome-driven headline: State exactly what the user achieves, not your underlying technical architecture.
+   2. Use a "Magic Moment" video: Replace static images with a 10-second looping video showing an input prompt transforming into a high-value output.
+   3. Include a primary CTA button: Use a high-contrast button stating exactly what happens next (e.g., "Deploy Your First Agent").
+   4. Add a secondary frictionless CTA: Offer an alternative like "Watch 2-Min Demo" or "Read Docs" for low-intent visitors.
+   5. Feature social proof logos: Place trusted company or investor logos immediately below the hero section.
+   6. Eliminate generic buzzwords: Avoid empty phrases like "Next-gen AI paradigm shift"; explain exactly what your software does.
+   7. Display a single clear metric: Show a verified data point early on (e.g., "Reduces customer support drift by 74%").
+   8. Show a live UI snippet: Give a visual preview of your actual app interface right in the hero section to prove it is a real product.
+   9. State your target audience immediately: Include a subheadline specifying who this is for (e.g., "Built specifically for enterprise security teams").
+   10. Add a keyboard shortcut indicator: If your app uses them, add a subtle visual hint (e.g., "Press Cmd + K to search") to signal a developer-first tool.
+   11. Keep navigation minimal: Limit your top menu to four essential items: Features, Pricing, Docs, and Sign In.
+   12. Avoid slow-loading 3D graphics: Do not slow down your site with complex, non-functional WebGL animations or floating neon spheres.
+   13. Highlight a "Free Tier" badge: If you offer a free plan or trial, place that text right next to your primary CTA to lower friction.
+   14. Include a prominent "New" pill: Highlight your latest major model update or feature launch right above the main headline.
+   15. Ensure zero layout shift: Prevent elements from jumping around during page load to maintain a premium feel.
+
+------------------------------
+## 🛡️ Part 3: Trust, Security, & Enterprise Readiness (31–45)
+
+   1. State your data training policy: Explicitly write, "We do not train our models on your data" prominently on the page.
+   2. Display compliance badges: Feature official logos for SOC2 Type II, ISO 27001, HIPAA, or GDPR.
+   3. Explain your data isolation model: Clarify whether enterprise users get dedicated vector databases or single-tenant deployments.
+   4. Provide an open-source fallback link: If your core engine is open-source, link directly to your GitHub repository to build developer trust.
+   5. Show a "Human-in-the-Loop" section: Explain how humans can audit, edit, and override your AI’s decisions to ease automation anxiety.
+   6. Include a dedicated Security page: Build a deep-dive page detailing encryption standards, data retention periods, and zero-data-retention (ZDR) APIs.
+   7. Highlight accuracy and hallucination rates: Address the elephant in the room by showing how your system validates and grounds its outputs.
+   8. Publish case studies with real data: Move away from generic quotes; show specific before-and-after metrics from actual beta testers.
+   9. Introduce the founding team: Feature an "About Us" section highlighting past experience at notable AI labs, universities, or tech companies.
+   10. Link to your terms of service: Ensure your AI safety guidelines, commercial use rights, and copyright indemnification policies are easy to find.
+   11. Provide a downloadable security whitepaper: Offer a comprehensive PDF that enterprise security teams can hand directly to their CTOs.
+   12. Detail model fallback systems: Explain what happens if your primary LLM provider goes down (e.g., automated routing to backup models).
+   13. Show your customer advisory board: If applicable, list industry experts or professors who advise your startup.
+   14. Display an "Enterprise Portal" link: Give corporate buyers a clear path to request custom SLAs and dedicated support.
+   15. Address bias and safety alignment: Briefly state your commitment to ethical AI and model alignment frameworks.
+
+------------------------------
+## 🛠️ Part 4: Product Demos, Features, & UI/UX (46–65)
+
+   1. Embed an interactive playground: Let users type a prompt or run a sample test directly on your landing page without creating an account.
+   2. Feature "Before vs. After" sliders: Use interactive visual sliders to show a manual process compared to your automated AI alternative.
+   3. Group features by job role: Organize your features page by user persona (e.g., "For Developers," "For Product Managers").
+   4. Show detailed code blocks: If your product targets developers, feature clean, copy-pasteable SDK code snippets (Python, TypeScript, cURL).
+   5. Highlight latency and speed metrics: Include data showing how fast your AI processes requests or generates responses.
+   6. Dedicate sections to integration depth: Show prominent logos for tools you natively connect with (e.g., Slack, GitHub, Salesforce, Notion).
+   7. Illustrate your workflow architecture: Use a clean, simplified node diagram to show how data flows from input to vector embedding to output.
+   8. Provide ready-to-use prompt templates: Give users inspiration by displaying a gallery of highly optimized prompts for your tool.
+   9. Show multi-modal capabilities: If your tool handles text, audio, and video, create distinct visual tabs demonstrating each medium.
+   10. Emphasize multiplayer collaboration: Show how multiple team members can view, edit, or comment on an AI agent's live workflow.
+   11. Use high-fidelity app screenshots: Avoid abstract illustrations; show your actual application interface with realistic sample data.
+   12. Explain the custom tuning process: Briefly illustrate how easy it is to upload a CSV or connect a website to train your tool.
+   13. Add tooltips for complex AI jargon: If you must use terms like "RAG" or "Fine-tuning," add helpful hover definitions for non-technical buyers.
+   14. Include a "What's New" changelog: Maintain a public, chronological list of weekly product shipping updates to show rapid momentum.
+   15. Build a "Templates" gallery: Create landing pages for popular use cases so users can deploy a pre-configured setup with one click.
+   16. Optimize your search bar: Ensure your site search (ideally AI-powered) helps users quickly find documentation and features.
+   17. Use subtle micro-interactions: Add polished hover effects on cards and buttons to make the site feel premium and responsive.
+   18. Provide clear error-handling examples: Show how your tool flags issues or asks for human clarification when it runs into ambiguous tasks.
+   19. Keep your design aesthetic clean: Rely on ample whitespace, crisp typography, and intentional layouts over chaotic neon gradients.
+   20. Make video demos skippable: Break longer demo videos into clear, clickable chapters so viewers can jump directly to what interests them.
+
+------------------------------
+## 💳 Part 5: Pricing, Monetization, & Value Tiers (66–80)
+
+   1. Demystify usage-based pricing: Clearly explain how your consumption models work (e.g., price per token, per credit, or per successful run).
+   2. Provide a transparent cost calculator: Build an interactive slider that lets users estimate monthly costs based on their expected volume.
+   3. Offer a clear, recurring flat fee tier: Provide a predictable base tier for small teams who are afraid of unexpected overage bills.
+   4. Explicitly list model inclusions: State exactly which models power each tier (e.g., "Pro includes access to GPT-4o and Claude 3.5 Sonnet").
+   5. Include an obvious "Enterprise" column: Give high-volume users a direct track to contact sales for custom volume discounts.
+   6. Display an extensive FAQ section: Place answers to common pricing questions right on the checkout page to reduce buying friction.
+   7. Offer both monthly and annual toggles: Display the annual discount clearly (typically 20%) to incentivize upfront commitments.
+   8. Clarify credit expiration rules: Explicitly state whether monthly platform credits roll over or expire at the end of the billing cycle.
+   9. Highlight the "Most Popular" plan: Use a subtle visual anchor or accent color to guide users toward your target mid-tier plan.
+   10. List feature limits explicitly: Use clear checkmarks and text to show exactly how many projects, agents, or seats are included.
+   11. Provide a zero-risk trial option: If you require a credit card for trials, state your refund or cancellation policy in plain English right below the button.
+   12. Show self-service seat management: Reassure team leaders that they can easily add or remove seats from an admin dashboard.
+   13. Accept multiple payment methods: Support standard credit cards alongside popular international options like Apple Pay and Google Pay.
+   14. Offer startup discounts: If applicable, link to a program providing free platform credits for early-stage or YC-backed startups.
+   15. Keep checkout simple: Minimize the number of steps required to go from clicking a pricing tier to running your first AI generation.
+
+------------------------------
+## 📚 Part 6: Documentation, Resources, & Community (81–100)
+
+   1. Host developer docs on a clean subdomain: Use highly scannable documentation platforms like Mintlify, Readme, or Fumadocs.
+   2. Include a "Quickstart Guide": Ensure developers can copy a single terminal command and get their first API response in under two minutes.
+   3. Provide copyable boilerplate code: Offer downloadable starter templates on GitHub for popular frameworks like Next.js, Python, or Docker.
+   4. Build a public API reference page: Feature an interactive API playground where developers can test live endpoints using their actual API keys.
+   5. Provide a dedicated community link: Drive users to an active Discord server, Slack workspace, or Discourse forum for peer-to-peer support.
+   6. Launch an AI-powered docs assistant: Embed a search chat contextually trained on your documentation to answer technical questions instantly.
+   7. Keep an up-to-date SDK registry: Clearly list all officially supported language wrappers along with their current version numbers.
+   8. Publish architectural deep dives: Write comprehensive technical blog posts explaining how your engineering team solved specific scaling or inference issues.
+   9. Provide an open System Status history: Maintain a transparent public record of past incidents and resolution notes to build long-term trust.
+   10. Incentivize a community showcase: Build a gallery page dedicated to highlighting unique projects and workflows built by your community users.
+   11. Offer comprehensive migration guides: Write step-by-step documentation showing how to switch from legacy systems or competing platforms to your tool.
+   12. Create clear video tutorials: Embed short, focused, screen-recorded tutorials alongside your written documentation guides.
+   13. Include "Troubleshooting" cheat sheets: Dedicate a section to resolving common developer roadblocks, error codes, and configuration issues.
+   14. Establish a clear feedback and bug loop: Provide an obvious, low-friction button for users to report bugs or submit feature requests directly.
+   15. Write accessible, plain-language copy: Avoid overcomplicating your documentation; write clearly so non-native speakers can follow technical steps easily.
+   16. Maintain an active technical blog: Publish consistent updates regarding research breakthroughs, product engineering notes, and company milestones.
+   17. Offer a newsletter signup: Provide a simple text box for users to subscribe to major product announcements and feature rollouts.
+   18. Include direct customer support options: Make it easy to find your support email, ticketing system, or live chat widget for urgent account problems.
+   19. Highlight contributor guidelines: If your startup has open-source elements, create a clear path for external developers to submit pull requests.
+   20. Keep the branding uniform: Ensure your main website design aligns cleanly with your documentation pages, community hubs, and web application UI.
+
+------------------------------
+## Lightbulb
+💡 To help you apply this framework immediately, tell me:
+
+* What specific problem does your AI startup solve?
+* Who is your ideal first customer (e.g., enterprise enterprise leaders, freelance designers, software developers)?
+
+I can take these 100 rules and generate a tailored site map and a customized llms.txt file for your exact project.
+

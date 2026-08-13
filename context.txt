@@ -1,0 +1,135 @@
+Here is the extracted and enhanced protocol specifically for the Context Generation File (`CONTEXT.md`).
+
+I have integrated the strict **Continuous Synchronization Mandate**, ensuring that the context file is not just a passive document, but an active, living ledger that acts as a hard gatekeeper for every single AI modification, human commit, and Pull Request/Merge.
+
+---
+
+# THE CONTEXT SYNCHRONIZATION ENGINE: MASTER PROTOCOL
+
+## 1. The Continuous Synchronization Mandate (Zero-Tolerance Policy)
+
+The `CONTEXT.md` file is the immutable brain and persistent memory of the project. To prevent "vibe drift" and context amnesia, the following rule is absolute:
+
+**The `CONTEXT.md` file MUST be updated at EVERY instance of change.**
+
+* **Every AI Action:** If an AI agent modifies even a single line of code, its final output *must* include an appended log entry to `CONTEXT.md`.
+* **Every Human Commit:** No code can be committed locally without a corresponding timeline update.
+* **Every Pull Request & Merge:** No branch can be merged into `main` or `develop` unless the PR explicitly includes a modification to the `CONTEXT.md` timeline documenting the scope of the merge.
+
+---
+
+## 2. Master Specification Format (`CONTEXT.md`)
+
+Every project must maintain this exact file structure at its root.
+
+```markdown
+# SYSTEM CONTEXT MANIFEST & EXECUTION TIMELINE
+
+## 1. PROJECT IDENTIFICATION & OPERATIONAL STATE
+- **Project Identifier:** [Project Name]
+- **Operational Status:** [e.g., ACTIVE DEVELOPMENT / STABLE]
+- **System Purpose:** [State exact business/technical logic in under 50 words]
+
+## 2. TECHNICAL STACK MATRIX
+| Layer | Technology | Version | Enforcement Rules |
+| :--- | :--- | :--- | :--- |
+| **API Gateway** | [e.g., FastAPI] | [Version] | [Specific constraints] |
+| **Database** | [e.g., MySQL] | [Version] | [Specific constraints] |
+
+## 3. ARCHITECTURAL BOUNDARIES & RULES
+1. [RULE-01]: Main script files must never exceed 150 lines.
+2. [RULE-02]: Direct database instantiation inside API endpoints is strictly prohibited.
+3. [RULE-03]: [Add project-specific rules here]
+
+## 4. CURRENT SYSTEM GAPS & KNOWN SHORTCOMINGS
+*(AI agents must scan this section to prioritize stability patches before introducing new code)*
+- [GAP-01]: [Describe current bug or tech debt]
+- [GAP-02]: [Describe current bug or tech debt]
+
+## 5. IMMUTABLE EXECUTION TIMELINE & BUG LOG
+*(Append-only log. Never erase previous entries. MUST BE UPDATED ON EVERY AI CHANGE, COMMIT, AND PULL REQUEST)*
+
+### Log Entry Template:
+- **Timestamp:** [YYYY-MM-DD THH:MM:SS Z]
+- **Trigger Event:** [AI Edit / Human Commit / Pull Request Merge]
+- **Author/Agent:** [e.g., Claude-3.5-Sonnet / DevName]
+- **Target Subsystem:** [e.g., `backend/services/auth`]
+- **Intent:** [Brief explanation of changes]
+- **Bugs/Gaps Addressed:** [Detail what was fixed]
+- **Context Modifications:** [New modules, routes, or dependencies introduced]
+
+---
+<!-- TIMELINE LOGS BEGIN BELOW THIS LINE -->
+
+- **Timestamp:** 2026-08-09T10:00:00Z
+- **Trigger Event:** Project Initialization
+- **Author/Agent:** Lead Architect
+- **Target Subsystem:** Core System
+- **Intent:** Baseline context initialization.
+- **Bugs/Gaps Addressed:** None.
+- **Context Modifications:** Initialized repository structure.
+
+```
+
+---
+
+## 3. The AI Agent System Prompt (For Every Session)
+
+To enforce the "every instance" rule for AI assistants, paste this exact block at the beginning of *every* prompt or set it as the custom system instruction for your AI coding tool (Cursor, GitHub Copilot, Devin, etc.):
+
+> **CRITICAL CONTEXT DIRECTIVE:**
+> Before you write or modify any code, you MUST read `CONTEXT.md`.
+> You are bound by the Continuous Synchronization Mandate. At the end of your execution, you MUST append a detailed log entry to Section 5 of `CONTEXT.md` detailing the files you touched, the logic you changed, and any bugs you encountered. **Do not terminate your output until the `CONTEXT.md` update is generated.**
+
+---
+
+## 4. Automated Enforcement (Pull Request & Merge Gatekeeper)
+
+To guarantee that no change slips through during merges or PRs, you must enforce the rule at the CI/CD level.
+
+Create this GitHub Actions workflow at `.github/workflows/enforce_context_update.yml`. This script will automatically **fail and block any Pull Request** that does not include an update to `CONTEXT.md`.
+
+```yaml
+name: Enforce CONTEXT.md Synchronization
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audit-context-file:
+    runs-name: Check for CONTEXT.md updates
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Verify CONTEXT.md modification
+        run: |
+          echo "Auditing Pull Request for Context Synchronization..."
+          
+          # Get the list of modified files in this PR
+          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }})
+          
+          # Check if CONTEXT.md is in the list of modified files
+          if echo "$MODIFIED_FILES" | grep -q "^CONTEXT.md$"; then
+            echo "SUCCESS: CONTEXT.md has been updated in this Pull Request."
+            exit 0
+          else
+            echo "::error::PROTOCOL VIOLATION: CONTEXT.md was not updated!"
+            echo "Every Pull Request and Merge MUST include an appended log entry in CONTEXT.md."
+            echo "Please update Section 5 of CONTEXT.md with the details of this merge and push again."
+            exit 1
+          fi
+
+```
+
+### Why this specific setup works:
+
+1. **Psychological Check:** The AI is instructed in its system prompt that its job is not done until the file is updated.
+2. **Local Check:** The Git pre-commit hook (from the previous protocol) stops local human errors.
+3. **Remote Check:** The CI/CD YAML above acts as the final gatekeeper—if an AI or human tries to force a merge into your main branch without logging the architectural changes in `CONTEXT.md`, the repository will reject the merge entirely.
