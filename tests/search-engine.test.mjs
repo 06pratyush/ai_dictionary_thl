@@ -146,6 +146,16 @@ test('Rule 711 — edge n-grams drive prefix suggestions', () => {
   assert.ok(slugs.includes('gradient-descent'));
 });
 
+test('an entry appears once per result set, however many routes reach it', () => {
+  // "gra" prefixes the headword, its token, and the inflection — three routes
+  // to one entry. Duplicates here also triple the entry's score when ranking.
+  const slugs = engine.suggest('gra').map((e) => e.slug);
+  assert.equal(new Set(slugs).size, slugs.length, `duplicates: ${slugs}`);
+
+  const hits = results('gradient');
+  assert.equal(new Set(hits).size, hits.length, `duplicates: ${hits}`);
+});
+
 test('Rule 712 — the index spans definitions, not just headwords', () => {
   assert.ok(results('surprise').includes('entropy'));
 });

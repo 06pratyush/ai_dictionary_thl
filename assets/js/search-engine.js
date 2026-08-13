@@ -338,14 +338,14 @@ export class SearchEngine {
       // Index the phonetic key of the whole headword and of each token, so a
       // one-word sound-alike query can still reach a multi-word entry.
       for (const form of new Set([headword, ...entry._tokens])) {
-        push(this.byPhonetic, metaphone(form), entry, true);
+        addTo(this.byPhonetic, metaphone(form), entry);
       }
 
       // Rule 711: edge n-grams over the headword and each of its tokens, so a
       // three-keystroke prefix retrieves without scanning the corpus.
       for (const token of new Set([headword, ...entry._tokens])) {
         for (let n = 1; n <= Math.min(token.length, 24); n += 1) {
-          push(this.byEdgeNgram, token.slice(0, n), entry);
+          addTo(this.byEdgeNgram, token.slice(0, n), entry);
         }
       }
 
@@ -360,9 +360,9 @@ export class SearchEngine {
         if (!key) continue;
         push(this.byAlias, key, entry);
         this.vocabulary.add(key);
-        push(this.byPhonetic, metaphone(key), entry, true);
+        addTo(this.byPhonetic, metaphone(key), entry);
         for (let n = 1; n <= Math.min(key.length, 24); n += 1) {
-          push(this.byEdgeNgram, key.slice(0, n), entry);
+          addTo(this.byEdgeNgram, key.slice(0, n), entry);
         }
       }
 
@@ -375,7 +375,7 @@ export class SearchEngine {
       ].join(' ');
 
       for (const token of new Set(searchable.split(' ').filter(Boolean))) {
-        push(this.byToken, token, entry, true);
+        addTo(this.byToken, token, entry);
         if (token.length > 2) this.vocabulary.add(token);
       }
     }
@@ -571,13 +571,32 @@ function inScope(entry, scope) {
   return scope === 'all' || entry.section === scope;
 }
 
-function push(map, key, value, unique = false) {
+/** Ordered bucket. Homographs deliberately share a key here (Rule 105). */
+function push(map, key, value) {
   if (!key) return;
   let bucket = map.get(key);
   if (!bucket) {
     bucket = [];
     map.set(key, bucket);
   }
-  if (unique && bucket.includes(value)) return;
   bucket.push(value);
+}
+
+/**
+ * Set-backed bucket for the derived indexes.
+ *
+ * One entry reaches the same key by several routes — "gra" is a prefix of the
+ * headword "gradient descent", of its token "gradient", and of the inflection
+ * "gradient descents". As an array that entry appears three times, which shows
+ * up as a triplicated suggestion and, worse, triples its score during ranking
+ * because points accumulate per occurrence.
+ */
+function addTo(map, key, value) {
+  if (!key) return;
+  let bucket = map.get(key);
+  if (!bucket) {
+    bucket = new Set();
+    map.set(key, bucket);
+  }
+  bucket.add(value);
 }
