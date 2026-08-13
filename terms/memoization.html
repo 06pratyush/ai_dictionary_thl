@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mutex — The Hallucinated Lab Dictionary</title>
-<meta name="description" content="Mutex (noun, Concurrency) — a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.">
-<link rel="canonical" href="https://thehallucinatedlab.space/dictionary/terms/mutex.html">
-<meta property="og:title" content="Mutex — The Hallucinated Lab Dictionary">
-<meta property="og:description" content="Mutex (noun, Concurrency) — a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.">
+<title>Memoization — The Hallucinated Lab Dictionary</title>
+<meta name="description" content="Memoization (noun, Algorithms) — the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.">
+<link rel="canonical" href="https://thehallucinatedlab.space/dictionary/terms/memoization.html">
+<meta property="og:title" content="Memoization — The Hallucinated Lab Dictionary">
+<meta property="og:description" content="Memoization (noun, Algorithms) — the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://thehallucinatedlab.space/dictionary/terms/mutex.html">
+<meta property="og:url" content="https://thehallucinatedlab.space/dictionary/terms/memoization.html">
 <meta property="og:site_name" content="The Hallucinated Lab">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://thehallucinatedlab.space/assets/images/logo.jpeg">
@@ -17,8 +17,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Hallucinated Lab">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mutex — The Hallucinated Lab Dictionary">
-<meta name="twitter:description" content="Mutex (noun, Concurrency) — a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.">
+<meta name="twitter:title" content="Memoization — The Hallucinated Lab Dictionary">
+<meta name="twitter:description" content="Memoization (noun, Algorithms) — the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.">
 <meta name="twitter:image" content="https://thehallucinatedlab.space/assets/images/logo.jpeg">
 <link rel="icon" href="https://thehallucinatedlab.space/assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,17 +32,17 @@
   "@graph": [
     {
       "@type": "DefinedTerm",
-      "@id": "https://thehallucinatedlab.space/dictionary/terms/mutex.html#term",
-      "name": "Mutex",
-      "description": "a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.",
-      "termCode": "SWE-00005",
+      "@id": "https://thehallucinatedlab.space/dictionary/terms/memoization.html#term",
+      "name": "Memoization",
+      "description": "the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.",
+      "termCode": "SWE-00006",
       "inDefinedTermSet": {
         "@type": "DefinedTermSet",
         "@id": "https://thehallucinatedlab.space/dictionary/#software-engineering",
         "name": "Software Engineering Core",
         "url": "https://thehallucinatedlab.space/dictionary/#software-engineering"
       },
-      "url": "https://thehallucinatedlab.space/dictionary/terms/mutex.html"
+      "url": "https://thehallucinatedlab.space/dictionary/terms/memoization.html"
     },
     {
       "@type": "BreadcrumbList",
@@ -68,8 +68,8 @@
         {
           "@type": "ListItem",
           "position": 4,
-          "name": "Mutex",
-          "item": "https://thehallucinatedlab.space/dictionary/terms/mutex.html"
+          "name": "Memoization",
+          "item": "https://thehallucinatedlab.space/dictionary/terms/memoization.html"
         }
       ]
     }
@@ -104,40 +104,36 @@
           <a href="../index.html">Dictionary</a> /
           <a href="../index.html#software-engineering">Software Engineering Core</a>
         </p>
-        <h1>Mutex</h1>
-        <div class="term-phonetics"><span class="term-ipa">/ˈmjuːtɛks/</span><span>mu·tex</span><span class="term-pos">noun</span></div>
+        <h1>Memoization</h1>
+        <div class="term-phonetics"><span class="term-ipa">/ˌmɛməɪˈzeɪʃən/</span><span>me·mo·i·za·tion</span><span class="term-pos">noun</span></div>
         <div class="term-meta-row">
-          <span class="badge">Concurrency</span>
-          <span class="badge">Core</span><span class="badge">Foundational</span>
+          <span class="badge">Algorithms</span>
+          <span class="badge">Core</span><span class="badge">Optimization</span>
         </div>
       </header>
 
       <section class="term-section">
         <h2>Definition</h2>
         <div class="definition">
-  <p><span class="definition-number">1.</span><span class="definition-context">[in programming] </span><span class="definition-text">a synchronization primitive used to ensure that only one thread can access a shared resource at any given time.</span></p>
-  <p class="definition-example">We must wrap the database write operation in a mutex to prevent race conditions.</p>
+  <p><span class="definition-number">1.</span><span class="definition-context">[in computer science] </span><span class="definition-text">the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.</span></p>
+  <p class="definition-example">Using memoization significantly improved the runtime complexity of the recursive Fibonacci function.</p>
 </div>
       </section>
 
-      <section class="term-section">
-  <h2>Formal statement</h2>
-  <div class="formula-block"><code></code></div>
-  
-</section>
+      
       <section class="term-section">
   <h2>Etymology</h2>
-  <p class="etymology-text">Coined by operating system developers, derived from the Latin &#x27;mutus&#x27; meaning silent or mute, referring to the exclusive access it enforces.</p>
+  <p class="etymology-text">Coined by Christopher Strachey in the 1960s, derived from the concept of memory and caching.</p>
 </section>
-      <section class="term-section"><h2>Synonyms</h2><ul class="relation-list"><li><span class="relation-chip">lock<span class="relation-tag">sense 1 · Absolute</span></span></li></ul></section>
+      <section class="term-section"><h2>Synonyms</h2><ul class="relation-list"><li><span class="relation-chip">caching<span class="relation-tag">sense 1 · Absolute</span></span></li></ul></section>
       <section class="term-section">
   <h2>References</h2>
-  <ul class="citation-list"><li>Operating Systems Textbook, Chapter 3.<span class="citation-source">Academic Press.</span></li></ul>
+  <ul class="citation-list"><li>Knuth, D. E. (1997). The Art of Computer Programming, Vol 3.<span class="citation-source">Addison-Wesley Professional.</span></li></ul>
 </section>
 
-      <nav class="term-nav" aria-label="Adjacent entries"><a href="memoization.html"><span class="term-nav-label">Previous</span>Memoization</a><a href="pure-function.html" style="text-align:right"><span class="term-nav-label">Next</span>Pure Function</a></nav>
+      <nav class="term-nav" aria-label="Adjacent entries"><a href="idempotence.html"><span class="term-nav-label">Previous</span>Idempotence</a><a href="mutex.html" style="text-align:right"><span class="term-nav-label">Next</span>Mutex</a></nav>
     </div>
-    <aside class="term-aside"><h2>Entry data</h2><dl><dt>Lexical ID</dt><dd>SWE-00005</dd><dt>Section</dt><dd>Software Engineering Core</dd><dt>Domain</dt><dd>Concurrency</dd><dt>Part of speech</dt><dd>noun</dd><dt>Form</dt><dd>unigram</dd><dt>First attested</dt><dd>1980s</dd><dt>Also written</dt><dd>M</dd><dt>Opacity</dt><dd>2 of 3</dd></dl></aside>
+    <aside class="term-aside"><h2>Entry data</h2><dl><dt>Lexical ID</dt><dd>SWE-00006</dd><dt>Section</dt><dd>Software Engineering Core</dd><dt>Domain</dt><dd>Algorithms</dd><dt>Part of speech</dt><dd>noun</dd><dt>Form</dt><dd>unigram</dd><dt>First attested</dt><dd>1960s</dd><dt>Inflections</dt><dd>memoizing</dd><dt>Opacity</dt><dd>2 of 3</dd></dl></aside>
   </article>
 </main>
 <footer class="site-footer">

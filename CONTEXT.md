@@ -69,3 +69,13 @@
   - Four generated entries defined a term using its own headword; rejected by the anti-circularity check and rewritten by hand.
   - Six generated etymologies were filler or factually wrong; quarantined under Rule 517 and authored.
 - **Context Modifications:** `data/ai-mathematics.json` (20 entries), `data/software-engineering.json` (17 entries), regenerated `terms/`, `index.html`, `data/search-index.json`, `sitemap.xml`.
+
+---
+
+- **Timestamp:** 2026-08-13T03:00:00Z
+- **Trigger Event:** AI Edit
+- **Author/Agent:** Claude Opus 5 (Master Orchestrator)
+- **Target Subsystem:** `data/`, `.orchestrator/corpus_batch.py`
+- **Intent:** Third merge wave; tighten the delegation packet against circular definitions.
+- **Bugs/Gaps Addressed:** The packet stated the anti-circularity rule abstractly and the model restated the headword in roughly two entries in five. It now enumerates the specific forbidden words per term with a worked example.
+- **Context Modifications:** Corpus at 39 entries (21 AI & Mathematics, 18 Software Engineering Core); regenerated `terms/`, `index.html`, `data/search-index.json`, `sitemap.xml`.

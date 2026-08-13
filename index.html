@@ -39,6 +39,12 @@
       "hasDefinedTerm": [
         {
           "@type": "DefinedTerm",
+          "name": "Activation Function",
+          "termCode": "AIM-00022",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/activation-function.html"
+        },
+        {
+          "@type": "DefinedTerm",
           "name": "Attention Mechanism",
           "termCode": "AIM-00005",
           "url": "https://thehallucinatedlab.space/dictionary/terms/attention-mechanism.html"
@@ -228,6 +234,12 @@
         },
         {
           "@type": "DefinedTerm",
+          "name": "Memoization",
+          "termCode": "SWE-00006",
+          "url": "https://thehallucinatedlab.space/dictionary/terms/memoization.html"
+        },
+        {
+          "@type": "DefinedTerm",
           "name": "Mutex",
           "termCode": "SWE-00005",
           "url": "https://thehallucinatedlab.space/dictionary/terms/mutex.html"
@@ -274,7 +286,7 @@
       "@type": "CollectionPage",
       "@id": "https://thehallucinatedlab.space/dictionary/#page",
       "name": "The Hallucinated Lab Dictionary",
-      "description": "A 37-entry reference covering AI, mathematics and software engineering.",
+      "description": "A 39-entry reference covering AI, mathematics and software engineering.",
       "url": "https://thehallucinatedlab.space/dictionary/",
       "isPartOf": {
         "@id": "https://thehallucinatedlab.space/#website"
@@ -353,7 +365,7 @@
       defined so it can be substituted back into a sentence, and every claim
       pointed at the paper it came from.
     </p>
-    <div class="dict-stats"><span class="badge">20 AI &amp; Mathematics</span><span class="badge">17 Software Engineering Core</span><span class="badge">37 entries total</span></div>
+    <div class="dict-stats"><span class="badge">21 AI &amp; Mathematics</span><span class="badge">18 Software Engineering Core</span><span class="badge">39 entries total</span></div>
   </section>
 
   <div class="search-block">
@@ -418,11 +430,20 @@
         <div class="section-line"></div>
         <p class="section-intro">The vocabulary of machine learning, statistics, optimisation and the linear algebra underneath all of it. Every entry is defined in terms a reader can substitute back into a sentence, then anchored to the paper or theorem it came from.</p>
       </div>
-      <span class="results-count">20 entries</span>
+      <span class="results-count">21 entries</span>
     </div>
     <nav class="alpha-nav" aria-label="Jump to letter"><a href="#letter-A">A</a><a href="#letter-B">B</a><a href="#letter-C">C</a><span>D</span><a href="#letter-E">E</a><span>F</span><a href="#letter-G">G</a><span>H</span><span>I</span><span>J</span><span>K</span><a href="#letter-L">L</a><a href="#letter-M">M</a><span>N</span><a href="#letter-O">O</a><a href="#letter-P">P</a><span>Q</span><a href="#letter-R">R</a><a href="#letter-S">S</a><a href="#letter-T">T</a><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></nav>
     <div class="corpus-grid">
-      <span id="letter-A"></span><a class="entry-card" href="terms/attention-mechanism.html">
+      <span id="letter-A"></span><a class="entry-card" href="terms/activation-function.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Neural Networks</span>
+    <span class="entry-card-lid">AIM-00022</span>
+  </div>
+  <h3>Activation Function</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">a mathematical function that introduces non-linearity into the output of a layer, allowing the network to learn complex patterns.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Foundational</span></div>
+</a><a class="entry-card" href="terms/attention-mechanism.html">
   <div class="entry-card-top">
     <span class="entry-card-domain">Deep Learning</span>
     <span class="entry-card-lid">AIM-00005</span>
@@ -615,7 +636,7 @@
         <div class="section-line"></div>
         <p class="section-intro">The working vocabulary of building and running software — algorithms, architecture, concurrency, databases, security and the field&#x27;s durable jargon. Definitions are written to be substitutable, and the idioms carry the origin story only where it is actually documented.</p>
       </div>
-      <span class="results-count">17 entries</span>
+      <span class="results-count">18 entries</span>
     </div>
     <nav class="alpha-nav" aria-label="Jump to letter"><a href="#letter-A">A</a><a href="#letter-B">B</a><a href="#letter-C">C</a><a href="#letter-D">D</a><a href="#letter-E">E</a><span>F</span><span>G</span><a href="#letter-H">H</a><a href="#letter-I">I</a><span>J</span><span>K</span><span>L</span><a href="#letter-M">M</a><span>N</span><span>O</span><a href="#letter-P">P</a><span>Q</span><a href="#letter-R">R</a><a href="#letter-S">S</a><a href="#letter-T">T</a><span>U</span><span>V</span><span>W</span><span>X</span><a href="#letter-Y">Y</a><span>Z</span></nav>
     <div class="corpus-grid">
@@ -709,7 +730,16 @@
   <span class="entry-card-pos">noun</span>
   <p class="entry-card-gloss">the property of an operation whose repeated application produces the same result as a single application, so a retry cannot cause additional change.</p>
   <div class="entry-card-tags"><span class="badge">Core</span></div>
-</a><span id="letter-M"></span><a class="entry-card" href="terms/mutex.html">
+</a><span id="letter-M"></span><a class="entry-card" href="terms/memoization.html">
+  <div class="entry-card-top">
+    <span class="entry-card-domain">Algorithms</span>
+    <span class="entry-card-lid">SWE-00006</span>
+  </div>
+  <h3>Memoization</h3>
+  <span class="entry-card-pos">noun</span>
+  <p class="entry-card-gloss">the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.</p>
+  <div class="entry-card-tags"><span class="badge">Core</span><span class="badge">Optimization</span></div>
+</a><a class="entry-card" href="terms/mutex.html">
   <div class="entry-card-top">
     <span class="entry-card-domain">Concurrency</span>
     <span class="entry-card-lid">SWE-00005</span>

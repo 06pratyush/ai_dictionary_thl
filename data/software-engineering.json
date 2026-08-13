@@ -306,6 +306,58 @@
       "flags": []
     },
     {
+      "lid": "SWE-00006",
+      "term": "Memoization",
+      "slug": "memoization",
+      "syllables": "me·mo·i·za·tion",
+      "ipa": "/ˌmɛməɪˈzeɪʃən/",
+      "pos": "noun",
+      "domain": "Algorithms",
+      "tags": [
+        "Core",
+        "Optimization"
+      ],
+      "abbr": [],
+      "inflections": [
+        "memoizing"
+      ],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in computer science",
+          "text": "the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.",
+          "example": "Using memoization significantly improved the runtime complexity of the recursive Fibonacci function."
+        }
+      ],
+      "formula": null,
+      "etymology": "Coined by Christopher Strachey in the 1960s, derived from the concept of memory and caching.",
+      "firstAttested": "1960s",
+      "synonyms": [
+        {
+          "term": "caching",
+          "senseId": 1,
+          "proximity": "Absolute"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "dynamic-programming",
+        "caching-strategy",
+        "time-complexity"
+      ],
+      "citations": [
+        {
+          "label": "Knuth, D. E. (1997). The Art of Computer Programming, Vol 3.",
+          "source": "Addison-Wesley Professional.",
+          "url": ""
+        }
+      ],
+      "frequency": 65,
+      "opacity": 2,
+      "flags": []
+    },
+    {
       "lid": "SWE-00007",
       "term": "Big O Notation",
       "slug": "big-o-notation",

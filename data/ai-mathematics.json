@@ -1216,6 +1216,62 @@
       "frequency": 86,
       "opacity": null,
       "flags": []
+    },
+    {
+      "lid": "AIM-00022",
+      "term": "Activation Function",
+      "slug": "activation-function",
+      "syllables": "ac·ti·va·tion func·tion",
+      "ipa": "/ˌæktɪˈveɪʃən ˈfʌŋkʃən/",
+      "pos": "noun",
+      "domain": "Neural Networks",
+      "tags": [
+        "Core",
+        "Foundational"
+      ],
+      "abbr": [
+        "g(x)"
+      ],
+      "inflections": [],
+      "variants": [],
+      "definitions": [
+        {
+          "id": 1,
+          "context": "in machine learning",
+          "text": "a mathematical function that introduces non-linearity into the output of a layer, allowing the network to learn complex patterns.",
+          "example": "The choice of activation function, such as ReLU, significantly impacts the training stability of the model."
+        }
+      ],
+      "formula": {
+        "latex": "f(x) = \\max(0, x)",
+        "plain": "f(x) = max(0, x)",
+        "note": "This is the formula for the Rectified Linear Unit (ReLU)."
+      },
+      "etymology": "From activate, Latin activus 'in action', by way of the biological metaphor of a neuron firing once its input crosses a threshold. The idea dates to the McCulloch-Pitts threshold unit of 1943; the smooth differentiable forms arrived with the backpropagation work of the 1980s.",
+      "firstAttested": "1986",
+      "synonyms": [
+        {
+          "term": "non-linearity",
+          "senseId": 1,
+          "proximity": "Near"
+        }
+      ],
+      "antonyms": [],
+      "related": [
+        "loss-function",
+        "gradient-descent",
+        "backpropagation"
+      ],
+      "citations": [
+        {
+          "label": "Goodfellow et al. (2016). Deep Learning, ch. 6.",
+          "source": "MIT Press.",
+          "url": ""
+        }
+      ],
+      "frequency": 78,
+      "opacity": 2,
+      "flags": []
     }
   ]
 }

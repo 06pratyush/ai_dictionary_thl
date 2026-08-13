@@ -18,6 +18,31 @@
  },
  "entries": [
   {
+   "lid": "AIM-00022",
+   "term": "Activation Function",
+   "slug": "activation-function",
+   "section": "ai-mathematics",
+   "domain": "Neural Networks",
+   "pos": "noun",
+   "ngram": "bigram",
+   "tags": [
+    "Core",
+    "Foundational"
+   ],
+   "flags": [],
+   "abbr": [
+    "g(x)"
+   ],
+   "inflections": [],
+   "variants": [],
+   "synonyms": [
+    "non-linearity"
+   ],
+   "gloss": "a mathematical function that introduces non-linearity into the output of a layer, allowing the network to learn complex patterns.",
+   "defText": "a mathematical function that introduces non-linearity into the output of a layer, allowing the network to learn complex patterns.",
+   "frequency": 78
+  },
+  {
    "lid": "AIM-00005",
    "term": "Attention Mechanism",
    "slug": "attention-mechanism",
@@ -768,6 +793,31 @@
    "gloss": "the property of an operation whose repeated application produces the same result as a single application, so a retry cannot cause additional change.",
    "defText": "the property of an operation whose repeated application produces the same result as a single application, so a retry cannot cause additional change.",
    "frequency": 86
+  },
+  {
+   "lid": "SWE-00006",
+   "term": "Memoization",
+   "slug": "memoization",
+   "section": "software-engineering",
+   "domain": "Algorithms",
+   "pos": "noun",
+   "ngram": "unigram",
+   "tags": [
+    "Core",
+    "Optimization"
+   ],
+   "flags": [],
+   "abbr": [],
+   "inflections": [
+    "memoizing"
+   ],
+   "variants": [],
+   "synonyms": [
+    "caching"
+   ],
+   "gloss": "the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.",
+   "defText": "the technique of storing the results of expensive function calls and returning the cached result when the same inputs occur again.",
+   "frequency": 65
   },
   {
    "lid": "SWE-00005",
