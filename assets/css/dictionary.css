@@ -755,6 +755,10 @@ main {
   }
 }
 
+/* >>> topic-page-interface — synced block, do not edit downstream.
+   scripts/sync-dictionary.js in the site repo replaces everything between
+   this marker and its closing pair, and leaves the rest of the file alone,
+   because the site patches other parts of this stylesheet. */
 /* ---------- Topic page interface (docs/TOPIC-PAGE-SPEC.md) ---------- */
 
 /* §0 metadata strip, on the term hero and on the hub cards. */
@@ -1134,3 +1138,5 @@ main {
   color: var(--gold-primary);
   font-size: 0.85rem;
 }
+
+/* <<< topic-page-interface */
