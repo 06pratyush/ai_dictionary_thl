@@ -636,17 +636,39 @@ def term_page(entry, section, index, prev_entry, next_entry):
 # ---------------------------------------------------------------- hub page
 
 
+def card_meta_html(entry):
+    """The topic-page metadata a reader uses to decide whether to open a page:
+    what field it belongs to, how hard it is, how long it takes. Rendered only
+    where the entry records it, so a legacy card simply stays as it was."""
+    data = topic(entry)
+    bits = []
+    if data.get("difficulty"):
+        bits.append(f'<span class="card-difficulty" '
+                    f'data-level="{e(data["difficulty"].lower())}">{e(data["difficulty"])}</span>')
+    if data.get("readingTime"):
+        bits.append(f'<span class="card-reading">{e(data["readingTime"])} min</span>')
+    if not bits:
+        return ""
+    return f'<div class="entry-card-meta">{"".join(bits)}</div>'
+
+
 def entry_card(entry, href_prefix="terms/"):
+    data = topic(entry)
+    # The eyebrow prefers the topic category, falling back to the lexical
+    # domain, so a migrated and an un-migrated card read the same shape.
+    eyebrow = data.get("category") or entry["domain"]
+    gloss = data.get("quickTake") or entry["definitions"][0]["text"]
     tags = "".join(f'<span class="badge">{e(t)}</span>'
                    for t in (entry.get("tags") or [])[:2])
     return f"""<a class="entry-card" href="{href_prefix}{e(entry['slug'])}.html">
   <div class="entry-card-top">
-    <span class="entry-card-domain">{e(entry['domain'])}</span>
+    <span class="entry-card-domain">{e(eyebrow)}</span>
     <span class="entry-card-lid">{e(entry['lid'])}</span>
   </div>
   <h3>{e(entry['term'])}</h3>
   <span class="entry-card-pos">{e(entry['pos'])}</span>
-  <p class="entry-card-gloss">{e(entry['definitions'][0]['text'])}</p>
+  <p class="entry-card-gloss">{e(gloss)}</p>
+  {card_meta_html(entry)}
   <div class="entry-card-tags">{tags}</div>
 </a>"""
 
