@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "The Hallucinated Lab dictionary — two corpora, one search, one page per term.",
+  "description": "The Hallucinated Lab dictionary \u2014 two corpora, one search, one page per term.",
   "scripts": {
     "build": "python build/build.py",
     "validate": "python build/validate.py",
-    "test": "node tests/search-engine.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "check": "python build/validate.py && npm test"
   }
 }
