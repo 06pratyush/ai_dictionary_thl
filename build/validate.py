@@ -63,6 +63,136 @@ class Report:
         self.warnings.append(f"[{lid}] {message}")
 
 
+# ---------------------------------------------------------------- topic page
+#
+# docs/TOPIC-PAGE-SPEC.md is the contract for every term page. Every entry
+# added from this point carries a complete `topic` block, and the checks below
+# are what make that true rather than aspirational.
+#
+# TOPIC_LEGACY is the migration allowlist: the entries that predate the spec.
+# It only ever shrinks. Migrating an entry means authoring its topic block and
+# deleting its slug from this list — never adding a slug to it.
+
+TOPIC_LEGACY = {
+    "acid", "activation-function", "attention-mechanism", "backpropagation",
+    "bayes-theorem", "bias-variance-tradeoff", "big-o-notation",
+    "cap-theorem", "cohesion", "convolutional-neural-network", "coupling",
+    "cross-validation", "deadlock", "dependency-injection", "eigenvector",
+    "embedding", "entropy", "eventual-consistency", "gradient-descent",
+    "hash-table", "idempotence", "learning-rate", "loss-function",
+    "markov-chain", "maximum-likelihood-estimation", "memoization", "mutex",
+    "overfitting", "principal-component-analysis", "pure-function",
+    "race-condition", "refactoring", "regularization",
+    "reinforcement-learning", "softmax", "sql-injection", "technical-debt",
+    "transformer", "yak-shaving",
+}
+
+DIFFICULTY = {"Beginner", "Intermediate", "Advanced"}
+TOPIC_STATUS = {"Draft", "Published", "Needs Review"}
+ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+# Spec §0 plus the Required prose sections. A topic block that omits any of
+# these is an incomplete topic page, not a partial one.
+TOPIC_REQUIRED = [
+    "category", "difficulty", "readingTime", "status", "datePublished",
+    "dateUpdated", "author", "metaDescription", "quickTake", "formalStatement",
+    "background", "deepDive", "revisions",
+]
+
+MAX_FORMAL_DEFINITIONS = 3
+META_DESCRIPTION_RANGE = (150, 160)
+
+
+def check_topic(entry, report, all_slugs):
+    """Spec §0-§17. Enforced in full on every entry outside TOPIC_LEGACY."""
+    lid = entry.get("lid", "<no lid>")
+    data = entry.get("topic")
+    legacy = entry.get("slug") in TOPIC_LEGACY
+
+    if not data:
+        if legacy:
+            report.warn(lid, "no topic block yet — page renders derived fallbacks "
+                             "(see GAP-05); migrate it and drop the slug from TOPIC_LEGACY")
+        else:
+            report.error(lid, "missing 'topic' block — every entry added after the "
+                              "Topic Page Specification must carry one "
+                              "(docs/TOPIC-PAGE-SPEC.md)")
+        return
+
+    if legacy:
+        report.warn(lid, "has a topic block but is still listed in TOPIC_LEGACY — "
+                         "remove the slug so the full spec is enforced on it")
+
+    for field in TOPIC_REQUIRED:
+        value = data.get(field)
+        if value is None or (isinstance(value, (str, list, dict)) and not value):
+            report.error(lid, f"topic.{field} is required by the spec and is empty")
+
+    if data.get("difficulty") and data["difficulty"] not in DIFFICULTY:
+        report.error(lid, f"topic.difficulty '{data['difficulty']}' not in {sorted(DIFFICULTY)}")
+    if data.get("status") and data["status"] not in TOPIC_STATUS:
+        report.error(lid, f"topic.status '{data['status']}' not in {sorted(TOPIC_STATUS)}")
+
+    reading = data.get("readingTime")
+    if reading is not None and (not isinstance(reading, int) or reading <= 0):
+        report.error(lid, "topic.readingTime must be a positive whole number of minutes")
+
+    for field in ("datePublished", "dateUpdated"):
+        value = data.get(field)
+        if value and not ISO_DATE_RE.match(str(value)):
+            report.error(lid, f"topic.{field} '{value}' is not an ISO date")
+
+    # Rule 04 on the parent site: descriptions are 50-155 there, but the spec
+    # asks for a standalone answer at 150-160, which is the tighter constraint.
+    description = data.get("metaDescription") or ""
+    low, high = META_DESCRIPTION_RANGE
+    if description and not low <= len(description) <= high:
+        report.error(lid, f"topic.metaDescription is {len(description)} chars, "
+                          f"expected {low}-{high}")
+
+    # §2: at most three, and every reference marker must land on a real citation.
+    sourced = data.get("formalDefinitions") or []
+    if len(sourced) > MAX_FORMAL_DEFINITIONS:
+        report.error(lid, f"topic.formalDefinitions has {len(sourced)} entries, "
+                          f"the spec allows at most {MAX_FORMAL_DEFINITIONS}")
+    citation_count = len(entry.get("citations") or [])
+    for definition in sourced:
+        if not definition.get("quote"):
+            report.error(lid, "topic.formalDefinitions[] entry has no quote")
+        ref = definition.get("ref")
+        if ref is not None and not (isinstance(ref, int) and 1 <= ref <= citation_count):
+            report.error(lid, f"topic.formalDefinitions[] ref {ref} does not point at "
+                              f"a citation (entry has {citation_count})")
+
+    # §6: a prerequisite that does not resolve is a dead link in the graph.
+    for prerequisite in data.get("prerequisites") or []:
+        slug = prerequisite.get("slug")
+        if slug and slug not in all_slugs:
+            report.warn(lid, f"topic.prerequisites slug '{slug}' has no entry yet")
+        if not prerequisite.get("label") and not slug:
+            report.error(lid, "topic.prerequisites[] entry has neither label nor slug")
+
+    # §12 is the internal section. An external link there belongs in §13.
+    for resource in data.get("moreResources") or []:
+        href = resource.get("href", "")
+        if href.startswith("http") and "thehallucinatedlab.space" not in href:
+            report.error(lid, f"topic.moreResources href '{href}' is external — "
+                              "external recommendations belong in furtherReading (§13)")
+
+    # §14: these pairs become FAQPage structured data, so a blank half would
+    # ship markup describing a question the page does not answer.
+    for pair in data.get("faq") or []:
+        if not pair.get("q") or not pair.get("a"):
+            report.error(lid, "topic.faq[] pair is missing a question or an answer")
+
+    # §16: the revision trail is what makes a correction visible.
+    for revision in data.get("revisions") or []:
+        if not revision.get("version") or not revision.get("change"):
+            report.error(lid, "topic.revisions[] entry needs a version and a change")
+        if revision.get("date") and not ISO_DATE_RE.match(str(revision["date"])):
+            report.error(lid, f"topic.revisions[] date '{revision['date']}' is not an ISO date")
+
+
 def stem(word):
     """A crude suffix-stripper — enough to catch 'regularize' under 'regularization'."""
     word = word.lower()
@@ -224,6 +354,7 @@ def main(argv):
         for entry in corpus["entries"]:
             total += 1
             check_entry(entry, report, seen_lids, seen_slugs)
+            check_topic(entry, report, all_slugs)
             if not str(entry.get("lid", "")).startswith(prefix):
                 report.error(entry.get("lid", "?"),
                              f"LID prefix does not match section '{prefix}' in {os.path.basename(path)}")
@@ -237,8 +368,12 @@ def main(argv):
     for error in report.errors:
         print(f"ERROR {error}")
 
+    migrated = sum(1 for _, corpus in corpora for entry in corpus["entries"]
+                   if entry.get("topic"))
     print(f"\nvalidated {total} entries — {len(report.errors)} errors, "
           f"{len(report.warnings)} warnings")
+    print(f"topic page spec: {migrated}/{total} migrated, "
+          f"{len(TOPIC_LEGACY)} slugs still on the legacy allowlist")
     if report.errors and not warn_only:
         return 1
     return 0

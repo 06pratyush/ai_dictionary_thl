@@ -129,3 +129,13 @@
 - **Intent:** Bring the hub cards onto the topic-page interface and style the fourteen sections the renderer can now emit.
 - **Bugs/Gaps Addressed:** The card showed the lexical domain and the raw first sense. It now prefers the topic category as its eyebrow and the authored Quick Take as its gloss, and carries a difficulty/reading-time strip — the three things a reader uses to choose a page. All three are rendered only where the entry records them, so an un-migrated card is byte-identical to what it was apart from the gloss source.
 - **Context Modifications:** `entry_card()` rewritten with `card_meta_html()`. `assets/css/dictionary.css` gains ~330 lines covering §0–§17: the metadata chips, the contents list, the Quick Take and Final Formal Statement blocks, attributed blockquotes, prerequisite chips, derivation steps, video links, worked-example steps, the variants and revision tables, misconception pairs, application list, §12/§13 link buttons, FAQ items and the author block. `.entry-card { display: block }` is untouched — the parent site's `dictionary-browse.test.js` asserts against that rule and its specificity.
+
+---
+
+- **Timestamp:** 2026-08-24T11:30:00Z
+- **Trigger Event:** AI Edit
+- **Author/Agent:** Claude Code (Master Orchestrator)
+- **Target Subsystem:** `build/validate.py` (`check_topic`)
+- **Intent:** Make "every new term follows the topic page interface" a build failure rather than a convention.
+- **Bugs/Gaps Addressed:** Nothing stopped a new entry from being authored in the old lexical-only shape. `check_topic()` now requires a complete `topic` block on every entry whose slug is not in `TOPIC_LEGACY`, and validates the spec's own constraints: the difficulty/status enums, ISO dates, a positive reading time, a 150–160 char meta description, at most three formal definitions with refs that resolve into `citations[]`, prerequisite slugs that resolve, `moreResources` restricted to same-site hrefs, no half-empty FAQ pair (it would become FAQPage markup for a question the page does not answer), and revisions with a version, a change and an ISO date. Verified against a synthetic entry: exit 1, one error naming the missing block; corpus restored byte-for-byte afterwards.
+- **Context Modifications:** `TOPIC_LEGACY` seeded with the 39 pre-spec slugs and documented as shrink-only — migrating an entry means deleting its slug, never adding one. A legacy entry with no topic block warns rather than errors, and an entry that carries one while still listed warns the other way, so the list cannot silently fall out of step with the corpus. Both `validate.py` and `build.py` now print migration counts on every run.
