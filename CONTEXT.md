@@ -139,3 +139,13 @@
 - **Intent:** Make "every new term follows the topic page interface" a build failure rather than a convention.
 - **Bugs/Gaps Addressed:** Nothing stopped a new entry from being authored in the old lexical-only shape. `check_topic()` now requires a complete `topic` block on every entry whose slug is not in `TOPIC_LEGACY`, and validates the spec's own constraints: the difficulty/status enums, ISO dates, a positive reading time, a 150–160 char meta description, at most three formal definitions with refs that resolve into `citations[]`, prerequisite slugs that resolve, `moreResources` restricted to same-site hrefs, no half-empty FAQ pair (it would become FAQPage markup for a question the page does not answer), and revisions with a version, a change and an ISO date. Verified against a synthetic entry: exit 1, one error naming the missing block; corpus restored byte-for-byte afterwards.
 - **Context Modifications:** `TOPIC_LEGACY` seeded with the 39 pre-spec slugs and documented as shrink-only — migrating an entry means deleting its slug, never adding one. A legacy entry with no topic block warns rather than errors, and an entry that carries one while still listed warns the other way, so the list cannot silently fall out of step with the corpus. Both `validate.py` and `build.py` now print migration counts on every run.
+
+---
+
+- **Timestamp:** 2026-08-24T12:15:00Z
+- **Trigger Event:** AI Edit
+- **Author/Agent:** Claude Code (Master Orchestrator)
+- **Target Subsystem:** `data/ai-mathematics.json` (AIM-00005), `build/validate.py` (TOPIC_LEGACY)
+- **Intent:** Migrate the first entry to the full topic page interface, proving every section end to end rather than trusting the renderer.
+- **Bugs/Gaps Addressed:** Attention Mechanism now renders 16 of the 17 sections — More Resources is omitted because no same-site article exists yet, which is what the spec asks for rather than an empty block. §2 carries two primary-source quotations (Bahdanau et al. 2015, Vaswani et al. 2017) with reference markers resolving into `citations[]`. The validator caught a real defect during authoring: the first meta description was 167 characters against the spec's 150–160, and the build refused it.
+- **Context Modifications:** `attention-mechanism` removed from `TOPIC_LEGACY`; the list is now 38. Verified on the generated page: heading levels run h1→h2→h3 with no skips, zero `data-derived` fallbacks remain, `FAQPage` JSON-LD carries exactly the five questions rendered in the body, `Article` JSON-LD carries the author and both dates, and no inline script is emitted. Videos are linked rather than embedded — an iframe would need a `frame-src` the CSP does not carry.

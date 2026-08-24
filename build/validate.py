@@ -74,7 +74,7 @@ class Report:
 # deleting its slug from this list — never adding a slug to it.
 
 TOPIC_LEGACY = {
-    "acid", "activation-function", "attention-mechanism", "backpropagation",
+    "acid", "activation-function", "backpropagation",
     "bayes-theorem", "bias-variance-tradeoff", "big-o-notation",
     "cap-theorem", "cohesion", "convolutional-neural-network", "coupling",
     "cross-validation", "deadlock", "dependency-injection", "eigenvector",
