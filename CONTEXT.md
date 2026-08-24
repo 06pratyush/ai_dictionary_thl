@@ -90,3 +90,13 @@
 - **Bugs/Gaps Addressed:** Integrated 39 term pages, static search engine, and dictionary assets seamlessly into the live website structure.
 - **Context Modifications:** Updated navigation bar to feature Dictionary tab right after Solutions across all pages, synced sitemap.xml, llms.txt, llms-full.txt, and passed all 377 site invariant tests.
 
+
+---
+
+- **Timestamp:** 2026-08-24T09:00:00Z
+- **Trigger Event:** AI Edit
+- **Author/Agent:** Claude Code (Master Orchestrator)
+- **Target Subsystem:** `docs/TOPIC-PAGE-SPEC.md`, `docs/ENTRY-SCHEMA.md`
+- **Intent:** Adopt the Topic Page Specification v1.0 as the entry contract, so every term page renders the same eighteen sections in the same order and every future term is authored against that shape rather than the ad-hoc lexical layout.
+- **Bugs/Gaps Addressed:** The term page had five sections (Definition, Formula, Etymology, Relations, References) with no fixed contract, so page shape drifted with whatever fields an entry happened to carry. The spec fixes the order and the HTML ids; the schema doc now carries the `topic` block that supplies the prose sections.
+- **Context Modifications:** Added `docs/TOPIC-PAGE-SPEC.md` (the spec verbatim plus a §5 binding it to the corpus field-by-field). `docs/ENTRY-SCHEMA.md` bumped to v2.0 with the `topic` block, the new validator rules, and the derived-fallback note. No code or data changed in this commit — contract first, implementation next.
