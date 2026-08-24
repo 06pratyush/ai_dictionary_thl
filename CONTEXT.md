@@ -30,6 +30,7 @@
 - **[GAP-02]** Corpus coverage is a seeded baseline, not exhaustive. Expansion is incremental and additive.
 - **[GAP-03]** Search index is shipped whole to the client. Fine at the current corpus size; past roughly 5,000 entries it needs sharding or a server-side endpoint.
 - **[GAP-04]** IPA transcriptions are supplied for headwords only, not for every inflected form.
+- **[GAP-05]** The corpus predates the Topic Page Specification. Entries on the legacy allowlist in `build/validate.py` render §1 and §3 from derived fallbacks and omit the sections they cannot honestly supply (Background, In-Depth prose, Revision History, Author). Every build prints the coverage count; the allowlist only ever shrinks. New entries are held to the full spec.
 
 ## 5. IMMUTABLE EXECUTION TIMELINE & BUG LOG
 *(Append-only log. Never erase previous entries.)*
@@ -108,3 +109,13 @@
 - **Intent:** Adopt the Topic Page Specification v1.0 as the entry contract, so every term page renders the same eighteen sections in the same order and every future term is authored against that shape rather than the ad-hoc lexical layout.
 - **Bugs/Gaps Addressed:** The term page had five sections (Definition, Formula, Etymology, Relations, References) with no fixed contract, so page shape drifted with whatever fields an entry happened to carry. The spec fixes the order and the HTML ids; the schema doc now carries the `topic` block that supplies the prose sections.
 - **Context Modifications:** Added `docs/TOPIC-PAGE-SPEC.md` (the spec verbatim plus a §5 binding it to the corpus field-by-field). `docs/ENTRY-SCHEMA.md` bumped to v2.0 with the `topic` block, the new validator rules, and the derived-fallback note. No code or data changed in this commit — contract first, implementation next.
+
+---
+
+- **Timestamp:** 2026-08-24T10:00:00Z
+- **Trigger Event:** AI Edit
+- **Author/Agent:** Claude Code (Master Orchestrator)
+- **Target Subsystem:** `build/build.py` (term page renderer)
+- **Intent:** Render every term page as a Topic Page — the spec's eighteen sections, in the spec's order, under the spec's HTML ids.
+- **Bugs/Gaps Addressed:** `topic_sections()` is now the single source of truth for section order; the page body and the new on-page contents list are both built from its return value, so they cannot drift apart. Two integration defects were caught and fixed while wiring it up: `citations_html()` and `relations_html()` each emitted their own `<section><h2>`, which nested an h2 inside an h2 once the new renderer supplied the section wrapper — they now return bare bodies and h3 subsections respectively. `formula_html()` became dead code when `deep_dive_html()` absorbed the formula block, and was deleted rather than left orphaned.
+- **Context Modifications:** `build/build.py` gains the §1–§17 section renderers, `topic_sections()`, `contents_html()`, `topic_meta_html()`, and a `topic_coverage()` line printed on every build. `jsonld_term()` now also emits `Article` (with author/reviewer/dates where recorded) and emits `FAQPage` **only** when the FAQ section actually rendered — structured data never describes an absent question. `aside_html()` carries the contents list plus the §0 metadata rows. All 39 term pages regenerated; each renders 7 spec sections with derived Quick Take and Final Formal Statement marked `data-derived="true"`. Coverage today: 0/39 migrated — tracked as GAP-05.

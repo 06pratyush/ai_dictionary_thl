@@ -123,21 +123,13 @@ def definitions_html(entry):
     return "\n".join(parts)
 
 
-def formula_html(entry):
-    formula = entry.get("formula")
-    if not formula:
-        return ""
-    note = (f'<p class="formula-note">{e(formula["note"])}</p>'
-            if formula.get("note") else "")
-    return f"""<section class="term-section">
-  <h2>Formal statement</h2>
-  <div class="formula-block"><code>{e(formula.get('plain') or formula.get('latex'))}</code></div>
-  {note}
-</section>"""
-
 
 def relations_html(entry, index):
-    """Synonyms, antonyms and cross-references. Rules 521-525, 604."""
+    """Synonyms, antonyms and cross-references. Rules 521-525, 604.
+
+    Rendered as h3 subsections: topic_sections() already owns the h2 for
+    'Variants & Related Concepts', and the site forbids skipped heading levels.
+    """
     blocks = []
 
     if entry.get("synonyms"):
@@ -146,8 +138,8 @@ def relations_html(entry, index):
             f'<span class="relation-tag">sense {e(s["senseId"])} · {e(s["proximity"])}</span>'
             f"</span></li>"
             for s in entry["synonyms"])
-        blocks.append(f'<section class="term-section"><h2>Synonyms</h2>'
-                      f'<ul class="relation-list">{items}</ul></section>')
+        blocks.append(f'<div class="relation-block"><h3>Synonyms</h3>'
+                      f'<ul class="relation-list">{items}</ul></div>')
 
     if entry.get("antonyms"):
         items = "".join(
@@ -155,8 +147,8 @@ def relations_html(entry, index):
             f'<span class="relation-tag">sense {e(a["senseId"])} · {e(a["polarity"])}</span>'
             f"</span></li>"
             for a in entry["antonyms"])
-        blocks.append(f'<section class="term-section"><h2>Antonyms</h2>'
-                      f'<ul class="relation-list">{items}</ul></section>')
+        blocks.append(f'<div class="relation-block"><h3>Antonyms</h3>'
+                      f'<ul class="relation-list">{items}</ul></div>')
 
     # Only link cross-references that actually resolve, so no page ships a 404.
     live = [slug for slug in entry.get("related") or [] if slug in index]
@@ -164,8 +156,8 @@ def relations_html(entry, index):
         items = "".join(
             f'<li><a href="{e(slug)}.html">{e(index[slug]["term"])}</a></li>'
             for slug in live)
-        blocks.append(f'<section class="term-section"><h2>See also</h2>'
-                      f'<ul class="relation-list">{items}</ul></section>')
+        blocks.append(f'<div class="relation-block"><h3>See also</h3>'
+                      f'<ul class="relation-list">{items}</ul></div>')
 
     return "\n".join(blocks)
 
@@ -179,13 +171,300 @@ def citations_html(entry):
         source = (f'<span class="citation-source">{e(citation["source"])}</span>'
                   if citation.get("source") else "")
         items.append(f"<li>{label}{source}</li>")
-    return f"""<section class="term-section">
-  <h2>References</h2>
-  <ul class="citation-list">{"".join(items)}</ul>
-</section>"""
+    return f'<ul class="citation-list">{"".join(items)}</ul>' if items else ""
 
 
-def aside_html(entry, section):
+#
+# Every term page renders the sections of docs/TOPIC-PAGE-SPEC.md, in the
+# spec's order, under the spec's HTML ids. `topic_sections()` is the single
+# source of truth for that order: the body and the on-page contents list are
+# both built from what it returns, so the two can never disagree.
+#
+# Sections the spec marks Required but that a legacy entry cannot honestly
+# supply are omitted rather than filled with filler. Two of them — Quick Take
+# and Final Formal Statement — are derivable from the entry's own first sense
+# without inventing anything, so those are derived and marked
+# data-derived="true". The rest are the author's job, and validate.py demands
+# them from every entry that is not on the legacy migration allowlist.
+
+
+def topic(entry):
+    """The topic block, or an empty dict for an entry that predates the spec."""
+    return entry.get("topic") or {}
+
+
+def paragraphs_html(values):
+    return "".join(f"<p>{e(value)}</p>" for value in values if value)
+
+
+def derived_quick_take(entry):
+    """Rule 501 makes definition 1 substitutable, so 'Term is <sense>.' is a
+    faithful plain-English restatement — not a new claim about the term."""
+    gloss = entry["definitions"][0]["text"].rstrip(".")
+    return f"{entry['term']} is {gloss}."
+
+
+def derived_formal_statement(entry):
+    gloss = entry["definitions"][0]["text"].rstrip(".")
+    return f"{entry['term']} ({entry['pos']}, {entry['domain']}): {gloss}."
+
+
+def quick_take_html(entry):
+    """Spec §1."""
+    authored = topic(entry).get("quickTake")
+    text = authored or derived_quick_take(entry)
+    flag = "" if authored else ' data-derived="true"'
+    return f'<p class="quick-take"{flag}>{e(text)}</p>'
+
+
+def formal_definitions_html(entry):
+    """Spec §2. Attributed blockquotes where sources back them, the entry's own
+    senses otherwise — never a quote the corpus cannot stand behind."""
+    sourced = topic(entry).get("formalDefinitions") or []
+    if not sourced:
+        return definitions_html(entry)
+    blocks = []
+    for definition in sourced[:3]:
+        bits = [b for b in (definition.get("author"), definition.get("year")) if b]
+        marker = (f' <a class="ref-marker" href="#references">[{e(definition["ref"])}]</a>'
+                  if definition.get("ref") else "")
+        cite = (f'<cite class="definition-attribution">{e(" , ".join(bits).replace(" , ", ", "))}'
+                f"</cite>{marker}" if bits else marker)
+        blocks.append(f'<blockquote class="formal-definition">'
+                      f'<p>{e(definition["quote"])}</p>{cite}</blockquote>')
+    return "".join(blocks)
+
+
+def formal_statement_html(entry):
+    """Spec §3."""
+    authored = topic(entry).get("formalStatement")
+    text = authored or derived_formal_statement(entry)
+    flag = "" if authored else ' data-derived="true"'
+    return f'<p class="formal-statement"{flag}>{e(text)}</p>'
+
+
+def etymology_html(entry):
+    """Spec §4."""
+    parts = [f'<p class="etymology-text">{e(entry["etymology"])}</p>']
+    if entry.get("firstAttested"):
+        parts.append(f'<p class="etymology-attested">First attested '
+                     f'{e(entry["firstAttested"])}.</p>')
+    return "".join(parts)
+
+
+def prerequisites_html(entry, index):
+    """Spec §6. A prerequisite links only where the target page exists, so the
+    knowledge graph never points at a 404."""
+    items = []
+    for prerequisite in topic(entry).get("prerequisites") or []:
+        label = e(prerequisite.get("label") or prerequisite.get("slug", ""))
+        slug = prerequisite.get("slug")
+        items.append(f'<li><a href="{e(slug)}.html">{label}</a></li>'
+                     if slug in index else f"<li>{label}</li>")
+    return f'<ul class="prerequisite-list">{"".join(items)}</ul>' if items else ""
+
+
+def videos_html(videos):
+    """Spec §7. Linked, never embedded — an iframe would need a third-party
+    frame-src and the CSP does not carry one."""
+    items = []
+    for video in videos:
+        why = f'<span class="video-why">{e(video["why"])}</span>' if video.get("why") else ""
+        creator = (f'<span class="video-creator">{e(video["creator"])}</span>'
+                   if video.get("creator") else "")
+        items.append(f'<li><a href="{e(video["url"])}" rel="noopener">'
+                     f'{e(video["title"])}</a>{creator}{why}</li>')
+    return (f'<div class="video-list"><h3>Watch</h3><ul>{"".join(items)}</ul></div>'
+            if items else "")
+
+
+def deep_dive_html(entry):
+    """Spec §7. Folds the lexical `formula` block in as the formalism, so an
+    entry that carries one never has to restate it in prose."""
+    dive = topic(entry).get("deepDive") or {}
+    parts = [paragraphs_html(dive.get("paragraphs") or [])]
+
+    formula = entry.get("formula")
+    if formula:
+        note = (f'<p class="formula-note">{e(formula["note"])}</p>'
+                if formula.get("note") else "")
+        parts.append(f'<div class="formula-block">'
+                     f'<code>{e(formula.get("plain") or formula.get("latex"))}</code></div>{note}')
+
+    steps = dive.get("steps") or []
+    if steps:
+        items = "".join(f"<li>{e(step)}</li>" for step in steps)
+        parts.append(f'<ol class="derivation-steps">{items}</ol>')
+
+    parts.append(videos_html(dive.get("videos") or []))
+    return "".join(part for part in parts if part)
+
+
+def worked_example_html(entry):
+    """Spec §8."""
+    example = topic(entry).get("workedExample") or {}
+    steps = example.get("steps") or []
+    if not (example.get("intro") or steps):
+        return ""
+    intro = f'<p>{e(example["intro"])}</p>' if example.get("intro") else ""
+    items = "".join(f"<li>{e(step)}</li>" for step in steps)
+    body = f'<ol class="worked-steps">{items}</ol>' if items else ""
+    return f'{intro}{body}'
+
+
+def variants_html(entry, index):
+    """Spec §9. The authored comparison table first, then the lexical relations
+    the entry already carries — synonyms, antonyms and live cross-references."""
+    parts = []
+    table = topic(entry).get("variantsTable") or {}
+    rows = table.get("rows") or []
+    if rows:
+        columns = table.get("columns") or []
+        head = "".join(f"<th scope=\"col\">{e(c)}</th>" for c in columns)
+        body = "".join("<tr>" + "".join(f"<td>{e(cell)}</td>" for cell in row) + "</tr>"
+                       for row in rows)
+        parts.append(f'<div class="table-scroll"><table class="variants-table">'
+                     f"<thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>")
+    parts.append(relations_html(entry, index))
+    return "".join(part for part in parts if part)
+
+
+def misconceptions_html(entry):
+    """Spec §10."""
+    items = []
+    for item in topic(entry).get("misconceptions") or []:
+        items.append(f'<div class="misconception">'
+                     f'<p class="misconception-claim">{e(item["claim"])}</p>'
+                     f'<p class="misconception-correction">{e(item["correction"])}</p></div>')
+    return "".join(items)
+
+
+def applications_html(entry):
+    """Spec §11."""
+    items = []
+    for item in topic(entry).get("applications") or []:
+        detail = (f'<span class="application-detail">{e(item["detail"])}</span>'
+                  if item.get("detail") else "")
+        items.append(f'<li><span class="application-name">{e(item["name"])}</span>{detail}</li>')
+    return f'<ul class="application-list">{"".join(items)}</ul>' if items else ""
+
+
+def link_buttons_html(items, css_class):
+    """Spec §12/§13. Rendered as link buttons, per the spec."""
+    buttons = []
+    for item in items:
+        note = f'<span class="link-note">{e(item["note"])}</span>' if item.get("note") else ""
+        external = ' rel="noopener"' if item["href"].startswith("http") else ""
+        buttons.append(f'<a class="link-button" href="{e(item["href"])}"{external}>'
+                       f'<span>{e(item["label"])}</span>{note}</a>')
+    return f'<div class="{css_class}">{"".join(buttons)}</div>' if buttons else ""
+
+
+def faq_html(entry):
+    """Spec §14. Rendered as real text — the FAQPage JSON-LD is emitted from the
+    same list, so structured data can never describe an absent question."""
+    items = []
+    for pair in topic(entry).get("faq") or []:
+        items.append(f'<div class="faq-item"><h3>{e(pair["q"])}</h3>'
+                     f'<p>{e(pair["a"])}</p></div>')
+    return "".join(items)
+
+
+def revisions_html(entry):
+    """Spec §16."""
+    rows = topic(entry).get("revisions") or []
+    if not rows:
+        return ""
+    body = "".join(
+        f'<tr><td>{e(row.get("version", ""))}</td><td>{e(row.get("date", ""))}</td>'
+        f'<td>{e(row.get("change", ""))}</td><td>{e(row.get("editor", ""))}</td></tr>'
+        for row in rows)
+    return ('<div class="table-scroll"><table class="revision-table">'
+            '<thead><tr><th scope="col">Version</th><th scope="col">Date</th>'
+            '<th scope="col">Change</th><th scope="col">Editor</th></tr></thead>'
+            f"<tbody>{body}</tbody></table></div>")
+
+
+def about_author_html(entry):
+    """Spec §17. An E-E-A-T signal, so it states only what the entry records."""
+    data = topic(entry)
+    if not data.get("author"):
+        return ""
+    parts = [f'<p class="author-line">Written by <span class="author-name">'
+             f'{e(data["author"])}</span>.</p>']
+    if data.get("reviewer"):
+        parts.append(f'<p class="reviewer-line">Reviewed by {e(data["reviewer"])}.</p>')
+    if data.get("dateUpdated"):
+        parts.append(f'<p class="updated-line">Last updated '
+                     f'<time datetime="{e(data["dateUpdated"])}">'
+                     f'{e(data["dateUpdated"])}</time>.</p>')
+    parts.append(f'<p class="author-bio-link"><a href="{SITE}/consultancy.html">'
+                 "About The Hallucinated Lab</a></p>")
+    return "".join(parts)
+
+
+# The spec's fixed order. Nothing reorders this list at runtime; a section is
+# either rendered here or not rendered at all.
+def topic_sections(entry, index):
+    candidates = [
+        ("quick-take", "Quick Take", quick_take_html(entry)),
+        ("definitions", "Formal Definitions", formal_definitions_html(entry)),
+        ("formal-statement", "Final Formal Statement", formal_statement_html(entry)),
+        ("etymology", "Etymology", etymology_html(entry)),
+        ("background", "Background & Motivation",
+         paragraphs_html(topic(entry).get("background") or [])),
+        ("prerequisites", "Prerequisites", prerequisites_html(entry, index)),
+        ("deep-dive", "In-Depth Explanation", deep_dive_html(entry)),
+        ("worked-example", "Worked Example", worked_example_html(entry)),
+        ("variants", "Variants & Related Concepts", variants_html(entry, index)),
+        ("misconceptions", "Common Misconceptions", misconceptions_html(entry)),
+        ("applications", "Real-World Applications", applications_html(entry)),
+        ("more-resources", "More Resources",
+         link_buttons_html(topic(entry).get("moreResources") or [], "resource-buttons")),
+        ("further-reading", "Further Reading",
+         link_buttons_html(topic(entry).get("furtherReading") or [], "reading-buttons")),
+        ("faq", "FAQ", faq_html(entry)),
+        ("references", "References", citations_html(entry)),
+        ("revision-history", "Revision History", revisions_html(entry)),
+        ("about-author", "Author & Review", about_author_html(entry)),
+    ]
+    return [(sid, title, body) for sid, title, body in candidates if body.strip()]
+
+
+def sections_body_html(sections):
+    return "\n".join(
+        f'<section class="term-section" id="{sid}" aria-labelledby="{sid}-heading">\n'
+        f'  <h2 id="{sid}-heading">{e(title)}</h2>\n  {body}\n</section>'
+        for sid, title, body in sections)
+
+
+def contents_html(sections):
+    """The eighteen-section page is long; without a contents list the reader has
+    to scroll to find out what it holds."""
+    items = "".join(f'<li><a href="#{sid}">{e(title)}</a></li>' for sid, title, _ in sections)
+    return (f'<nav class="topic-contents" aria-labelledby="contents-heading">'
+            f'<h2 id="contents-heading">On this page</h2>'
+            f"<ol>{items}</ol></nav>")
+
+
+def topic_meta_html(entry):
+    """Spec §0 rendered as the page's metadata strip — category, difficulty and
+    reading time are the three the reader acts on before committing to a page."""
+    data = topic(entry)
+    chips = []
+    if data.get("category"):
+        chips.append(f'<span class="meta-chip meta-category">{e(data["category"])}</span>')
+    if data.get("difficulty"):
+        chips.append(f'<span class="meta-chip meta-difficulty" '
+                     f'data-level="{e(data["difficulty"].lower())}">{e(data["difficulty"])}</span>')
+    if data.get("readingTime"):
+        chips.append(f'<span class="meta-chip meta-reading">{e(data["readingTime"])} min read</span>')
+    if data.get("status") and data["status"] != "Published":
+        chips.append(f'<span class="meta-chip meta-status">{e(data["status"])}</span>')
+    return f'<div class="topic-meta">{"".join(chips)}</div>' if chips else ""
+
+
+def aside_html(entry, section, sections):
     rows = [
         ("Lexical ID", entry["lid"]),
         ("Section", section["title"]),
@@ -193,6 +472,13 @@ def aside_html(entry, section):
         ("Part of speech", entry["pos"]),
         ("Form", entry["ngram"]),
     ]
+    data = topic(entry)
+    if data.get("category"):
+        rows.append(("Category", data["category"]))
+    if data.get("difficulty"):
+        rows.append(("Difficulty", data["difficulty"]))
+    if data.get("readingTime"):
+        rows.append(("Reading time", f"{data['readingTime']} min"))
     if entry.get("firstAttested"):
         rows.append(("First attested", entry["firstAttested"]))
     if entry.get("abbr"):
@@ -204,37 +490,74 @@ def aside_html(entry, section):
     if entry.get("opacity"):
         rows.append(("Opacity", f"{entry['opacity']} of 3"))
     body = "".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in rows)
-    return f'<aside class="term-aside"><h2>Entry data</h2><dl>{body}</dl></aside>'
+    return (f'<aside class="term-aside">{contents_html(sections)}'
+            f"<h2>Entry data</h2><dl>{body}</dl></aside>")
 
 
-def jsonld_term(entry, section, canonical):
-    """DefinedTerm inside a DefinedTermSet, plus the breadcrumb trail."""
-    graph = [
-        {
-            "@type": "DefinedTerm",
-            "@id": f"{canonical}#term",
-            "name": entry["term"],
-            "description": entry["definitions"][0]["text"],
-            "termCode": entry["lid"],
-            "inDefinedTermSet": {
-                "@type": "DefinedTermSet",
-                "@id": f"{BASE}/#{section['id']}",
-                "name": section["title"],
-                "url": f"{BASE}/#{section['id']}",
-            },
-            "url": canonical,
+def jsonld_term(entry, section, canonical, sections):
+    """DefinedTerm inside a DefinedTermSet, the breadcrumb trail, and — only when
+    the FAQ section actually rendered — the FAQPage block. RULE-05 on the parent
+    site: structured data may describe nothing the page does not show."""
+    data = topic(entry)
+    rendered = {sid for sid, _, _ in sections}
+
+    defined_term = {
+        "@type": "DefinedTerm",
+        "@id": f"{canonical}#term",
+        "name": entry["term"],
+        "description": data.get("quickTake") or entry["definitions"][0]["text"],
+        "termCode": entry["lid"],
+        "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "@id": f"{BASE}/#{section['id']}",
+            "name": section["title"],
+            "url": f"{BASE}/#{section['id']}",
         },
-        {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE}/"},
-                {"@type": "ListItem", "position": 2, "name": "Dictionary", "item": f"{BASE}/"},
-                {"@type": "ListItem", "position": 3, "name": section["title"],
-                 "item": f"{BASE}/#{section['id']}"},
-                {"@type": "ListItem", "position": 4, "name": entry["term"], "item": canonical},
+        "url": canonical,
+    }
+
+    article = {
+        "@type": "Article",
+        "@id": f"{canonical}#article",
+        "headline": entry["term"],
+        "description": data.get("metaDescription") or entry["definitions"][0]["text"],
+        "mainEntityOfPage": canonical,
+        "about": {"@id": f"{canonical}#term"},
+        "isPartOf": {"@type": "WebSite", "@id": f"{SITE}/#website", "name": "The Hallucinated Lab"},
+    }
+    if data.get("author"):
+        article["author"] = {"@type": "Person", "name": data["author"]}
+    if data.get("reviewer"):
+        article["reviewedBy"] = {"@type": "Person", "name": data["reviewer"]}
+    if data.get("datePublished"):
+        article["datePublished"] = data["datePublished"]
+    if data.get("dateUpdated"):
+        article["dateModified"] = data["dateUpdated"]
+    if data.get("category"):
+        article["articleSection"] = data["category"]
+
+    graph = [defined_term, article, {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE}/"},
+            {"@type": "ListItem", "position": 2, "name": "Dictionary", "item": f"{BASE}/"},
+            {"@type": "ListItem", "position": 3, "name": section["title"],
+             "item": f"{BASE}/#{section['id']}"},
+            {"@type": "ListItem", "position": 4, "name": entry["term"], "item": canonical},
+        ],
+    }]
+
+    if "faq" in rendered:
+        graph.append({
+            "@type": "FAQPage",
+            "@id": f"{canonical}#faq",
+            "mainEntity": [
+                {"@type": "Question", "name": pair["q"],
+                 "acceptedAnswer": {"@type": "Answer", "text": pair["a"]}}
+                for pair in data["faq"]
             ],
-        },
-    ]
+        })
+
     payload = json.dumps({"@context": "https://schema.org", "@graph": graph},
                          ensure_ascii=False, indent=2)
     return f'<script type="application/ld+json">\n{payload}\n</script>'
@@ -242,8 +565,12 @@ def jsonld_term(entry, section, canonical):
 
 def term_page(entry, section, index, prev_entry, next_entry):
     canonical = f"{BASE}/terms/{entry['slug']}.html"
+    data = topic(entry)
     gloss = entry["definitions"][0]["text"]
-    description = f"{entry['term']} ({entry['pos']}, {entry['domain']}) — {gloss}"[:300]
+    description = (data.get("metaDescription")
+                   or f"{entry['term']} ({entry['pos']}, {entry['domain']}) — {gloss}")[:300]
+
+    sections = topic_sections(entry, index)
 
     phonetics = []
     if entry.get("ipa"):
@@ -254,11 +581,6 @@ def term_page(entry, section, index, prev_entry, next_entry):
 
     badges = [f'<span class="badge">{e(tag)}</span>' for tag in entry.get("tags") or []]
     badges += [f'<span class="badge">{e(flag)}</span>' for flag in entry.get("flags") or []]
-
-    etymology = f"""<section class="term-section">
-  <h2>Etymology</h2>
-  <p class="etymology-text">{e(entry['etymology'])}</p>
-</section>"""
 
     nav_links = []
     if prev_entry:
@@ -275,7 +597,7 @@ def term_page(entry, section, index, prev_entry, next_entry):
 <head>
 {head_html(title=f"{entry['term']} — The Hallucinated Lab Dictionary",
            description=description, canonical=canonical, depth=1,
-           extra_ld=jsonld_term(entry, section, canonical))}
+           extra_ld=jsonld_term(entry, section, canonical, sections))}
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -294,21 +616,14 @@ def term_page(entry, section, index, prev_entry, next_entry):
           <span class="badge">{e(entry['domain'])}</span>
           {"".join(badges)}
         </div>
+        {topic_meta_html(entry)}
       </header>
 
-      <section class="term-section">
-        <h2>Definition</h2>
-        {definitions_html(entry)}
-      </section>
-
-      {formula_html(entry)}
-      {etymology}
-      {relations_html(entry, index)}
-      {citations_html(entry)}
+{sections_body_html(sections)}
 
       <nav class="term-nav" aria-label="Adjacent entries">{"".join(nav_links)}</nav>
     </div>
-    {aside_html(entry, section)}
+    {aside_html(entry, section, sections)}
   </article>
 </main>
 {FOOTER.format(site=SITE)}
@@ -513,6 +828,22 @@ def derive(entry):
     return entry
 
 
+def topic_coverage(index):
+    """How much of the corpus has been migrated to the topic page interface.
+
+    Printed on every build so the legacy backlog stays visible instead of
+    quietly persisting behind pages that look complete.
+    """
+    total = len(index)
+    migrated = sorted(slug for slug, entry in index.items() if entry.get("topic"))
+    pending = total - len(migrated)
+    line = (f"topic page coverage: {len(migrated)}/{total} entries carry a topic "
+            f"block, {pending} still rendering derived fallbacks")
+    if migrated:
+        line += "\n  migrated: " + ", ".join(migrated)
+    return line
+
+
 def main():
     if validate_main([]) != 0:
         print("\nbuild aborted: corpus validation failed", file=sys.stderr)
@@ -558,6 +889,7 @@ def main():
         fh.write(sitemap(corpora))
 
     print(f"built {written} term pages, hub page, search index, sitemap")
+    print(topic_coverage(index))
     return 0
 
 
