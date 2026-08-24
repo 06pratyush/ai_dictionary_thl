@@ -1,8 +1,13 @@
-# Lexical Entry Schema v1.0
+# Lexical Entry Schema v2.0
 
 Every entry in `data/ai-mathematics.json` and `data/software-engineering.json`
 conforms to this shape. `build/validate.py` enforces it; the build fails on any
 violation. Rule numbers refer to the Master Lexicographical Framework.
+
+**v2.0 adds the `topic` block.** Every entry added from this point carries one,
+and the rendered page follows `docs/TOPIC-PAGE-SPEC.md` section for section. The
+lexical fields below are unchanged — the topic block sits alongside them and
+supplies the prose sections the spec requires.
 
 ```jsonc
 {
@@ -52,6 +57,72 @@ violation. Rule numbers refer to the Master Lexicographical Framework.
       "url": "https://…" }
   ],
 
+  "topic": {                      // Topic Page Spec v1.0. Required on every new entry.
+    "category":    "Optimization",       // §0. Architecture | Training | Tokenization | Systems | …
+    "difficulty":  "Intermediate",       // §0. Beginner | Intermediate | Advanced
+    "readingTime": 9,                    // §0. Whole minutes.
+    "status":      "Published",          // §0. Draft | Published | Needs Review
+    "datePublished": "2026-08-24",       // §0. ISO date.
+    "dateUpdated":   "2026-08-24",       // §0. ISO date.
+    "author":   "Vidya",                 // §0/§17.
+    "reviewer": "",                      // §0/§17. Empty when unreviewed.
+    "metaDescription": "…",              // §0. 150-160 chars, standalone answer.
+
+    "quickTake": "…",                    // §1. 2-3 plain-English sentences, no jargon.
+
+    "formalDefinitions": [               // §2. Max 3. Chosen for contrast, not redundancy.
+      { "quote": "…", "author": "Cauchy, A.", "year": "1847", "ref": 1 }
+    ],                                   // ref -> 1-based index into citations[].
+
+    "formalStatement": "…",              // §3. The site's own canonical sentence.
+
+    "background": ["…", "…"],            // §5. Paragraphs. Why this exists, not how it works.
+
+    "prerequisites": [                   // §6. slug links into the corpus where one exists.
+      { "label": "Softmax", "slug": "softmax" }
+    ],
+
+    "deepDive": {                        // §7. The core content.
+      "paragraphs": ["…"],
+      "steps": ["…"],                    // Optional derivation steps, rendered as an ordered list.
+      "videos": [ { "title": "…", "creator": "…", "url": "https://…", "why": "…" } ]
+    },
+
+    "workedExample": {                   // §8. Concrete numbers, traceable by hand.
+      "intro": "…",
+      "steps": ["…"]
+    },
+
+    "variantsTable": {                   // §9. Sibling comparison.
+      "columns": ["Variant", "Key difference"],
+      "rows": [["…", "…"]]
+    },
+
+    "misconceptions": [                  // §10. 2-4 pairs.
+      { "claim": "…", "correction": "…" }
+    ],
+
+    "applications": [                    // §11. Named systems, not generic statements.
+      { "name": "…", "detail": "…" }
+    ],
+
+    "moreResources": [                   // §12. Same-site links only. Omit if nothing exists.
+      { "label": "…", "href": "/articles.html" }
+    ],
+
+    "furtherReading": [                  // §13. External recommendation, not citation trail.
+      { "label": "…", "href": "https://…", "note": "…" }
+    ],
+
+    "faq": [                             // §14. 3-6 pairs, each answerable in 2-4 sentences.
+      { "q": "…", "a": "…" }
+    ],
+
+    "revisions": [                       // §16. Append-only.
+      { "version": "1.0", "date": "2026-08-24", "change": "Initial publish", "editor": "Vidya" }
+    ]
+  },
+
   "frequency": 95,                // 0-100 corpus-frequency proxy. Rule 718 tie-breaker.
   "opacity":   null,              // Rule 417. 1-3 for idiomatic jargon; null for literal terms.
   "flags":     []                 // Rule 107/108/422: NSFW, Archaic, Obsolete, Historical.
@@ -74,6 +145,18 @@ violation. Rule numbers refer to the Master Lexicographical Framework.
 | `proximity` ∈ {Absolute, Near} | 523 | bad enum |
 | `polarity` ∈ {Complementary, Gradable, Relational} | 525 | bad enum |
 | `ngram` agrees with the whitespace-separated word count of `term` | 102/103 | mis-tagged |
+| `topic` present on every entry outside the legacy allowlist | Spec §0 | entry does not follow the topic page interface |
+| `topic.difficulty` ∈ {Beginner, Intermediate, Advanced} | Spec §0 | bad enum |
+| `topic.status` ∈ {Draft, Published, Needs Review} | Spec §0 | bad enum |
+| `topic.metaDescription` is 150–160 chars | Spec §0 | snippet truncated or padded in search results |
+| `topic.readingTime` is a positive whole number | Spec §0 | bad metadata |
+| ISO dates on `datePublished` / `dateUpdated` | Spec §0 | bad metadata |
+| every Required spec section has authored content | Spec §1–§5, §7, §15–§17 | incomplete topic page |
+| at most 3 `topic.formalDefinitions[]` | Spec §2 | redundant citation stack |
+| every `formalDefinitions[].ref` resolves to a `citations[]` index | Spec §2/§15 | dangling reference marker |
+| `topic.prerequisites[].slug` resolves to a real entry | Spec §6 | dead cross-reference |
+| `topic.moreResources[].href` is same-site | Spec §12 | external link in an internal section |
+| `topic.revisions[]` non-empty, ISO-dated | Spec §16 | no revision trail |
 
 ## LID allocation
 
@@ -83,6 +166,21 @@ a term, and add the term to the registry in the same commit — authoring an ent
 with a number the registry has already promised to another term produces a
 duplicate LID, which the validator rejects but only after the fact.
 
+## The topic page contract
+
+`docs/TOPIC-PAGE-SPEC.md` is the authority on what each section means and in what
+order it renders. Two consequences for authoring:
+
+1. **New entries carry a complete `topic` block.** The validator fails the build
+   otherwise. The only exemption is the legacy migration allowlist in
+   `build/validate.py`, which holds the 39 entries that predate the spec and only
+   ever shrinks.
+2. **Optional sections are omitted, not padded.** An empty `misconceptions` or
+   `faq` array renders nothing at all. Do not invent content to fill a section —
+   a thin section is worse than an absent one, and the FAQ in particular emits
+   `FAQPage` structured data, so a fabricated question is a search-manual-action
+   risk.
+
 ## Fields the build derives — never author them by hand
 
 - `ngram` is recomputed from `term`.
@@ -90,3 +188,7 @@ duplicate LID, which the validator rejects but only after the fact.
   text, edge n-grams) is generated by `build/build.py` per Rules 710-712.
 - `terms/<slug>.html` is generated from the entry plus the page template.
 - `sitemap.xml` is generated from the union of both corpora.
+- §1 Quick Take and §3 Final Formal Statement are derived from `definitions[0]`
+  for legacy entries that have not been migrated yet. The derived markup carries
+  `data-derived="true"`. Authoring `topic.quickTake` / `topic.formalStatement`
+  replaces the derivation — never edit the generated page to do it.
