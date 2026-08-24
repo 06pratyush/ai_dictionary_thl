@@ -563,6 +563,18 @@ def jsonld_term(entry, section, canonical, sections):
     return f'<script type="application/ld+json">\n{payload}\n</script>'
 
 
+TITLE_LIMIT = 60
+
+
+def term_title(term):
+    """Titles are capped at 60 characters. A long headword overflows the full
+    suffix, so it falls back to the short one rather than being truncated."""
+    full = f"{term} — The Hallucinated Lab Dictionary"
+    if len(full) <= TITLE_LIMIT:
+        return full
+    return f"{term} — THL Dictionary"
+
+
 def term_page(entry, section, index, prev_entry, next_entry):
     canonical = f"{BASE}/terms/{entry['slug']}.html"
     data = topic(entry)
@@ -595,7 +607,7 @@ def term_page(entry, section, index, prev_entry, next_entry):
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-{head_html(title=f"{entry['term']} — The Hallucinated Lab Dictionary",
+{head_html(title=term_title(entry['term']),
            description=description, canonical=canonical, depth=1,
            extra_ld=jsonld_term(entry, section, canonical, sections))}
 </head>
