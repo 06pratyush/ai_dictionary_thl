@@ -90,3 +90,14 @@
 - **Bugs/Gaps Addressed:** Integrated 39 term pages, static search engine, and dictionary assets seamlessly into the live website structure.
 - **Context Modifications:** Updated navigation bar to feature Dictionary tab right after Solutions across all pages, synced sitemap.xml, llms.txt, llms-full.txt, and passed all 377 site invariant tests.
 
+
+---
+
+- **Timestamp:** 2026-08-28T18:50:00Z
+- **Trigger Event:** Protocol Change
+- **Author/Agent:** Claude Code (Master Orchestrator)
+- **Target Subsystem:** `CLAUDE.md`
+- **Intent:** Adopt Master Orchestrator Protocol v3 — the expert-ensemble revision — as this repository's standing development protocol.
+- **Bugs/Gaps Addressed:** v2 routed work to a single local coder with a manual correction ladder. v3 replaces that with a task-level expert ensemble (ten experts over three weight sets, specialised by persona, temperature and constraint list) and, more importantly, adds two things v2 lacked: a **dual adversarial audit** — a GPU auditor and a CPU-pinned adversary reviewing the same file on different weights, in parallel, with the union of their CRITICAL/MAJOR findings going to a repairer — and a **mandated post-run verification** (§6) that runs the whole project's suite after *every* integration and compares against a captured baseline, so a unit that passes its own gate can no longer hide a regression elsewhere.
+- **Context Modifications:** `CLAUDE.md` replaced wholesale, v2 → v3. This is its own commit and its own pull request, never a side effect of a feature. Two provisions bind immediately regardless of tooling: §6.3 rule 1, never report work done without a `VERIFY_PASS` actually run, and §13, the 100-line read ceiling.
+- **Deliberate omission:** The ensemble harness (`.orchestrator/*.sh`, the expert role files, `moe.sh`) is **not** created in this commit. This environment has no Ollama — `which ollama` returns nothing — so every script in §4 and §5 would be dead code committed on the strength of a description rather than a run. The protocol is adopted; the harness is built in the environment that can execute and prove it. §6's verification mandate is honoured by running the repository's real gates (`python build/validate.py`, `npm test`) directly.
