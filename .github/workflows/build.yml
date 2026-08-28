@@ -25,8 +25,8 @@ jobs:
       - name: Validate corpora
         run: python build/validate.py
 
-      - name: Search engine conformance
-        run: node tests/search-engine.test.mjs
+      - name: Search engine and topic page conformance
+        run: node --test tests/*.test.mjs
 
       - name: Build static output
         run: python build/build.py
