@@ -343,6 +343,198 @@
           "url": "https://arxiv.org/abs/1706.03762"
         }
       ],
+      "topic": {
+        "category": "Architecture",
+        "difficulty": "Intermediate",
+        "readingTime": 12,
+        "status": "Published",
+        "datePublished": "2026-08-24",
+        "dateUpdated": "2026-08-24",
+        "author": "The Hallucinated Lab",
+        "reviewer": "",
+        "metaDescription": "Attention lets a model weigh every input position by learned relevance instead of compressing a sequence into one fixed vector. How it works, and why.",
+        "quickTake": "Attention lets a model decide, for each position it is working on, how much to draw from every other position in the input. Instead of squeezing a whole sequence into one fixed summary, it keeps everything available and learns what is worth looking at, one output at a time.",
+        "formalDefinitions": [
+          {
+            "quote": "Allowing a model to automatically (soft-)search for parts of a source sentence that are relevant to predicting a target word.",
+            "author": "Bahdanau, Cho & Bengio",
+            "year": "2015",
+            "ref": 1
+          },
+          {
+            "quote": "An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values and output are all vectors.",
+            "author": "Vaswani et al.",
+            "year": "2017",
+            "ref": 2
+          }
+        ],
+        "formalStatement": "Attention is a differentiable content-based lookup: it scores a query against a set of keys, normalises those scores into weights that sum to one, and returns the correspondingly weighted sum of the values. Because every step of that is differentiable, the notion of relevance is learned rather than specified.",
+        "background": [
+          "Before attention, a sequence-to-sequence model had to pass everything it knew about the input through a single fixed-length vector. The encoder read the source sentence, compressed it to that vector, and the decoder worked from the compression alone. For a short sentence this is merely lossy; for a long one it is fatal, and translation quality was observed to fall off sharply as source length grew.",
+          "The bottleneck is structural rather than a matter of capacity. However wide the vector, it is a constant-size budget describing a variable-size input, so the cost of remembering the fiftieth token is paid by forgetting something else. Bahdanau et al. proposed removing the constraint instead of enlarging it: keep every encoder state, and let the decoder choose among them at each output step.",
+          "That choice had to be soft. A hard selection — pick token seventeen — is a discrete decision with no gradient, so it cannot be trained by backpropagation. Making the selection a set of continuous weights is what turned the idea into something learnable, and is the reason attention spread far beyond translation."
+        ],
+        "prerequisites": [
+          {
+            "label": "Softmax",
+            "slug": "softmax"
+          },
+          {
+            "label": "Embedding",
+            "slug": "embedding"
+          },
+          {
+            "label": "Backpropagation",
+            "slug": "backpropagation"
+          }
+        ],
+        "deepDive": {
+          "paragraphs": [
+            "Start with the intuition. You are translating a sentence and about to emit one word. Some source words matter a great deal to that decision and most matter very little. Attention formalises exactly that: it produces a relevance score for every source position, turns the scores into weights, and blends the source representations accordingly.",
+            "The three roles are query, key and value. The query represents what the current position is looking for. Each input position offers a key, advertising what it can answer, and a value, carrying the content to return if selected. Scoring a query against every key gives a compatibility score per position; softmax turns those into a distribution; the output is the weighted sum of the values. This is a dictionary lookup where, instead of one key matching, every key matches to a degree.",
+            "The scaling factor is not cosmetic. If query and key components are roughly independent with unit variance, a dot product over d_k dimensions has variance d_k, so raw scores grow with dimension. Push large values through softmax and the distribution saturates towards one-hot, where its gradient is nearly zero and learning stalls. Dividing by the square root of d_k holds the scores in the range where softmax still has useful gradients.",
+            "Everything here is differentiable, which is the whole point. The model is never told which positions are relevant. It learns the projections that produce queries and keys, and relevance falls out of them as a by-product of minimising the loss."
+          ],
+          "steps": [
+            "Project the inputs into queries, keys and values: Q = XW_Q, K = XW_K, V = XW_V.",
+            "Score every query against every key with a dot product: S = QK^T.",
+            "Scale by sqrt(d_k) so the scores stay inside softmax's useful gradient range.",
+            "Normalise each row with softmax so the weights over positions sum to 1.",
+            "Return the weighted sum of the values: the attention output is (softmax(S/sqrt(d_k)))V."
+          ],
+          "videos": [
+            {
+              "title": "Attention in transformers, step by step",
+              "creator": "3Blue1Brown",
+              "url": "https://www.youtube.com/watch?v=eMlx5fFNoYc",
+              "why": "Builds the query/key/value picture geometrically before any algebra appears."
+            },
+            {
+              "title": "Let's build GPT: from scratch, in code, spelled out",
+              "creator": "Andrej Karpathy",
+              "url": "https://www.youtube.com/watch?v=kCc8FmEb1nY",
+              "why": "Implements attention line by line, so the formula becomes running code."
+            }
+          ]
+        },
+        "workedExample": {
+          "intro": "Three positions, two dimensions, numbers chosen so the arithmetic can be followed by hand. Take the query for position 1 as q = [1, 0], the keys k1 = [1, 0], k2 = [0, 1], k3 = [1, 1], and the values v1 = [2, 0], v2 = [0, 2], v3 = [1, 1].",
+          "steps": [
+            "Scores: q·k1 = 1, q·k2 = 0, q·k3 = 1.",
+            "Scale by sqrt(d_k) = sqrt(2) ≈ 1.414: [0.707, 0, 0.707].",
+            "Exponentiate: [2.028, 1.000, 2.028]; the sum is 5.056.",
+            "Weights: [0.401, 0.198, 0.401] — note they sum to 1.",
+            "Output: 0.401·[2,0] + 0.198·[0,2] + 0.401·[1,1] = [1.203, 0.797].",
+            "Read it back: positions 1 and 3 both align with the query and dominate the blend, position 2 is orthogonal to it and contributes least. Nothing is discarded — position 2 is down-weighted, not dropped."
+          ]
+        },
+        "variantsTable": {
+          "columns": [
+            "Variant",
+            "Key difference"
+          ],
+          "rows": [
+            [
+              "Self-attention",
+              "Q, K and V are all projections of the same sequence."
+            ],
+            [
+              "Cross-attention",
+              "Q comes from one sequence, K and V from another."
+            ],
+            [
+              "Multi-head attention",
+              "Several attention functions run in parallel subspaces and are concatenated."
+            ],
+            [
+              "Masked attention",
+              "Future positions are scored at negative infinity, so a position sees only its past."
+            ],
+            [
+              "Grouped-query attention",
+              "Several query heads share one key/value head, cutting cache size at inference."
+            ]
+          ]
+        },
+        "misconceptions": [
+          {
+            "claim": "Attention weights explain what the model is thinking.",
+            "correction": "They show where the blend drew from, which is not the same as why a prediction was made. Different weight patterns can produce the same output, so attention maps are evidence about the computation, not an explanation of it."
+          },
+          {
+            "claim": "Attention selects one input position and ignores the rest.",
+            "correction": "Softmax returns a distribution over every position. Weights become small but never zero, and that softness is precisely what makes the operation differentiable and therefore trainable."
+          },
+          {
+            "claim": "Attention is a transformer thing.",
+            "correction": "It predates transformers by three years. Bahdanau et al. added it to a recurrent translation model in 2014; the transformer's contribution was removing the recurrence and keeping the attention."
+          },
+          {
+            "claim": "Attention gives a model unlimited memory of its input.",
+            "correction": "It removes the fixed-vector bottleneck, but scoring every query against every key costs time and memory quadratic in sequence length. The limit moved from what can be remembered to what can be afforded."
+          }
+        ],
+        "applications": [
+          {
+            "name": "Machine translation",
+            "detail": "The original application: soft alignment between source and target tokens, which also made attention weights readable as an approximate alignment matrix."
+          },
+          {
+            "name": "Large language models",
+            "detail": "Masked self-attention is the mechanism through which a decoder-only model conditions each token on the entire preceding context."
+          },
+          {
+            "name": "Vision transformers",
+            "detail": "Images are split into patches and treated as a sequence, so attention replaces convolution as the mechanism that mixes spatial information."
+          },
+          {
+            "name": "Protein structure prediction",
+            "detail": "AlphaFold's Evoformer attends over residue pairs and multiple sequence alignments to propagate structural constraints."
+          }
+        ],
+        "furtherReading": [
+          {
+            "label": "The Illustrated Transformer",
+            "href": "https://jalammar.github.io/illustrated-transformer/",
+            "note": "Jay Alammar — the diagrams most people picture when they think about Q, K and V."
+          },
+          {
+            "label": "The Annotated Transformer",
+            "href": "https://nlp.seas.harvard.edu/annotated-transformer/",
+            "note": "Harvard NLP — the 2017 paper rebuilt as runnable, annotated PyTorch."
+          }
+        ],
+        "faq": [
+          {
+            "q": "What problem does attention actually solve?",
+            "a": "The fixed-length bottleneck in encoder-decoder models. Without it, everything about the input must fit in one vector regardless of input length, and quality degrades as sequences grow. Attention keeps every input representation available and learns which to draw on."
+          },
+          {
+            "q": "Why divide by the square root of the key dimension?",
+            "a": "Dot products over d_k dimensions have variance proportional to d_k, so scores grow with dimension. Large scores saturate softmax, where gradients are close to zero and learning stalls. Scaling holds the scores where softmax still trains."
+          },
+          {
+            "q": "What is the difference between attention and self-attention?",
+            "a": "Self-attention is attention where queries, keys and values all come from the same sequence, so positions attend to each other. Plain attention makes no such requirement — in cross-attention the queries come from one sequence and the keys and values from another."
+          },
+          {
+            "q": "Is attention the same as the transformer?",
+            "a": "No. Attention is the operation; the transformer is an architecture built almost entirely out of it. Attention was introduced in 2014 inside a recurrent model, and the transformer's contribution in 2017 was removing the recurrence."
+          },
+          {
+            "q": "Why is long context expensive if attention removed the bottleneck?",
+            "a": "Every query is scored against every key, so cost grows with the square of sequence length in both time and memory. The constraint shifted from how much can be summarised into one vector to how much compute a longer sequence is worth."
+          }
+        ],
+        "revisions": [
+          {
+            "version": "1.0",
+            "date": "2026-08-24",
+            "change": "Initial publish under Topic Page Specification v1.0.",
+            "editor": "The Hallucinated Lab"
+          }
+        ]
+      },
       "frequency": 90,
       "opacity": 2,
       "flags": []
