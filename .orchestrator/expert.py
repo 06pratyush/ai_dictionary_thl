@@ -53,11 +53,20 @@ def run(expert: str, prompt_path: str, max_lines: int = 0) -> str:
 
     request = urllib.request.Request(
         ENDPOINT, data=body, headers={"Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=1800) as response:
-            envelope = json.load(response)
-    except (urllib.error.URLError, TimeoutError) as exc:
-        sys.exit(f"OLLAMA_UNREACHABLE: {exc}")
+
+    # A cold model can spend minutes loading before it emits a token, and the
+    # first call after a swap is the one that times out. Retry once rather than
+    # failing the whole unit on a load stall.
+    envelope = None
+    for attempt in (1, 2):
+        try:
+            with urllib.request.urlopen(request, timeout=3600) as response:
+                envelope = json.load(response)
+            break
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            if attempt == 2:
+                sys.exit(f"OLLAMA_UNREACHABLE: {exc}")
+            print(f"RETRY after {type(exc).__name__}: {exc}", file=sys.stderr)
     if "error" in envelope:
         sys.exit(f"OLLAMA_ERROR: {envelope['error']}")
 
