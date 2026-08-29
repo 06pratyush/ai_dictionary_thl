@@ -1,0 +1,98 @@
+# The dictionary, as an installable package.
+#
+# Two front doors, deliberately:
+#
+#   pip install thehallucinatedlab-dictionary   ->  thl-dict <command>
+#
+# and, when the main toolkit is also installed, the same commands appear under
+# its `thl` command as `thl dict <command>`, via the entry-point group below.
+# The toolkit discovers this package rather than depending on it, so neither
+# has to know the other exists at build time and `pip install thehallucinatedlab`
+# stays as small as it is today.
+#
+# No runtime dependencies at all. The corpora ship inside the wheel and the
+# bridge is built on stdlib http.server, so `thl-dict` works offline on a fresh
+# interpreter. That is the whole point of a local-first reference: a dictionary
+# that needs the network to define a word is a website with extra steps.
+
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "thehallucinatedlab-dictionary"
+version = "1.0.0"
+description = "The Hallucinated Lab dictionary — AI, mathematics and software engineering, on the command line."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "The Hallucinated Lab", email = "thehallucinatedlab@gmail.com" }]
+keywords = [
+  "dictionary", "glossary", "reference", "cli", "local-first",
+  "machine-learning", "mathematics", "software-engineering", "search",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Education",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Utilities",
+]
+dependencies = []
+
+[project.optional-dependencies]
+# ruff is pinned to a major line rather than left open: an unbounded `ruff>=0.6`
+# lets a release enable a new lint rule and turn CI red on code nobody touched.
+dev = ["pytest>=8.0", "ruff>=0.6,<0.13"]
+
+[project.scripts]
+thl-dict = "thehallucinatedlab_dictionary.cli:main"
+
+# How the main toolkit finds this package. It reads this group at parse time and
+# mounts whatever it finds, so installing this wheel is the only step needed to
+# make `thl dict` work — no edit to the toolkit, no release of it.
+[project.entry-points."thehallucinatedlab.commands"]
+dict = "thehallucinatedlab_dictionary.plugin"
+
+[project.urls]
+Homepage = "https://thehallucinatedlab.space/dictionary/"
+Documentation = "https://thehallucinatedlab.space/dictionary/"
+Source = "https://github.com/06pratyush/ai_dictionary_thl"
+Issues = "https://github.com/06pratyush/ai_dictionary_thl/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["thehallucinatedlab_dictionary"]
+
+# The corpora are package data, not source. Without this the wheel builds
+# cleanly and then raises CorpusUnavailable on first run, which is the worst
+# available failure: it passes CI and breaks for the user.
+[tool.hatch.build.targets.wheel.force-include]
+"thehallucinatedlab_dictionary/data" = "thehallucinatedlab_dictionary/data"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "thehallucinatedlab_dictionary",
+  "tests",
+  "docs/CLI-CONTRACT.md",
+  "README.md",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".orchestrator", "build", "terms"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
