@@ -72,11 +72,12 @@ Issues = "https://github.com/06pratyush/ai_dictionary_thl/issues"
 [tool.hatch.build.targets.wheel]
 packages = ["thehallucinatedlab_dictionary"]
 
-# The corpora are package data, not source. Without this the wheel builds
-# cleanly and then raises CorpusUnavailable on first run, which is the worst
-# available failure: it passes CI and breaks for the user.
-[tool.hatch.build.targets.wheel.force-include]
-"thehallucinatedlab_dictionary/data" = "thehallucinatedlab_dictionary/data"
+# The corpora are package data and live inside the package directory, so the
+# `packages` entry above already carries them into the wheel. An explicit
+# force-include on top of that adds the same path twice and hatchling refuses
+# to build. The check that matters is the install test in CI, which imports the
+# wheel and loads the corpus: a wheel that builds and then raises
+# CorpusUnavailable on first run passes every other gate and breaks for the user.
 
 [tool.hatch.build.targets.sdist]
 include = [
