@@ -24,7 +24,13 @@ for i in $(seq 1 "$MAX"); do
     [ "$i" -eq "$MAX" ] && { echo "FAIL_EMPTY file=$TARGET"; exit 1; }
     continue
   fi
-  python .orchestrator/extract.py .orchestrator/tmp/raw.out "$TARGET" >> "$LOG"
+  # Extract to a staging path and move into place, so a run that is killed
+  # mid-flight cannot leave a half-written or stale draft on top of a file that
+  # was already finished. An in-place write did exactly that: a stopped run's
+  # straggler overwrote a completed module and the bad version was committed.
+  STAGE="$TARGET.staged"
+  python .orchestrator/extract.py .orchestrator/tmp/raw.out "$STAGE" >> "$LOG"
+  mv -f "$STAGE" "$TARGET"
 
   if GATE=$(./.orchestrator/gate.sh "$TARGET" "$PKG" 2>&1); then
     echo "GATE_PASS attempt=$i" >> "$LOG"; break
@@ -68,7 +74,8 @@ if [ -n "$DEFECTS" ]; then
     echo "BLOCKED file=$TARGET"; grep '^BLOCKED:' .orchestrator/tmp/raw.out; exit 1
   fi
   cp "$TARGET" "$TARGET.prerepair"
-  python .orchestrator/extract.py .orchestrator/tmp/raw.out "$TARGET" >> "$LOG"
+  python .orchestrator/extract.py .orchestrator/tmp/raw.out "$TARGET.staged" >> "$LOG"
+  mv -f "$TARGET.staged" "$TARGET"
   if ! ./.orchestrator/gate.sh "$TARGET" "$PKG" >> "$LOG" 2>&1; then
     mv "$TARGET.prerepair" "$TARGET"; echo "REPAIR_REVERTED file=$TARGET"
   fi
