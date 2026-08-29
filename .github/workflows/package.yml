@@ -1,0 +1,103 @@
+name: Package — test, build and install
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: Tests on ${{ matrix.os }} / py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows is not optional here. The corpus is full of IPA and stdout
+        # defaults to the ANSI code page there, so `thl-dict define` died with
+        # UnicodeEncodeError on Windows while passing everywhere else.
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.10', '3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install with dev extras
+        run: python -m pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: python -m pytest -q
+
+  install:
+    name: The wheel actually works
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build the wheel
+        run: |
+          python -m pip install build
+          python -m build --wheel
+
+      - name: Install it alone, with nothing else
+        run: |
+          python -m venv /tmp/fresh
+          /tmp/fresh/bin/pip install dist/*.whl
+
+      - name: Prove it runs offline
+        run: |
+          # A wheel that builds and then raises CorpusUnavailable on first run
+          # passes every other gate and breaks for the user. This is the only
+          # check that catches it: the corpora must be inside the wheel, and
+          # nothing but this package may be installed.
+          /tmp/fresh/bin/thl-dict --version
+          /tmp/fresh/bin/thl-dict sections
+          /tmp/fresh/bin/thl-dict define idempotence --no-color
+          /tmp/fresh/bin/thl-dict search gradient --json > /dev/null
+
+      - name: Fail if anything but this package got installed
+        run: |
+          # Zero runtime dependencies is a promise the package makes. Left
+          # unchecked, the first accidental import of a third-party module
+          # silently breaks it.
+          EXTRA=$(/tmp/fresh/bin/pip list --format=freeze \
+            | grep -viE '^(thehallucinatedlab-dictionary|pip|setuptools|wheel)' || true)
+          if [ -n "$EXTRA" ]; then
+            echo "::error::unexpected dependencies pulled in: $EXTRA"
+            exit 1
+          fi
+
+  corpus-parity:
+    name: The wheel's corpora match the site's
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-sync and diff
+        run: |
+          # data/ is the source of truth; the package copy is generated. If they
+          # differ, someone edited one and not the other and the CLI would
+          # define words the website does not have.
+          python build/sync_package_data.py
+          if ! git diff --quiet thehallucinatedlab_dictionary/data; then
+            echo "::error::Package corpora are stale. Run python build/sync_package_data.py and commit."
+            git diff --stat thehallucinatedlab_dictionary/data
+            exit 1
+          fi

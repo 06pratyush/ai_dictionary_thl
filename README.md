@@ -36,6 +36,35 @@ than the file directly — `file://` will block the request.
 
 ---
 
+## On the command line
+
+The whole dictionary installs as a Python package with no runtime dependencies,
+so it works offline on a fresh interpreter.
+
+```bash
+pip install thehallucinatedlab-dictionary
+thl-dict define "technical debt"
+```
+
+| Command | Effect |
+| :--- | :--- |
+| `thl-dict search <query>` | ranked hits across both corpora |
+| `thl-dict define <term>` | one full entry, or a miss with suggestions |
+| `thl-dict list` | browse; `--section`, `--domain`, `--letter` |
+| `thl-dict random` | one entry at random |
+| `thl-dict sections` | what the corpora hold |
+| `thl-dict serve` | read-only JSON on 127.0.0.1:8788, and the site if you point it at one |
+
+The same query syntax the website accepts works here: `"exact phrase"`,
+`*ology`, `a AND b`, `a NOT b`, and misspellings are corrected.
+
+Installed alongside the lab's main toolkit, the same commands mount under it as
+`thl dict …` — one parser, two front doors, so they cannot drift apart.
+
+Full reference: [docs/CLI.md](docs/CLI.md).
+
+---
+
 ## Layout
 
 ```
@@ -55,8 +84,17 @@ assets/
   js/app.js                  hub controller (progressive enhancement)
   js/nav.js                  shared navbar behaviour
 terms/                       GENERATED — one page per entry
+thehallucinatedlab_dictionary/
+  corpus.py                  loads both corpora into frozen dataclasses
+  search.py                  the Series 700 engine, ported from the JS
+  render.py                  terminal output; returns strings, never prints
+  cli.py                     the thl-dict command
+  serve.py                   loopback bridge + static server
+  plugin.py                  mounts as `thl dict` on the main toolkit
+  data/                      GENERATED — the corpora, copied in at build time
 tests/
-  search-engine.test.mjs     26 conformance cases, no framework
+  search-engine.test.mjs     conformance cases for the JS engine
+  test_*.py                  the Python suite
 docs/ENTRY-SCHEMA.md         the entry contract
 CONTEXT.md                   architecture, gaps, append-only timeline
 ```
