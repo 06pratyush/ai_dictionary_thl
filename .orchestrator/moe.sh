@@ -12,7 +12,18 @@ PROMPT=$(cat "$PACKET")
 for i in $(seq 1 "$MAX"); do
   echo "=== DRAFT $i expert=$EXPERT ===" >> "$LOG"
   printf '%s' "$PROMPT" > .orchestrator/tmp/cur.txt
-  python .orchestrator/expert.py "$EXPERT" .orchestrator/tmp/cur.txt > .orchestrator/tmp/raw.out 2>>"$LOG"
+  if ! python .orchestrator/expert.py "$EXPERT" .orchestrator/tmp/cur.txt         > .orchestrator/tmp/raw.out 2>>"$LOG"; then
+    echo "DISPATCH_FAILED attempt=$i expert=$EXPERT" >> "$LOG"
+    [ "$i" -eq "$MAX" ] && { echo "FAIL_DISPATCH file=$TARGET"; exit 1; }
+    continue
+  fi
+  if [ ! -s .orchestrator/tmp/raw.out ]; then
+    # A timeout leaves an empty completion. Overwriting the target with it
+    # would destroy a good earlier draft.
+    echo "EMPTY_RESPONSE attempt=$i expert=$EXPERT" >> "$LOG"
+    [ "$i" -eq "$MAX" ] && { echo "FAIL_EMPTY file=$TARGET"; exit 1; }
+    continue
+  fi
   python .orchestrator/extract.py .orchestrator/tmp/raw.out "$TARGET" >> "$LOG"
 
   if GATE=$(./.orchestrator/gate.sh "$TARGET" "$PKG" 2>&1); then

@@ -1,55 +1,65 @@
-## Session 2026-08-13
-Models available: orch-reader (gemma4:e4b @ 64K ctx, resident), gemma4:e4b,
-gemma4:latest (same blob as e4b), llama3:latest, kimi-k2.5/2.6 (cloud)
-Goal: build the two-corpus dictionary for thehallucinatedlab.space — one search
-bar across both sections, one static page per term.
+## Session 2026-08-29 — CLI feature
+Goal: ship the dictionary as an installable package with a `thl` command line.
+Baseline: 0 pre-existing failures.
+Protocol: CLAUDE_v3 (expert ensemble).
+
+Roster built this session — `gemma4:e4b` and the old 9.6GB `orch-reader` were
+replaced, so the v3 roster is now actually installed:
+
+| Handle | Base | Placement |
+|---|---|---|
+| orch-reader | gemma4:e2b | GPU, resident |
+| orch-coder | qwen2.5-coder:7b | GPU |
+| orch-heavy | qwen2.5-coder:14b | GPU, escalation |
+| orch-prose | llama3 | CPU-pinned, parallel audit lane |
 
 ### Units
-| # | Task | Route | Model | Attempts | Status | Notes |
-|---|------|-------|-------|----------|--------|-------|
-| 1 | Orchestrator harness | RETAIN | — | 1 | merged | delegate/extract/ask/warm/gate/htmlcheck |
-| 2 | Entry schema + CONTEXT.md | RETAIN | — | 1 | merged | architecture; sets every downstream contract |
-| 3 | Design tokens + dictionary CSS | RETAIN | — | 1 | merged | creative work per §11.4 |
-| 4 | Search engine (Series 700) | RETAIN | — | 1 | merged | algorithmic core; 26 conformance tests |
-| 5 | Corpus validator | RETAIN | — | 1 | merged | the firewall for delegated content |
-| 6 | Static generator + hub template | RETAIN | — | 1 | merged | owns terms/, index.html, sitemap |
-| 7 | Seed corpus entries (7) | RETAIN | — | 1 | merged | exemplars that define house style |
-| 8 | Corpus expansion (~89 entries) | DELEGATE | orch-reader | 3 | in progress | one term per packet; see below |
-| 9 | Search conformance tests | RETAIN | — | 1 | merged | wrote alongside the engine; packet would have exceeded the code |
+| # | Task | Route | Expert | Attempts | Audit defects | Verify | Notes |
+|---|------|-------|--------|----------|---------------|--------|-------|
+| 1 | v3 harness | RETAIN | — | 1 | — | — | expert.py over HTTP API, not `ollama run` |
+| 2 | Interface contract | RETAIN | — | 1 | — | — | packet would exceed the artefact (§7.6) |
+| 3 | errors.py, __init__.py, plugin.py | RETAIN | — | 1 | — | PASS | under DELEGATION_FLOOR |
+| 4 | corpus.py | DELEGATE | implementer | 1 | 4 fixed | PASS | 3 further defects found only by running it |
+| 5 | tests/test_corpus.py | DELEGATE | tester | 4 → FAIL_GATE | — | PASS | finished by hand; 2 of 4 attempts wasted on a false-positive gate |
+| 6 | search.py | DELEGATE | implementer | in progress | — | — | port of the JS engine |
+| 7 | serve.py | RETAIN | — | 1 | — | — | network boundary (§7.6) |
+| 8 | pyproject.toml, docs | RETAIN | — | 1 | — | — | packaging and written work |
 
-### Failure patterns (fold into future packets)
-- **`ollama run` corrupts output.** It emits cursor-movement and erase-line
-  codes even when stdout is redirected, and hard-wraps at terminal width.
-  Stripping the codes afterwards leaves duplicated fragments
-  ("generaliz generalize") because erase-line is semantic, not decorative.
-  Fixed structurally: all dispatch now goes through the HTTP API.
-- **Loading `gemma4:e4b` alongside `orch-reader` OOMs.** They are the same 9.6GB
-  blob under two tags. Route code work to the resident model.
-- **Batching entries fails.** Eight per packet drifts off-schema and truncates
-  around entry two. One deliverable per packet holds every time (§5).
-- **LaTeX backslashes are emitted unescaped** into JSON. Deterministic, so
-  repaired in extract.py rather than spent on a correction cycle.
-- **The headword is echoed into `variants`.** Repaired in merge_generated.py.
-- **Definitions restate the headword** despite an explicit prohibition
-  (convolutional-neural-network). Caught by the anti-circularity check; rejected.
-- **Etymologies are the one unsalvageable field.** In 4 of the first 6 entries
-  the model produced banned filler ("a descriptive compound term combining…"),
-  and where it produced a real derivation it was wrong — "loss" was given an Old
-  French root when the word is Old English *los*. Re-prompting will not fix a
-  knowledge gap. Any etymology matching the filler shapes is now replaced with
-  `[Origin obscure]` per Rule 517 and queued for authoring.
+### Failure patterns → folded into expert role files
+- Implements the signature but not the docstring: `load()` read one corpus where
+  the contract said both. → added to implementer.md.
+- Indexes a contract field with `[]` without checking it exists in the sample
+  data: `ngram` is build-derived and absent from the JSON. → added to
+  implementer.md.
+- Tester asserts against its own synthetic fixture — hard-coded counts and a
+  fabricated gloss — after the packet explicitly forbade hard-coded totals.
+- Tester invented `FrozenInstanceError` in our errors module; it lives in
+  `dataclasses`.
+
+### Harness defects found and fixed (these cost more than any model defect)
+- **imports.py checked modules, not names.** `from x.errors import
+  FrozenInstanceError` — real module, wrong name — passed the gate and failed at
+  collection. Now imports first-party modules and checks the attribute.
+- **imports.py had the wrong sys.path.** A script's `sys.path[0]` is its own
+  directory, so the package under test was invisible and *every* gated file was
+  reported as a hallucinated import. Two of four repair attempts on unit 5 were
+  spent chasing that phantom. A false positive in a gate is worse than no gate:
+  it sends the repairer to fix something that was never broken.
+- **verify.sh matched its own success output.** It grepped `/failed/`, which
+  matches the "0 failed" a green run prints, so a fully passing suite reported
+  VERIFY_FAIL.
 
 ### Decisions
-- **Definitions and examples ARE delegable; etymologies are not.** The
-  generated definitions are substitutable, accurate and genuinely usable, and
-  the citations point at real works. Word origins are the one field where the
-  model is confidently wrong, so that field is quarantined by default.
-- Corpora are data, never code (RULE-01). Every definition lives in
-  `data/*.json`; nothing is inlined into HTML or JS.
-- The hub page is generated, not hand-written, so both section indexes ship as
-  static HTML and the site survives JavaScript being off (RULE-08).
-- `--text-muted` is lifted to #827b74 here (4.60:1, AA pass). The parent site
-  still ships the failing #5a5550; logged as GAP-01 rather than silently
-  diverging.
-- One term per delegation packet, dispatched by a resumable batch script that
-  skips work already on disk.
+- Dispatch goes through Ollama's HTTP API. `ollama run` emits erase-line codes
+  even when redirected; stripping them leaves duplicated word fragments. This
+  cost a full generation batch in the previous session.
+- Package name `thehallucinatedlab-dictionary`, console script `thl-dict`, and
+  an entry point in the `thehallucinatedlab.commands` group so the main toolkit
+  mounts the same parser as `thl dict`. The toolkit discovers this package
+  rather than depending on it, so neither needs a release to know about the other.
+- Bridge port 8788. 8787 is the toolkit's; colliding buys nothing.
+- Zero runtime dependencies. Corpora ship in the wheel; the bridge is stdlib
+  http.server. A dictionary that needs the network to define a word is a website
+  with extra steps.
+- `Entry` hashes by identity (`eq=False`). It carries dicts, so a value-based
+  hash raises the moment the engine puts one in a set — which it does constantly.
